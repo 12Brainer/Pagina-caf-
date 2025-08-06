@@ -1,0 +1,162 @@
+/* Fuente elegante y limpia */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap');
+
+/* Colores principales */
+:root {
+  --color-fondo: #3e2c23;
+  --color-secundario: #a1866f;
+  --color-claro: #f5f0eb;
+  --color-hover: #c9a27d;
+  --color-botones: #6f4e37;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-claro);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+  background-size: cover;
+  background-attachment: fixed;
+  padding-bottom: 2rem;
+}
+
+/* Encabezado */
+header {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--color-secundario);
+}
+
+header .slogan {
+  font-style: italic;
+  margin-top: 0.5rem;
+  color: #ddd0c8;
+}
+
+header .contacto {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: #e2d3ca;
+}
+
+/* Redes Sociales */
+.social {
+  text-align: center;
+  padding: 2rem;
+}
+
+.social h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--color-secundario);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-decoration: none;
+  color: white;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.facebook {
+  background-color: #3b5998;
+}
+
+.instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+}
+
+.social-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Sección Sobre Nosotros */
+.about {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 10px;
+  margin: 2rem auto;
+  max-width: 800px;
+  color: var(--color-claro);
+  line-height: 1.8;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 2rem;
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+}
+
+/* Botón WhatsApp */
+.whatsapp {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.whatsapp h2 {
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.whatsapp-btn {
+  display: inline-block;
+  background-color: #25d366;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.whatsapp-btn i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.whatsapp-btn:hover {
+  background-color: #1ebc57;
+  transform: scale(1.05);
+}
+
+/* Pie de página */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--color-claro);
+  font-size: 0.9rem;
+}
