@@ -35,7 +35,12 @@ header {
   text-align: center;
   padding: 2rem;
   background-color: rgba(0, 0, 0, 0.3);
+  .logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 1rem;
 }
+
 
 header h1 {
   font-family: 'Playfair Display', serif;
