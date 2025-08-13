@@ -1,3 +1,4 @@
+
 /* Fuente elegante y limpia */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap');
 
@@ -249,12 +250,13 @@ footer {
 .presentacion__enlaces__link i {
   font-size: 1.1rem;
 }
-
 .presentacion__enlaces__link:hover {
+  background: linear-gradient(180deg, #111 0%, #000 100%);
+  box-shadow: 0 0 12px #25f4ee, 0 0 12px #fe2c55;
   transform: translateY(-2px);
   filter: brightness(1.05);
-  box-shadow: 0 8px 18px rgba(0,0,0,.35);
 }
+
 
 /* Facebook */
 .presentacion__enlaces__link.is-facebook {
@@ -271,6 +273,131 @@ footer {
 .presentacion__enlaces__link.is-tiktok {
   background: linear-gradient(180deg, #111 0%, #000 100%);
   border: 1px solid rgba(255,255,255,.08);
+}
+/* Hover personalizado por red */
+
+/* Facebook: azul más claro */
+.presentacion__enlaces__link.is-facebook:hover {
+  background: #3d87ff;
+}
+
+/* Instagram: más brillo */
+.presentacion__enlaces__link.is-instagram:hover {
+  filter: brightness(1.15);
+}
+
+/* TikTok: efecto neón */
+.presentacion__enlaces__link.is-tiktok:hover {
+  background: linear-gradient(180deg, #111 0%, #000 100%);
+  box-shadow: 0 0 12px #25f4ee, 0 0 12px #fe2c55;
+}
+
+/* ====== Footer ====== */
+.site-footer {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--color-claro);
+  padding: 2.5rem 1.25rem 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.footer-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.footer-col p {
+  line-height: 1.7;
+  opacity: .95;
+}
+
+.footer-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--color-secundario);
+  font-size: 1.6rem;
+  margin-bottom: .5rem;
+}
+
+.footer-title-sm {
+  color: var(--color-secundario);
+  font-size: 1.1rem;
+  margin-bottom: .75rem;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-link {
+  color: var(--color-claro);
+  text-decoration: none;
+  display: inline-block;
+  padding: .25rem 0;
+  opacity: .95;
+  transition: transform .2s ease, color .2s ease, opacity .2s ease;
+}
+
+.footer-link:hover {
+  color: var(--color-hover);
+  transform: translateX(2px);
+  opacity: 1;
+}
+
+.footer-contact {
+  list-style: none;
+}
+
+.footer-contact li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin: .4rem 0;
+  opacity: .95;
+}
+
+.footer-contact i {
+  width: 18px;
+  text-align: center;
+}
+
+/* Redes en footer: reutilizamos tus botones pero en tamaño compacto */
+.footer-social .presentacion__enlaces__link {
+  padding: 0.6rem 1rem;
+  margin: 6px 8px 0 0;
+  font-weight: 700;
+  font-size: .95rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.25);
+}
+
+.footer-social .presentacion__enlaces__link i {
+  font-size: 1rem;
+}
+
+/* Barra inferior */
+.footer-bottom {
+  max-width: 1100px;
+  margin: 1.5rem auto 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+  text-align: center;
+  font-size: .95rem;
+  opacity: .9;
+}
+
+/* Responsive */
+@media (max-width: 920px) {
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-social .presentacion__enlaces__link {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 
