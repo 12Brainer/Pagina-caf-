@@ -8,16 +8,43 @@
   <!-- Iconos de redes sociales -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<script>
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('.site-header');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+</script>
+
 
 <body>
 
-  <!-- ENCABEZADO -->
-<header>
-  <img src="./assets/logo.jpg" alt="Logo NeoPrado Café" class="logo">
-  <h1>NeoPrado Café</h1>
-  <p class="slogan">Café de Especialidad</p>
-  <p class="contacto">Tel: 8391-0511</p>
+<header class="site-header">
+  <div class="header-container">
+    <!-- Logo y marca -->
+    <div class="header-logo">
+      <img src="./assets/logo.jpg" alt="Logo NeoPrado Café" class="logo">
+      <div class="header-text">
+        <h1>NeoPrado Café</h1>
+        <p class="slogan">Café de Especialidad</p>
+      </div>
+    </div>
+
+    <!-- Menú de navegación -->
+    <nav class="header-nav">
+      <ul>
+        <li><a href="#about">Sobre nosotros</a></li>
+        <li><a href="#products">Productos</a></li>
+        <li><a href="#whatsapp">Pedidos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
+
 
  <!-- SECCIÓN DE PRODUCTOS CON IMÁGENES -->
 <section class="products">
