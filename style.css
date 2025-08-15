@@ -399,7 +399,7 @@ footer {
   }
 }
 
-/* ====== Header fijo ====== */
+/* ====== Header no fijo====== */
 .site-header {
   position: relative;
   top: 0;
@@ -490,5 +490,9 @@ footer {
     margin-top: 1rem;
   }
 }
+.site-header {
+  position: relative !important;
+}
+
 
 
