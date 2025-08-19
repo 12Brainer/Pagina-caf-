@@ -547,7 +547,7 @@ footer {
 @media (max-width: 768px) {
   .hero-img img {
     max-width: 250px;  /* tamaño máximo en móvil */
-    width: 80%;        
+    width: 50%;        
     height: auto;
     margin: 0 auto;   
     display: block;
