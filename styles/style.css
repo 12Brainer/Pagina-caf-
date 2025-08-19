@@ -535,12 +535,30 @@ footer {
   line-height: 1.7;
 }
 
-
 /* Responsive */
 @media (max-width: 768px) {
   .hero-container {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+/* Ajustes responsive para la imagen en móviles */
+@media (max-width: 768px) {
+  .hero-img img {
+    max-width: 250px;  /* tamaño máximo en móvil */
+    width: 80%;        
+    height: auto;
+    margin: 0 auto;   
+    display: block;
+  }
+
+  .hero-text h2 {
+    font-size: 1.6rem; /* un poco más pequeño */
+  }
+
+  .hero-text p {
+    font-size: 0.95rem;
   }
 }
 
