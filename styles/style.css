@@ -5,8 +5,8 @@
 /* Colores principales */
 :root {
   --color-fondo: #3e2c23;
-  --color-secundario: #a1866f;
-  --color-claro: #f5f0eb;
+  --color-secundario: #eab676;
+  --color-claro: #ffffff;
   --color-hover: #c9a27d;
   --color-botones: #6f4e37;
 }
@@ -523,11 +523,10 @@ footer {
   color: var(--color-claro);
 }
 
-.hero-text h2 {
-  font-family: var(--fuente-titulos);
-  font-size: 2rem;
-  color: var(--color-secundario);
-  margin-bottom: 1rem;
+.hero-text h2,
+.hero-text p {
+  color: var(--color-claro);
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
 }
 
 .hero-text p {
