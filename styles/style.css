@@ -4,12 +4,280 @@
 
 /* Colores principales */
 :root {
-  --color-fondo: #3e2c23;
-  --color-secundario: #eab676;
-  --color-claro: #ffffff;
-  --color-hover: #c9a27d;
-  --color-botones: #6f4e37;
+  Claro, aquí tienes el **código completo** de tu `style.css` con los colores del logo (azul, verde y blanco) y sin el fondo de madera.  
+Solo copia y pega en tu archivo:
+
+````css
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap');
+
+/* Colores principales */
+:root {
+  --color-fondo: #1A3A5B;      /* Azul del logo */
+  --color-secundario: #217A5B; /* Verde del logo */
+  --color-claro: #FFFFFF;      /* Blanco */
+  --color-hover: #145040;      /* Verde más oscuro para hover */
+  --color-botones: #1A3A5B;    /* Azul para botones */
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-claro);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: none; /* Fondo sólido */
+  background-size: cover;
+  background-attachment: fixed;
+  padding-bottom: 2rem;
+}
+
+/* Encabezado */
+header {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--color-secundario);
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--color-claro);
+}
+
+header .slogan {
+  font-style: italic;
+  margin-top: 0.5rem;
+  color: var(--color-claro);
+}
+
+header .contacto {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: var(--color-claro);
+}
+
+/* Redes Sociales */
+.social {
+  text-align: center;
+  padding: 2rem;
+}
+
+.social h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--color-secundario);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--color-claro);
+  background-color: var(--color-botones);
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-btn:hover {
+  background-color: var(--color-hover);
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Sección Sobre Nosotros */
+.about {
+  background-color: rgba(33, 122, 91, 0.08); /* Verde claro translúcido */
+  padding: 2rem;
+  border-radius: 10px;
+  margin: 2rem auto;
+  max-width: 800px;
+  color: var(--color-claro);
+  line-height: 1.8;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 2rem;
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+}
+
+/* Sección de Productos */
+.products {
+  padding: 2rem;
+  text-align: center;
+  background-color: rgba(33, 122, 91, 0.08); /* Verde claro translúcido */
+  border-radius: 10px;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+.products h2 {
+  color: var(--color-secundario);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.product-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.product {
+  background-color: rgba(26, 58, 91, 0.2); /* Azul translúcido */
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 280px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product-img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.product h3 {
+  color: var(--color-claro);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product p {
+  color: var(--color-claro);
+  margin: 0.3rem 0;
+}
+
+/* Botón WhatsApp */
+.whatsapp {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.whatsapp h2 {
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.whatsapp-btn {
+  display: inline-block;
+  background-color: var(--color-botones);
+  color: var(--color-claro);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.whatsapp-btn i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.whatsapp-btn:hover {
+  background-color: var(--color-hover);
+  transform: scale(1.05);
+}
+
+/* Pie de página */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--color-secundario);
+  color: var(--color-claro);
+  font-size: 0.9rem;
+}
+
+/* ====== Enlaces a redes ====== */
+.presentacion__enlaces {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.presentacion__enlaces_subtitulo {
+  font-size: 1.8rem;
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+}
+
+.presentacion__enlaces__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 12px;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  background-color: var(--color-botones);
+  color: var(--color-claro);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.presentacion__enlaces__link:hover {
+  background-color: var(--color-hover);
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 920px) {
+  .product-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .product {
+    width: 90%;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 560px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  .about, .products {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+  .product {
+    padding: 1rem;
+  }
+}
+````
+
+¡Listo!  
+Este código aplica los colores azul, verde y blanco en toda la página y elimina el fondo de madera.  
+¿Necesitas que cambie algún detalle más?
 
 * {
   margin: 0;
