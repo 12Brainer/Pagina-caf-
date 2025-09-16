@@ -210,6 +210,78 @@ document.getElementById("checkoutForm").addEventListener("submit", e=>{
 });
 </script>
 
+<!-- Modal Producto -->
+<div id="modalProducto" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="modal-body">
+      <!-- Imagen -->
+      <div class="modal-img">
+        <img id="modalImg" src="" alt="Producto">
+      </div>
+
+      <!-- Información -->
+      <div class="modal-info">
+        <h2 id="modalTitle">Nombre del Café</h2>
+        <p id="modalPrice">₡0</p>
+        <p class="envio">Los gastos de envío se calculan en la entrega.</p>
+        <div class="stars">★★★★★</div>
+
+        <label>Tamaño:
+          <select id="modalSize">
+            <option value="250" data-price="3900">250 g — ₡3,900</option>
+            <option value="500" data-price="7000">500 g — ₡7,000</option>
+          </select>
+        </label>
+
+        <label>Molienda:
+          <select id="modalGrind">
+            <option value="Grano">Grano / Whole Bean</option>
+            <option value="Molido">Molido / Ground</option>
+          </select>
+        </label>
+
+        <div class="modal-buttons">
+          <button id="btnAddCart" class="btn-outline">Agregar al carrito</button>
+          <button id="btnBuyNow" class="btn-black">Comprar ahora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const modal = document.getElementById("modalProducto");
+const closeBtn = document.querySelector(".close");
+const modalImg = document.getElementById("modalImg");
+const modalTitle = document.getElementById("modalTitle");
+const modalPrice = document.getElementById("modalPrice");
+
+// Abrir modal desde cada producto
+document.querySelectorAll(".product-detail").forEach(prod=>{
+  prod.addEventListener("click", ()=>{
+    modal.style.display = "block";
+    modalImg.src = prod.querySelector("img").src;
+    modalTitle.textContent = prod.querySelector("h3").textContent;
+    modalPrice.textContent = "Desde ₡3,900";
+  });
+});
+
+// Cerrar modal
+closeBtn.onclick = ()=> modal.style.display="none";
+window.onclick = e=> { if(e.target==modal) modal.style.display="none"; }
+
+// Comprar ahora → WhatsApp
+document.getElementById("btnBuyNow").addEventListener("click", ()=>{
+  const size = document.getElementById("modalSize").value;
+  const grind = document.getElementById("modalGrind").value;
+  const product = modalTitle.textContent;
+
+  const msg = `Hola, quiero comprar: ${product} ${size}g (${grind})`;
+  window.open(`https://wa.me/50683910511?text=${encodeURIComponent(msg)}`, "_blank");
+});
+</script>
+
 
     
 </body>
