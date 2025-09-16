@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="es-mx">
 <head>
-    <link rel="stylesheet" href="../styles/style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>productos</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos</title>
 </head>
 <body>
-    <header class="site-header">
+<header class="site-header">
   <div class="header-container">
-
     <!-- Logo y marca -->
     <div class="header-logo">
       <img src="../assets/logo.jpg" alt="Logo NeoPrado Café" class="logo">
@@ -21,209 +20,66 @@
 
     <!-- Menú de navegación -->
     <nav class="header-nav">
-   <nav class="header-nav">
-  <ul>
-    <li><a href="../index.html">Inicio</a></li>
-    <li><a href="about.html">Sobre nosotros</a></li>
-    <li><a href="products.html">Productos</a></li>
-    <li><a href="../index.html#whatsapp">Pedidos</a></li>
-    <li><a href="../index.html#contacto">Contacto</a></li>
-  </ul>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="about.html">Sobre nosotros</a></li>
+        <li><a href="products.html">Productos</a></li>
+        <li><a href="../index.html#whatsapp">Pedidos</a></li>
+        <li><a href="../index.html#contacto">Contacto</a></li>
+      </ul>
     </nav>
-
   </div>
 </header>
 
-
-    <!-- SECCIÓN DE PRODUCTOS CON IMÁGENES -->
+<!-- SECCIÓN DE PRODUCTOS -->
 <section class="products">
   <h2>Nuestros Cafés</h2>
   <div class="product-full">
 
     <!-- PREMIUM HONEY -->
-    <article class="product-detail" data-sku="HNY">
+    <article class="product-detail" data-title="Premium Honey" data-img="../assets/honey.png">
       <h3>Premium Honey</h3>
-
       <div class="gallery">
         <img src="../assets/honey.png" alt="Empaque Honey" class="product-img">
         <img src="../assets/honey-finca.png" alt="Finca de origen" class="product-img">
         <img src="../assets/honey-grano.png" alt="Grano de café Honey" class="product-img">
       </div>
-
       <p><strong>Proceso:</strong> Honey</p>
       <p><strong>Perfil de taza:</strong> Notas de miel de maple, acidez cítrica brillante y dulzor prolongado.</p>
       <p><strong>Altitud:</strong> 1,700 m.s.n.m</p>
       <p><strong>Variedad:</strong> Caturra y Catuai</p>
       <p><strong>Tueste:</strong> Medio</p>
-
-      <!-- Opciones -->
-      <label>Presentación:
-        <select class="opt-size">
-          <option value="250" data-price="3900">250 g — ₡3,900</option>
-          <option value="500" data-price="7000">500 g — ₡7,000</option>
-        </select>
-      </label>
-
-      <label>Tipo:
-        <select class="opt-grind">
-          <option value="Grano">Grano</option>
-          <option value="Molido">Molido</option>
-        </select>
-      </label>
-
-      <label>Cantidad:
-        <input class="opt-qty" type="number" min="1" value="1">
-      </label>
-
-      <button class="whatsapp-btn add">+ Agregar</button>
     </article>
 
     <!-- CAFÉ LAVADO -->
-    <article class="product-detail" data-sku="WSH">
+    <article class="product-detail" data-title="Café Lavado" data-img="../assets/lavado.png">
       <h3>Café Lavado</h3>
-
       <div class="gallery">
         <img src="../assets/lavado.png" alt="Empaque Lavado" class="product-img">
         <img src="../assets/lavado-finca.png" alt="Proceso Lavado" class="product-img">
         <img src="../assets/lavado-grano.png" alt="Grano de café lavado" class="product-img">
       </div>
-
       <p><strong>Proceso:</strong> Lavado (Washed)</p>
       <p><strong>Perfil de taza:</strong> Cuerpo ligero, acidez brillante y sabor limpio.</p>
       <p><strong>Altitud:</strong> 1,650 m.s.n.m</p>
       <p><strong>Variedad:</strong> Caturra y Typica</p>
       <p><strong>Tueste:</strong> Medio</p>
-
-      <!-- Opciones -->
-      <label>Presentación:
-        <select class="opt-size">
-          <option value="250" data-price="3900">250 g — ₡3,900</option>
-          <option value="500" data-price="7000">500 g — ₡7,000</option>
-        </select>
-      </label>
-
-      <label>Tipo:
-        <select class="opt-grind">
-          <option value="Grano">Grano</option>
-          <option value="Molido">Molido</option>
-        </select>
-      </label>
-
-      <label>Cantidad:
-        <input class="opt-qty" type="number" min="1" value="1">
-      </label>
-
-      <button class="whatsapp-btn add">+ Agregar</button>
     </article>
 
   </div>
-
-  <!-- CARRITO -->
-  <div class="cart" id="carrito">
-    <h3>Tu pedido</h3>
-    <div class="cart-items" id="cartItems">
-      <div id="cartEmpty">Tu carrito está vacío.</div>
-    </div>
-    <div class="totals">
-      <div>Total</div>
-      <div id="cartTotal">₡0</div>
-    </div>
-
-    <div class="customer">
-      <input id="cName" type="text" placeholder="Nombre completo *" required>
-      <input id="cPhone" type="tel" placeholder="Teléfono *" required>
-      <input id="cEmail" type="email" placeholder="Correo (opcional)">
-    </div>
-
-    <div class="whatsapp">
-      <button id="btnWA" class="whatsapp-btn" disabled>Finalizar por WhatsApp</button>
-      <button id="btnClear" class="whatsapp-btn" style="background:#888;">Limpiar</button>
-    </div>
-
-      </div> <!-- cierre del carrito -->
-
-  <!-- Checkout simplificado -->
-  <div id="checkout" class="checkout">
-    <h2>Finalizar Pedido</h2>
-
-    <form id="checkoutForm">
-      <label>Nombre completo:
-        <input type="text" id="name" required>
-      </label>
-      <label>Correo electrónico:
-        <input type="email" id="email">
-      </label>
-      <label>Teléfono:
-        <input type="tel" id="phone" required>
-      </label>
-
-      <h3>Entrega</h3>
-      <label><input type="radio" name="delivery" value="Retiro" checked> Retiro en tienda (gratis)</label><br>
-      <label><input type="radio" name="delivery" value="EnvioGAM"> Envío dentro GAM (₡3,000)</label><br>
-      <label><input type="radio" name="delivery" value="EnvioFueraGAM"> Envío fuera GAM (₡3,600)</label>
-
-      <div id="addressField" style="display:none; margin-top:10px;">
-        <label>Dirección de entrega:
-          <textarea id="address"></textarea>
-        </label>
-      </div>
-
-      <h3>Método de pago</h3>
-      <label><input type="radio" name="payment" value="SINPE" checked> SINPE Móvil (₡85115851 a nombre de NeoPrado Café)</label><br>
-      <label><input type="radio" name="payment" value="Transferencia"> Transferencia Bancaria (Cuenta IBAN: CR84015102320010237945)</label>
-
-      <button type="submit" class="whatsapp-btn">Enviar pedido por WhatsApp</button>
-    </form>
-  </div>
 </section>
 
-  </div>
-</section>
-
-<script>
-document.querySelectorAll("input[name='delivery']").forEach(el=>{
-  el.addEventListener("change", ()=>{
-    document.getElementById("addressField").style.display = 
-      el.value.startsWith("Envio") ? "block" : "none";
-  });
-});
-
-document.getElementById("checkoutForm").addEventListener("submit", e=>{
-  e.preventDefault();
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const phone = document.getElementById("phone").value;
-  const delivery = document.querySelector("input[name='delivery']:checked").value;
-  const address = document.getElementById("address").value;
-  const payment = document.querySelector("input[name='payment']:checked").value;
-
-  let msg = `🛒 *Nuevo pedido NeoPrado Café*%0A`;
-  msg += `👤 Nombre: ${name}%0A`;
-  msg += `📧 Correo: ${email}%0A`;
-  msg += `📱 Tel: ${phone}%0A`;
-  msg += `🚚 Entrega: ${delivery}%0A`;
-  if(address) msg += `📍 Dirección: ${address}%0A`;
-  msg += `💳 Pago: ${payment}%0A`;
-  msg += `%0APor favor confirmar disponibilidad.`;
-
-  window.open(`https://wa.me/50683910511?text=${msg}`, "_blank");
-});
-</script>
-
-<!-- Modal Producto -->
+<!-- MODAL PRODUCTO -->
 <div id="modalProducto" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="modal-body">
-      <!-- Imagen -->
       <div class="modal-img">
         <img id="modalImg" src="" alt="Producto">
       </div>
-
-      <!-- Información -->
       <div class="modal-info">
         <h2 id="modalTitle">Nombre del Café</h2>
-        <p id="modalPrice">₡0</p>
+        <p id="modalPrice">Desde ₡3,900</p>
         <p class="envio">Los gastos de envío se calculan en la entrega.</p>
         <div class="stars">★★★★★</div>
 
@@ -242,7 +98,6 @@ document.getElementById("checkoutForm").addEventListener("submit", e=>{
         </label>
 
         <div class="modal-buttons">
-          <button id="btnAddCart" class="btn-outline">Agregar al carrito</button>
           <button id="btnBuyNow" class="btn-black">Comprar ahora</button>
         </div>
       </div>
@@ -257,21 +112,18 @@ const modalImg = document.getElementById("modalImg");
 const modalTitle = document.getElementById("modalTitle");
 const modalPrice = document.getElementById("modalPrice");
 
-// Abrir modal desde cada producto
 document.querySelectorAll(".product-detail").forEach(prod=>{
   prod.addEventListener("click", ()=>{
     modal.style.display = "block";
-    modalImg.src = prod.querySelector("img").src;
-    modalTitle.textContent = prod.querySelector("h3").textContent;
+    modalImg.src = prod.dataset.img;
+    modalTitle.textContent = prod.dataset.title;
     modalPrice.textContent = "Desde ₡3,900";
   });
 });
 
-// Cerrar modal
 closeBtn.onclick = ()=> modal.style.display="none";
 window.onclick = e=> { if(e.target==modal) modal.style.display="none"; }
 
-// Comprar ahora → WhatsApp
 document.getElementById("btnBuyNow").addEventListener("click", ()=>{
   const size = document.getElementById("modalSize").value;
   const grind = document.getElementById("modalGrind").value;
@@ -282,19 +134,12 @@ document.getElementById("btnBuyNow").addEventListener("click", ()=>{
 });
 </script>
 
-
-    
-</body>
 <footer class="site-footer">
   <div class="footer-grid">
-
-    <!-- Marca -->
     <div class="footer-col">
       <h3 class="footer-title">NeoPrado Coffee</h3>
       <p>Café 100% arábica de Costa Rica. Tueste medio, micro-lotes y trazabilidad desde la finca.</p>
     </div>
-
-    <!-- Enlaces rápidos -->
     <div class="footer-col">
       <h4 class="footer-title-sm">Enlaces</h4>
       <ul class="footer-links">
@@ -304,19 +149,15 @@ document.getElementById("btnBuyNow").addEventListener("click", ()=>{
         <li><a class="footer-link" href="../index.html#contacto">Contacto</a></li>
       </ul>
     </div>
-
-    <!-- Contacto -->
     <div class="footer-col" id="contacto">
       <h4 class="footer-title-sm">Contacto</h4>
       <ul class="footer-contact">
-        <li><i class="fa-solid fa-phone"></i> +506 8391‑0511</li>
+        <li><i class="fa-solid fa-phone"></i> +506 8391-0511</li>
         <li><i class="fa-solid fa-envelope"></i> neopradocafe@gmail.com</li>
         <li><i class="fa-solid fa-location-dot"></i> San José, Costa Rica</li>
         <li><i class="fa-regular fa-clock"></i> Lun–Vie: 9am–6pm</li>
       </ul>
     </div>
-
-   <!-- Redes -->
     <div class="footer-col">
       <h4 class="footer-title-sm">Síguenos</h4>
       <div class="footer-social">
@@ -332,10 +173,9 @@ document.getElementById("btnBuyNow").addEventListener("click", ()=>{
       </div>
     </div>
   </div>
-
   <div class="footer-bottom">
     <span>© 2025 NeoPrado Coffee · Hecho en Zona de los Santos, Costa Rica</span>
   </div>
 </footer>
-
+</body>
 </html>
