@@ -41,7 +41,7 @@
   <div class="product-full">
 
     <!-- PREMIUM HONEY -->
-    <article class="product-detail" id="honey">
+    <article class="product-detail" data-sku="HNY">
       <h3>Premium Honey</h3>
 
       <div class="gallery">
@@ -51,17 +51,35 @@
       </div>
 
       <p><strong>Proceso:</strong> Honey</p>
-      <p><strong>Perfil de taza:</strong> Notas de miel de maple, acidez cítrica brillante y dulzor prolongado. Cuerpo medio y final limpio.</p>
+      <p><strong>Perfil de taza:</strong> Notas de miel de maple, acidez cítrica brillante y dulzor prolongado.</p>
       <p><strong>Altitud:</strong> 1,700 m.s.n.m</p>
       <p><strong>Variedad:</strong> Caturra y Catuai</p>
       <p><strong>Tueste:</strong> Medio</p>
-      <p><strong>Presentación:</strong> 250g</p>
 
-      <a href="https://wa.me/50683910511?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Premium%20Honey%20250g" class="whatsapp-btn">Quiero pedir</a>
+      <!-- Opciones -->
+      <label>Presentación:
+        <select class="opt-size">
+          <option value="250" data-price="3900">250 g — ₡3,900</option>
+          <option value="500" data-price="7000">500 g — ₡7,000</option>
+        </select>
+      </label>
+
+      <label>Tipo:
+        <select class="opt-grind">
+          <option value="Grano">Grano</option>
+          <option value="Molido">Molido</option>
+        </select>
+      </label>
+
+      <label>Cantidad:
+        <input class="opt-qty" type="number" min="1" value="1">
+      </label>
+
+      <button class="whatsapp-btn add">+ Agregar</button>
     </article>
 
     <!-- CAFÉ LAVADO -->
-    <article class="product-detail" id="lavado">
+    <article class="product-detail" data-sku="WSH">
       <h3>Café Lavado</h3>
 
       <div class="gallery">
@@ -71,17 +89,59 @@
       </div>
 
       <p><strong>Proceso:</strong> Lavado (Washed)</p>
-      <p><strong>Perfil de taza:</strong> Cuerpo ligero, acidez brillante y sabor limpio. Ideal para métodos de filtrado como V60, Chemex o Kalita.</p>
+      <p><strong>Perfil de taza:</strong> Cuerpo ligero, acidez brillante y sabor limpio.</p>
       <p><strong>Altitud:</strong> 1,650 m.s.n.m</p>
       <p><strong>Variedad:</strong> Caturra y Typica</p>
       <p><strong>Tueste:</strong> Medio</p>
-      <p><strong>Presentación:</strong> 250g</p>
 
-      <a href="https://wa.me/50683910511?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Café%20Lavado%20250g" class="whatsapp-btn">Quiero pedir</a>
+      <!-- Opciones -->
+      <label>Presentación:
+        <select class="opt-size">
+          <option value="250" data-price="3900">250 g — ₡3,900</option>
+          <option value="500" data-price="7000">500 g — ₡7,000</option>
+        </select>
+      </label>
+
+      <label>Tipo:
+        <select class="opt-grind">
+          <option value="Grano">Grano</option>
+          <option value="Molido">Molido</option>
+        </select>
+      </label>
+
+      <label>Cantidad:
+        <input class="opt-qty" type="number" min="1" value="1">
+      </label>
+
+      <button class="whatsapp-btn add">+ Agregar</button>
     </article>
 
   </div>
+
+  <!-- CARRITO -->
+  <div class="cart" id="carrito">
+    <h3>Tu pedido</h3>
+    <div class="cart-items" id="cartItems">
+      <div id="cartEmpty">Tu carrito está vacío.</div>
+    </div>
+    <div class="totals">
+      <div>Total</div>
+      <div id="cartTotal">₡0</div>
+    </div>
+
+    <div class="customer">
+      <input id="cName" type="text" placeholder="Nombre completo *" required>
+      <input id="cPhone" type="tel" placeholder="Teléfono *" required>
+      <input id="cEmail" type="email" placeholder="Correo (opcional)">
+    </div>
+
+    <div class="whatsapp">
+      <button id="btnWA" class="whatsapp-btn" disabled>Finalizar por WhatsApp</button>
+      <button id="btnClear" class="whatsapp-btn" style="background:#888;">Limpiar</button>
+    </div>
+  </div>
 </section>
+
 
 
     
