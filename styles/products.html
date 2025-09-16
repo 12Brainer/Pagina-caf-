@@ -139,9 +139,76 @@
       <button id="btnWA" class="whatsapp-btn" disabled>Finalizar por WhatsApp</button>
       <button id="btnClear" class="whatsapp-btn" style="background:#888;">Limpiar</button>
     </div>
+
+      </div> <!-- cierre del carrito -->
+
+  <!-- Checkout simplificado -->
+  <div id="checkout" class="checkout">
+    <h2>Finalizar Pedido</h2>
+
+    <form id="checkoutForm">
+      <label>Nombre completo:
+        <input type="text" id="name" required>
+      </label>
+      <label>Correo electrónico:
+        <input type="email" id="email">
+      </label>
+      <label>Teléfono:
+        <input type="tel" id="phone" required>
+      </label>
+
+      <h3>Entrega</h3>
+      <label><input type="radio" name="delivery" value="Retiro" checked> Retiro en tienda (gratis)</label><br>
+      <label><input type="radio" name="delivery" value="EnvioGAM"> Envío dentro GAM (₡3,000)</label><br>
+      <label><input type="radio" name="delivery" value="EnvioFueraGAM"> Envío fuera GAM (₡3,600)</label>
+
+      <div id="addressField" style="display:none; margin-top:10px;">
+        <label>Dirección de entrega:
+          <textarea id="address"></textarea>
+        </label>
+      </div>
+
+      <h3>Método de pago</h3>
+      <label><input type="radio" name="payment" value="SINPE" checked> SINPE Móvil (₡85115851 a nombre de NeoPrado Café)</label><br>
+      <label><input type="radio" name="payment" value="Transferencia"> Transferencia Bancaria (Cuenta IBAN: CR84015102320010237945)</label>
+
+      <button type="submit" class="whatsapp-btn">Enviar pedido por WhatsApp</button>
+    </form>
   </div>
 </section>
 
+  </div>
+</section>
+
+<script>
+document.querySelectorAll("input[name='delivery']").forEach(el=>{
+  el.addEventListener("change", ()=>{
+    document.getElementById("addressField").style.display = 
+      el.value.startsWith("Envio") ? "block" : "none";
+  });
+});
+
+document.getElementById("checkoutForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const delivery = document.querySelector("input[name='delivery']:checked").value;
+  const address = document.getElementById("address").value;
+  const payment = document.querySelector("input[name='payment']:checked").value;
+
+  let msg = `🛒 *Nuevo pedido NeoPrado Café*%0A`;
+  msg += `👤 Nombre: ${name}%0A`;
+  msg += `📧 Correo: ${email}%0A`;
+  msg += `📱 Tel: ${phone}%0A`;
+  msg += `🚚 Entrega: ${delivery}%0A`;
+  if(address) msg += `📍 Dirección: ${address}%0A`;
+  msg += `💳 Pago: ${payment}%0A`;
+  msg += `%0APor favor confirmar disponibilidad.`;
+
+  window.open(`https://wa.me/50683910511?text=${msg}`, "_blank");
+});
+</script>
 
 
     
