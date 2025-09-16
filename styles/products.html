@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="es-mx">
+<html lang="es">
 <head>
   <link rel="stylesheet" href="../styles/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Productos</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <header class="site-header">
@@ -38,6 +41,7 @@
 
     <!-- PREMIUM HONEY -->
     <article class="product-detail" data-title="Premium Honey" data-img="../assets/honey.png">
+    <article id="honey" class="product-detail" data-title="Premium Honey" data-img="../assets/honey.png">
       <h3>Premium Honey</h3>
       <div class="gallery">
         <img src="../assets/honey.png" alt="Empaque Honey" class="product-img">
@@ -53,6 +57,7 @@
 
     <!-- CAFÉ LAVADO -->
     <article class="product-detail" data-title="Café Lavado" data-img="../assets/lavado.png">
+    <article id="lavado" class="product-detail" data-title="Café Lavado" data-img="../assets/lavado.png">
       <h3>Café Lavado</h3>
       <div class="gallery">
         <img src="../assets/lavado.png" alt="Empaque Lavado" class="product-img">
@@ -144,6 +149,7 @@ document.getElementById("btnBuyNow").addEventListener("click", ()=>{
       <h4 class="footer-title-sm">Enlaces</h4>
       <ul class="footer-links">
         <li><a class="footer-link" href="../index.html#about">Sobre nosotros</a></li>
+        <li><a class="footer-link" href="about.html">Sobre nosotros</a></li>
         <li><a class="footer-link" href="products.html">Productos</a></li>
         <li><a class="footer-link" href="../index.html#whatsapp">Pedidos</a></li>
         <li><a class="footer-link" href="../index.html#contacto">Contacto</a></li>
@@ -153,6 +159,7 @@ document.getElementById("btnBuyNow").addEventListener("click", ()=>{
       <h4 class="footer-title-sm">Contacto</h4>
       <ul class="footer-contact">
         <li><i class="fa-solid fa-phone"></i> +506 8391-0511</li>
+        <li><i class="fa-solid fa-phone"></i> +506 8391‑0511</li>
         <li><i class="fa-solid fa-envelope"></i> neopradocafe@gmail.com</li>
         <li><i class="fa-solid fa-location-dot"></i> San José, Costa Rica</li>
         <li><i class="fa-regular fa-clock"></i> Lun–Vie: 9am–6pm</li>
@@ -177,5 +184,52 @@ document.getElementById("btnBuyNow").addEventListener("click", ()=>{
     <span>© 2025 NeoPrado Coffee · Hecho en Zona de los Santos, Costa Rica</span>
   </div>
 </footer>
+
+<script>
+  const modal = document.getElementById("modalProducto");
+  const closeBtn = document.querySelector(".close");
+  const modalImg = document.getElementById("modalImg");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalPrice = document.getElementById("modalPrice");
+  const modalSizeSelect = document.getElementById("modalSize");
+
+  // Función para actualizar el precio en el modal
+  function updatePrice() {
+    const selectedOption = modalSizeSelect.options[modalSizeSelect.selectedIndex];
+    const price = selectedOption.dataset.price;
+    modalPrice.textContent = `₡${parseInt(price).toLocaleString('es-CR')}`;
+  }
+
+  // Abrir el modal
+  document.querySelectorAll(".product-detail").forEach(prod => {
+    prod.addEventListener("click", () => {
+      modal.style.display = "block";
+      modalImg.src = prod.dataset.img;
+      modalTitle.textContent = prod.dataset.title;
+      // Resetear y actualizar el precio al abrir
+      modalSizeSelect.selectedIndex = 0;
+      updatePrice();
+    });
+  });
+
+  // Evento para cambiar el precio al seleccionar tamaño
+  modalSizeSelect.addEventListener("change", updatePrice);
+
+  // Cerrar el modal
+  closeBtn.onclick = () => modal.style.display = "none";
+  window.onclick = e => { if (e.target == modal) modal.style.display = "none"; }
+
+  // Botón de comprar ahora
+  document.getElementById("btnBuyNow").addEventListener("click", () => {
+    const selectedSizeOption = modalSizeSelect.options[modalSizeSelect.selectedIndex];
+    const size = selectedSizeOption.value;
+    const priceText = selectedSizeOption.text;
+    const grind = document.getElementById("modalGrind").value;
+    const product = modalTitle.textContent;
+
+    const msg = `Hola, quiero comprar: ${product}\n- Tamaño: ${priceText}\n- Molienda: ${grind}`;
+    window.open(`https://wa.me/50683910511?text=${encodeURIComponent(msg)}`, "_blank");
+  });
+</script>
 </body>
 </html>
