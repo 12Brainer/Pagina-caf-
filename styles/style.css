@@ -779,7 +779,7 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 .carousel {
   position: relative;
-  max-width: 320px;
+  max-width: 320px; /* ajusta el tamaño del carrusel */
   margin: 15px auto;
   overflow: hidden;
   border-radius: 12px;
@@ -791,13 +791,12 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   transition: transform 0.4s ease-in-out;
 }
 
-.carousel {
-  max-width: 280px;   /* ajusta el tamaño del carrusel */
-  margin: 15px auto;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.carousel img {
+  width: 100%;   /* ocupa todo el carrusel */
+  height: auto;  /* mantiene proporción */
+  flex-shrink: 0; /* importante para que no se deforme */
 }
+
 
 .carousel img {
   width: 100%;         /* se ajusta al ancho del carrusel */
