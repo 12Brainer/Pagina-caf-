@@ -87,7 +87,6 @@ document.getElementById("btnCheckout").addEventListener("click", () => {
 });
 
 // -------------------------
-// -------------------------
 // CARRUSEL DE PRODUCTOS
 // -------------------------
 document.querySelectorAll('.carousel').forEach(carousel => {
@@ -99,10 +98,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   function showSlide(n) {
     index = (n + images.length) % images.length;
-
-    // Usamos el ancho real del primer slide
-    const slideWidth = images[0].clientWidth;
-
+    const slideWidth = carousel.clientWidth; // ancho real del carrusel
     track.style.transform = `translateX(-${index * slideWidth}px)`;
   }
 
@@ -116,6 +112,9 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     showSlide(index + 1);
   });
 
-  // Aseguramos que al cargar se muestre bien
+  // Mostrar el primer slide al cargar
+  showSlide(0);
+
+  // Ajustar si cambia el tamaño de pantalla
   window.addEventListener('resize', () => showSlide(index));
 });
