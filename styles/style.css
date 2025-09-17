@@ -791,11 +791,20 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   transition: transform 0.4s ease-in-out;
 }
 
+.carousel {
+  max-width: 280px;   /* ajusta el tamaño del carrusel */
+  margin: 15px auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
 .carousel img {
-  width: 320px;
-  height: 400px;
+  width: 100%;         /* se ajusta al ancho del carrusel */
+  height: auto;        /* mantiene proporción */
   object-fit: cover;
 }
+
 
 /* Botones del carrusel */
 .carousel button {
