@@ -798,13 +798,6 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 }
 
 
-.carousel img {
-  width: 100%;         /* se ajusta al ancho del carrusel */
-  height: auto;        /* mantiene proporción */
-  object-fit: cover;
-}
-
-
 /* Botones del carrusel */
 .carousel button {
   position: absolute;
