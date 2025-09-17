@@ -37,35 +37,46 @@
   <div class="product-full">
 
     <!-- PREMIUM HONEY -->
-    <article class="product-detail" data-title="Premium Honey" data-img="../assets/honey.png">
-      <h3>Premium Honey</h3>
-      <div class="gallery">
-        <img src="../assets/honey.png" alt="Empaque Honey" class="product-img">
-        <img src="../assets/honey-finca.png" alt="Finca de origen" class="product-img">
-        <img src="../assets/honey-grano.png" alt="Grano de café Honey" class="product-img">
-      </div>
-      <p><strong>Proceso:</strong> Honey</p>
-      <p><strong>Perfil de taza:</strong> Notas de miel de maple, acidez cítrica brillante y dulzor prolongado.</p>
-      <p><strong>Altitud:</strong> 1,700 m.s.n.m</p>
-      <p><strong>Variedad:</strong> Caturra y Catuai</p>
-      <p><strong>Tueste:</strong> Medio</p>
-    </article>
+<article class="product-detail" data-title="Premium Honey" data-img="../assets/honey.png">
+  <h3>Premium Honey</h3>
 
-    <!-- CAFÉ LAVADO -->
-    <article class="product-detail" data-title="Café Lavado" data-img="../assets/lavado.png">
-      <h3>Café Lavado</h3>
-      <div class="gallery">
-        <img src="../assets/lavado.png" alt="Empaque Lavado" class="product-img">
-        <img src="../assets/lavado-finca.png" alt="Proceso Lavado" class="product-img">
-        <img src="../assets/lavado-grano.png" alt="Grano de café lavado" class="product-img">
-      </div>
-      <p><strong>Proceso:</strong> Lavado (Washed)</p>
-      <p><strong>Perfil de taza:</strong> Cuerpo ligero, acidez brillante y sabor limpio.</p>
-      <p><strong>Altitud:</strong> 1,650 m.s.n.m</p>
-      <p><strong>Variedad:</strong> Caturra y Typica</p>
-      <p><strong>Tueste:</strong> Medio</p>
-    </article>
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="../assets/honey.png" alt="Empaque Honey" class="product-img">
+      <img src="../assets/honey-finca.png" alt="Finca de origen" class="product-img">
+      <img src="../assets/honey-grano.png" alt="Grano de café Honey" class="product-img">
+    </div>
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
 
+  <p><strong>Proceso:</strong> Honey</p>
+  <p><strong>Perfil de taza:</strong> Notas de miel de maple, acidez cítrica brillante y dulzor prolongado.</p>
+  <p><strong>Altitud:</strong> 1,700 m.s.n.m</p>
+  <p><strong>Variedad:</strong> Caturra y Catuai</p>
+  <p><strong>Tueste:</strong> Medio</p>
+</article>
+
+<!-- CAFÉ LAVADO -->
+<article class="product-detail" data-title="Café Lavado" data-img="../assets/lavado.png">
+  <h3>Café Lavado</h3>
+
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="../assets/lavado.png" alt="Empaque Lavado" class="product-img">
+      <img src="../assets/lavado-finca.png" alt="Proceso Lavado" class="product-img">
+      <img src="../assets/lavado-grano.png" alt="Grano de café lavado" class="product-img">
+    </div>
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
+
+  <p><strong>Proceso:</strong> Lavado (Washed)</p>
+  <p><strong>Perfil de taza:</strong> Cuerpo ligero, acidez brillante y sabor limpio.</p>
+  <p><strong>Altitud:</strong> 1,650 m.s.n.m</p>
+  <p><strong>Variedad:</strong> Caturra y Typica</p>
+  <p><strong>Tueste:</strong> Medio</p>
+</article>
   </div>
 </section>
 
@@ -130,6 +141,24 @@ const modalPrice = document.getElementById("modalPrice");
 const cart = [];
 const cartList = document.getElementById("cartList");
 const cartTotal = document.getElementById("cartTotal");
+
+// CARRUSEL DE PRODUCTOS
+document.querySelectorAll('.carousel').forEach(carousel => {
+  const track = carousel.querySelector('.carousel-track');
+  const images = carousel.querySelectorAll('img');
+  const prevBtn = carousel.querySelector('.prev');
+  const nextBtn = carousel.querySelector('.next');
+  let index = 0;
+
+  function showSlide(n) {
+    index = (n + images.length) % images.length;
+    track.style.transform = `translateX(-${index * 320}px)`; // ancho de img
+  }
+
+  prevBtn.addEventListener('click', () => showSlide(index - 1));
+  nextBtn.addEventListener('click', () => showSlide(index + 1));
+});
+
 
 // Abrir modal
 document.querySelectorAll(".product-detail").forEach(prod=>{
