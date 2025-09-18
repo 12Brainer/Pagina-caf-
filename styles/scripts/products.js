@@ -49,22 +49,49 @@ document.getElementById("btnAddCart").addEventListener("click", () => {
   const price = parseInt(document.getElementById("modalSize").selectedOptions[0].dataset.price);
   const product = modalTitle.textContent;
 
-  const subtotal = price * qty;
-  cart.push({ product, size, grind, qty, subtotal });
+  const existingItem = cart.find(item => item.product === product && item.size === size && item.grind === grind);
+
+  if (existingItem) {
+    existingItem.qty += qty;
+    existingItem.subtotal = existingItem.qty * existingItem.price;
+  } else {
+    cart.push({ product, size, grind, qty, price, subtotal: price * qty });
+  }
+
   renderCart();
   modal.style.display = "none";
 });
 
 function renderCart() {
   cartList.innerHTML = "";
+  if (cart.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "Tu carrito está vacío.";
+    cartList.appendChild(li);
+    cartTotal.textContent = "₡0";
+    return;
+  }
+
   let total = 0;
-  cart.forEach(item => {
+  cart.forEach((item, index) => {
     total += item.subtotal;
     const li = document.createElement("li");
-    li.textContent = `${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ₡${item.subtotal}`;
+    li.classList.add('cart-item'); // Add a class for styling
+    li.innerHTML = `
+      <span>${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ₡${item.subtotal}</span>
+      <button class="remove-item" data-index="${index}">&times;</button>
+    `;
     cartList.appendChild(li);
   });
   cartTotal.textContent = `₡${total}`;
+
+  document.querySelectorAll('.remove-item').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const indexToRemove = parseInt(e.target.dataset.index);
+      cart.splice(indexToRemove, 1);
+      renderCart();
+    });
+  });
 }
 
 // -------------------------
