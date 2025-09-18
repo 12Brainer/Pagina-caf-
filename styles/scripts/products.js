@@ -87,34 +87,95 @@ document.getElementById("btnCheckout").addEventListener("click", () => {
 });
 
 // -------------------------
-// CARRUSEL DE PRODUCTOS
+// CARRUSEL DE PRODUCTOS (CON DRAG/SWIPE)
 // -------------------------
 document.querySelectorAll('.carousel').forEach(carousel => {
   const track = carousel.querySelector('.carousel-track');
-  const images = carousel.querySelectorAll('img');
+  const images = Array.from(track.children);
   const prevBtn = carousel.querySelector('.prev');
   const nextBtn = carousel.querySelector('.next');
-  let index = 0;
 
-  function showSlide(n) {
-    index = (n + images.length) % images.length;
-    const slideWidth = carousel.clientWidth; // ancho real del carrusel
-    track.style.transform = `translateX(-${index * slideWidth}px)`;
+  let index = 0;
+  let isDragging = false;
+  let startPos = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationID;
+
+  // Función para actualizar la posición del carrusel
+  function setPositionByIndex() {
+    const slideWidth = images[0].clientWidth;
+    currentTranslate = index * -slideWidth;
+    prevTranslate = currentTranslate;
+    setSliderPosition();
   }
 
-  prevBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showSlide(index - 1);
-  });
+  function setSliderPosition() {
+    track.style.transform = `translateX(${currentTranslate}px)`;
+  }
 
-  nextBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showSlide(index + 1);
-  });
+  // Mover al slide siguiente/anterior
+  function showSlide(n) {
+    index = (n + images.length) % images.length;
+    setPositionByIndex();
+  }
 
-  // Mostrar el primer slide al cargar
+  prevBtn.addEventListener('click', () => showSlide(index - 1));
+  nextBtn.addEventListener('click', () => showSlide(index + 1));
+
+  // Eventos de Drag (Mouse)
+  carousel.addEventListener('mousedown', dragStart);
+  carousel.addEventListener('mouseup', dragEnd);
+  carousel.addEventListener('mouseleave', dragEnd);
+  carousel.addEventListener('mousemove', drag);
+
+  // Eventos de Swipe (Táctil)
+  carousel.addEventListener('touchstart', dragStart);
+  carousel.addEventListener('touchend', dragEnd);
+  carousel.addEventListener('touchmove', drag);
+
+  function dragStart(e) {
+    e.preventDefault(); // Prevenir selección de imagen
+    isDragging = true;
+    startPos = getPositionX(e);
+    animationID = requestAnimationFrame(animation);
+    track.style.transition = 'none'; // Desactivar transición durante el drag
+  }
+
+  function drag(e) {
+    if (isDragging) {
+      const currentPosition = getPositionX(e);
+      currentTranslate = prevTranslate + currentPosition - startPos;
+    }
+  }
+
+  function dragEnd(e) {
+    cancelAnimationFrame(animationID);
+    isDragging = false;
+    const movedBy = currentTranslate - prevTranslate;
+
+    // Si se movió más de 100px, cambiar de slide
+    if (movedBy < -100 && index < images.length - 1) {
+      index += 1;
+    }
+    if (movedBy > 100 && index > 0) {
+      index -= 1;
+    }
+
+    setPositionByIndex();
+    track.style.transition = 'transform 0.4s ease-in-out'; // Reactivar transición
+  }
+
+  function getPositionX(e) {
+    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+  }
+
+  function animation() {
+    setSliderPosition();
+    if (isDragging) requestAnimationFrame(animation);
+  }
+
+  // Inicializar
   showSlide(0);
-
-  // Ajustar si cambia el tamaño de pantalla
-  window.addEventListener('resize', () => showSlide(index));
+  window.addEventListener('resize', setPositionByIndex);
 });
