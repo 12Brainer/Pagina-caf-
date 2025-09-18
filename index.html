@@ -11,34 +11,7 @@
 <body>
 
   </head>
-<script>
-  const header = document.querySelector('.site-header');
-  let lastScrollY = window.scrollY;
-
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY < 50) {
-      // Cerca de la parte superior, asegúrate de que esté visible y no 'scrolled'
-      header.classList.remove('hidden');
-      header.classList.remove('scrolled');
-    } else {
-      // Añade 'scrolled' si hemos pasado el umbral
-      header.classList.add('scrolled');
-
-      // Lógica principal de mostrar/ocultar
-      if (currentScrollY > lastScrollY) {
-        // Scroll hacia abajo
-        header.classList.add('hidden');
-      } else {
-        // Scroll hacia arriba
-        header.classList.remove('hidden');
-      }
-    }
-
-    lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY; // Evita valores negativos en iOS
-  });
-</script>
+<script src="./styles/scripts/main.js"></script>
 
 <header class="site-header">
   <div class="header-container">

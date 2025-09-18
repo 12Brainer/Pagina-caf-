@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras - NeoPrado Café</title>
+  <link rel="stylesheet" href="./styles/style.css">
+  <!-- Iconos de redes sociales -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header (copiado de index.html para consistencia) -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="header-logo">
+        <img src="./assets/logo.jpg" alt="Logo NeoPrado Café" class="logo">
+        <div class="header-text">
+          <h1>NeoPrado Café</h1>
+          <p class="slogan">Café de Especialidad</p>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="index.html">Comprar Café</a></li>
+          <li><a href="./styles/about.html">Sobre nosotros</a></li>
+          <li><a href="./styles/products.html">Productos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="Pedidos.html" aria-label="Carrito de compras"><i class="fas fa-shopping-cart"></i><span class="cart-badge" style="display: none;">0</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shop-container">
+    <h2 class="shop-title">Tu Carrito de Compras</h2>
+    
+    <div class="cart">
+      <h3>Resumen de tu pedido</h3>
+      <ul id="cartList">
+        <!-- Los productos del carrito se insertarán aquí por JS -->
+        <li>Tu carrito está vacío.</li>
+      </ul>
+      <div class="totals">
+        <span>Total:</span>
+        <span id="cartTotal">₡0</span>
+      </div>
+    </div>
+
+    <div class="checkout">
+        <h2>Finalizar Compra</h2>
+        <p>Al finalizar, serás redirigido a WhatsApp para confirmar tu pedido con nosotros.</p>
+        <button id="btnCheckout" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
+            <i class="fab fa-whatsapp"></i> Finalizar Compra por WhatsApp
+        </button>
+    </div>
+  </main>
+
+  <!-- Footer (simplificado para la página de pedidos) -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <span>© 2025 NeoPrado Coffee · Hecho en Zona de los Santos, Costa Rica</span>
+    </div>
+  </footer>
+
+  <!-- Script del encabezado -->
+  <script src="./styles/scripts/main.js"></script>
+
+  <!-- Script del carrito -->
+  <script src="./styles/scripts/products.js"></script>
+
+</body>
+</html>
