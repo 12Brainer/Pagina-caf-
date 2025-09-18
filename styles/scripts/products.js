@@ -75,6 +75,18 @@ if(document.getElementById("btnAddCart")){
 
 function renderCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
+
+  const badge = document.querySelector('.cart-badge');
+  if (badge) {
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    if (totalItems > 0) {
+      badge.textContent = totalItems;
+      badge.style.display = 'inline-block';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
   if (!cartList) return;
 
   cartList.innerHTML = "";
@@ -227,6 +239,6 @@ if(document.querySelectorAll('.carousel')){
 }
 
 // Renderizar el carrito al cargar la página
-if (document.getElementById('cartList')) {
+document.addEventListener('DOMContentLoaded', () => {
     renderCart();
-}
+});

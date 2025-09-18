@@ -466,6 +466,23 @@ footer {
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background-color: #ff4136; /* Un rojo llamativo */
+  color: white;
+  border-radius: 50%;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  display: none; /* Oculto por defecto */
+  border: 2px solid var(--color-fondo); /* Borde para separar del fondo */
 }
 
 .header-nav ul li a:hover {
