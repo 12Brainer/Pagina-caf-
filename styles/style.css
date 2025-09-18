@@ -708,20 +708,20 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.7);
-  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
 }
 
 .modal-content {
-  background-color: #1c1c1c;
+  background-color: #0D2A47;
   margin: 10% auto;
   padding: 2rem;
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius);
   width: 90%;
   max-width: 700px;
   position: relative;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 }
 
 .close {
@@ -834,3 +834,22 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   transform: scale(1.02);
 }
 
+/* Botón "Ver más / Comprar" */
+.btn-buy {
+  background-color: transparent;
+  border: 2px solid var(--color-secundario);
+  color: var(--color-secundario);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-buy:hover {
+  background-color: var(--color-secundario);
+  color: var(--color-claro);
+}
