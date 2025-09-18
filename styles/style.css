@@ -400,16 +400,17 @@ footer {
   }
 }
 
-/* ====== Header no fijo====== */
+/* ====== Header Fijo y Deslizante ====== */
 .site-header {
-  position: relative;
+  position: sticky; /* Lo hacemos pegajoso */
   top: 0;
   width: 100%;
+  z-index: 100; /* Nos aseguramos que esté por encima de otros elementos */
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
   padding: 1rem 1.5rem;
   border-bottom: 1px solid rgba(255,255,255,.08);
-  transition: background-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Agregamos transición para el deslizamiento */
 }
 
 .header-container {
@@ -489,8 +490,13 @@ footer {
   color: var(--color-hover);
 }
 
-/* Cambio de color al hacer scroll */
-.scrolled {
+/* Clase para ocultar el header */
+.site-header.hidden {
+  transform: translateY(-100%);
+}
+
+/* Cambio de color al hacer scroll (opcional, pero recomendado) */
+.site-header.scrolled {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -507,9 +513,6 @@ footer {
     gap: 0.75rem;
     margin-top: 1rem;
   }
-}
-.site-header {
-  position: relative !important;
 }
 
 /* ===== Sección Hero (Presentación) ===== */

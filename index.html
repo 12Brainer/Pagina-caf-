@@ -12,13 +12,29 @@
 
   </head>
 <script>
-  window.addEventListener('scroll', function() {
-    const header = document.querySelector('.site-header');
-    if (window.scrollY > 50) {
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector('.site-header');
+
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+
+    // Lógica para el fondo con la clase 'scrolled'
+    if (currentScrollY > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
+
+    // Lógica para mostrar/ocultar el header
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      // Scroll hacia abajo
+      header.classList.add('hidden');
+    } else {
+      // Scroll hacia arriba
+      header.classList.remove('hidden');
+    }
+
+    lastScrollY = currentScrollY;
   });
 </script>
 
