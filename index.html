@@ -12,29 +12,34 @@
 
   </head>
 <script>
-  let lastScrollY = window.scrollY;
   const header = document.querySelector('.site-header');
+  let lastScrollY = window.scrollY;
 
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
 
-    // Lógica para el fondo con la clase 'scrolled'
+    // Clase 'scrolled' para el fondo
     if (currentScrollY > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
 
-    // Lógica para mostrar/ocultar el header
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    // Ocultar al bajar, mostrar al subir
+    if (currentScrollY > lastScrollY) {
       // Scroll hacia abajo
-      header.classList.add('hidden');
+      if (currentScrollY > 100) { // Un umbral para no ocultar al inicio
+        header.classList.add('hidden');
+      }
     } else {
       // Scroll hacia arriba
       header.classList.remove('hidden');
     }
 
-    lastScrollY = currentScrollY;
+    // Actualizar la posición del scroll, pero solo si no es un pequeño rebote
+    if (Math.abs(currentScrollY - lastScrollY) > 5) {
+        lastScrollY = currentScrollY;
+    }
   });
 </script>
 
