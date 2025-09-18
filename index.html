@@ -18,28 +18,25 @@
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
 
-    // Clase 'scrolled' para el fondo
-    if (currentScrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-
-    // Ocultar al bajar, mostrar al subir
-    if (currentScrollY > lastScrollY) {
-      // Scroll hacia abajo
-      if (currentScrollY > 100) { // Un umbral para no ocultar al inicio
-        header.classList.add('hidden');
-      }
-    } else {
-      // Scroll hacia arriba
+    if (currentScrollY < 50) {
+      // Cerca de la parte superior, asegúrate de que esté visible y no 'scrolled'
       header.classList.remove('hidden');
+      header.classList.remove('scrolled');
+    } else {
+      // Añade 'scrolled' si hemos pasado el umbral
+      header.classList.add('scrolled');
+
+      // Lógica principal de mostrar/ocultar
+      if (currentScrollY > lastScrollY) {
+        // Scroll hacia abajo
+        header.classList.add('hidden');
+      } else {
+        // Scroll hacia arriba
+        header.classList.remove('hidden');
+      }
     }
 
-    // Actualizar la posición del scroll, pero solo si no es un pequeño rebote
-    if (Math.abs(currentScrollY - lastScrollY) > 5) {
-        lastScrollY = currentScrollY;
-    }
+    lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY; // Evita valores negativos en iOS
   });
 </script>
 
