@@ -836,6 +836,7 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 /* Botón "Ver más / Comprar" */
 .btn-buy {
+  display: inline-block;
   background-color: transparent;
   border: 2px solid var(--color-secundario);
   color: var(--color-secundario);
@@ -847,9 +848,17 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   margin-top: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
 }
 
+/* Efecto al pasar el mouse */
 .btn-buy:hover {
   background-color: var(--color-secundario);
-  color: var(--color-claro);
+  color: #fff; /* texto blanco para contraste */
+  transform: scale(1.05);
+}
+
+/* Efecto al presionar */
+.btn-buy:active {
+  transform: scale(0.97);
 }
