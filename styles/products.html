@@ -46,8 +46,8 @@
           <img src="../assets/honey-finca.png" alt="Finca de origen" class="product-img">
           <img src="../assets/honey-grano.png" alt="Grano de café Honey" class="product-img">
         </div>
-        <button class="prev">&#10094;</button>
-        <button class="next">&#10095;</button>
+        <button class="prev" aria-label="Previous image">&#10094;</button>
+        <button class="next" aria-label="Next image">&#10095;</button>
       </div>
       <p><strong>Proceso:</strong> Honey</p>
       <p><strong>Perfil de taza:</strong> Notas de miel de maple, acidez cítrica brillante y dulzor prolongado.</p>
@@ -66,8 +66,8 @@
           <img src="../assets/lavado-finca.png" alt="Proceso Lavado" class="product-img">
           <img src="../assets/lavado-grano.png" alt="Grano de café lavado" class="product-img">
         </div>
-        <button class="prev">&#10094;</button>
-        <button class="next">&#10095;</button>
+        <button class="prev" aria-label="Previous image">&#10094;</button>
+        <button class="next" aria-label="Next image">&#10095;</button>
       </div>
       <p><strong>Proceso:</strong> Lavado (Washed)</p>
       <p><strong>Perfil de taza:</strong> Cuerpo ligero, acidez brillante y sabor limpio.</p>
@@ -83,7 +83,7 @@
 <!-- MODAL PRODUCTO -->
 <div id="modalProducto" class="modal">
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span class="close" aria-label="Close modal">&times;</span>
     <div class="modal-body">
       <div class="modal-img">
         <img id="modalImg" src="" alt="Producto">
@@ -94,23 +94,20 @@
         <p class="envio">Los gastos de envío se calculan en la entrega.</p>
         <div class="stars">★★★★★</div>
 
-        <label>Tamaño:
-          <select id="modalSize">
-            <option value="250" data-price="3900">250 g — ₡3,900</option>
-            <option value="500" data-price="7000">500 g — ₡7,000</option>
-          </select>
-        </label>
+        <label for="modalSize">Tamaño:</label>
+        <select id="modalSize">
+          <option value="250" data-price="3900">250 g — ₡3,900</option>
+          <option value="500" data-price="7000">500 g — ₡7,000</option>
+        </select>
 
-        <label>Molienda:
-          <select id="modalGrind">
-            <option value="Grano">Grano / Whole Bean</option>
-            <option value="Molido">Molido / Ground</option>
-          </select>
-        </label>
+        <label for="modalGrind">Molienda:</label>
+        <select id="modalGrind">
+          <option value="Grano">Grano / Whole Bean</option>
+          <option value="Molido">Molido / Ground</option>
+        </select>
 
-        <label>Cantidad:
-          <input id="modalQty" type="number" min="1" value="1">
-        </label>
+        <label for="modalQty">Cantidad:</label>
+        <input id="modalQty" type="number" min="1" value="1">
 
         <div class="modal-buttons">
           <button id="btnAddCart" class="btn-outline">Agregar al carrito</button>
@@ -122,7 +119,7 @@
 </div>
 
 <!-- CARRITO -->
-<section class="products">
+<section id="cart-section" class="cart-container">
   <div id="carritoModal" class="checkout">
     <h2>Tu Carrito</h2>
     <ul id="cartList"></ul>
@@ -179,4 +176,3 @@
 </footer>
 </body>
 </html>
-
