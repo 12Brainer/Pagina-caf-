@@ -758,81 +758,79 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 .modal-buttons { margin-top: 1.5rem; }
 
-.btn-black {
-  background-color: #222;
-  color: white;
-  border: 1px solid #555;
-  padding: .8rem 1.5rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: 700;
-  width: 100%;
-  transition: background-color .2s ease;
-}
-.btn-black:hover { background-color: #000; }
+/* === Estilos Elegantes para el Carrito === */
 
-@media (max-width: 600px) {
-  .modal-body { flex-direction: column; }
-  .modal-content { margin: 5% auto; }
+.checkout {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.carousel {
-  position: relative;
-  max-width: 320px; /* ajusta el tamaño del carrusel */
-  margin: 15px auto;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.checkout h2 {
+  color: var(--color-secundario);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: 'Playfair Display', serif;
 }
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.4s ease-in-out;
+#cartList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
 }
 
-.carousel img {
-  width: 100%;   /* ocupa todo el carrusel */
-  height: auto;  /* mantiene proporción */
-  flex-shrink: 0; /* importante para que no se deforme */
-}
-
-
-/* Botones del carrusel */
-.carousel button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-}
-
-.carousel .prev { left: 10px; }
-.carousel .next { right: 10px; }
-
-/* Estilos para el item del carrito */
 .cart-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 0;
-  border-bottom: 1px solid #444;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.95rem;
 }
 
-/* Estilos para el botón de eliminar */
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item span {
+  flex-grow: 1;
+  text-align: left;
+}
+
 .remove-item {
-  background: none;
+  background: transparent;
   border: none;
-  color: #ff6b6b;
+  color: #aaa;
   cursor: pointer;
-  font-size: 1.2em;
-  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .remove-item:hover {
-  color: #e05252;
+  color: var(--color-claro);
 }
+
+#btnCheckout {
+  background-color: var(--color-secundario);
+  color: var(--color-claro);
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+#btnCheckout:hover {
+  background-color: var(--color-hover);
+  transform: scale(1.02);
+}
+
