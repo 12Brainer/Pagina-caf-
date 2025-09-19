@@ -104,6 +104,7 @@ function renderCart() {
     const li = document.createElement("li");
     li.classList.add('cart-item'); // Add a class for styling
     li.innerHTML = `
+      <img src="${item.img}" alt="${item.product}" class="cart-item-img">
       <span>${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ₡${item.subtotal}</span>
       <button class="remove-item" data-index="${index}">&times;</button>
     `;
