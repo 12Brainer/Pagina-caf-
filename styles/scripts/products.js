@@ -87,6 +87,7 @@ function renderCart() {
     }
   }
 
+  // Solo ejecutar si estamos en la página de Pedidos
   if (!cartList) return;
 
   cartList.innerHTML = "";
@@ -94,7 +95,9 @@ function renderCart() {
     const li = document.createElement("li");
     li.textContent = "Tu carrito está vacío.";
     cartList.appendChild(li);
-    cartTotal.textContent = "₡0";
+    if (cartTotal) {
+      cartTotal.textContent = "₡0";
+    }
     return;
   }
 
@@ -110,7 +113,10 @@ function renderCart() {
     `;
     cartList.appendChild(li);
   });
-  cartTotal.textContent = `₡${total}`;
+  
+  if (cartTotal) {
+    cartTotal.textContent = `₡${total}`;
+  }
 
   document.querySelectorAll('.remove-item').forEach(button => {
     button.addEventListener('click', (e) => {
