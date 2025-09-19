@@ -49,6 +49,31 @@
 
     <div class="checkout">
         <h2>Finalizar Compra</h2>
+        <form id="checkoutForm">
+          <div class="form-group">
+            <label for="nombre">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono (WhatsApp):</label>
+            <input type="tel" id="telefono" name="telefono" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico (opcional):</label>
+            <input type="email" id="email" name="email">
+          </div>
+          <div class="form-group">
+            <label>Método de entrega:</label>
+            <div class="radio-group">
+              <input type="radio" id="recoger" name="entrega" value="Recoger en tienda" checked>
+              <label for="recoger">Recoger en tienda</label>
+            </div>
+            <div class="radio-group">
+              <input type="radio" id="envio" name="entrega" value="Envío por Correos de Costa Rica">
+              <label for="envio">Envío por Correos de Costa Rica</label>
+            </div>
+          </div>
+        </form>
         <p>Al finalizar, serás redirigido a WhatsApp para confirmar tu pedido con nosotros.</p>
         <button id="btnCheckout" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
             <i class="fab fa-whatsapp"></i> Finalizar Compra por WhatsApp

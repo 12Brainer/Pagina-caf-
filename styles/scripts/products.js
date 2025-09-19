@@ -126,19 +126,47 @@ function renderCart() {
 // -------------------------
 if(document.getElementById("btnCheckout")){
     document.getElementById("btnCheckout").addEventListener("click", () => {
+      // Validar que el carrito no esté vacío
       if (cart.length === 0) {
-        alert("Tu carrito está vacío");
+        alert("Tu carrito está vacío.");
         return;
       }
-      let msg = "🛒 *Nuevo pedido NeoPrado Café*%0A";
+
+      // Obtener y validar los datos del formulario
+      const nombre = document.getElementById('nombre').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const entrega = document.querySelector('input[name="entrega"]:checked').value;
+
+      if (!nombre || !telefono) {
+        alert("Por favor, completa tu nombre y teléfono para continuar.");
+        return;
+      }
+
+      // Construir el mensaje para WhatsApp
+      let msg = "🛒 *Nuevo pedido NeoPrado Café*\n\n";
+      msg += "*Datos del Cliente:*
+";
+      msg += `*Nombre:* ${nombre}\n`;
+      msg += `*Teléfono:* ${telefono}\n`;
+      if (email) {
+        msg += `*Email:* ${email}\n`;
+      }
+      msg += `*Método de entrega:* ${entrega}\n\n`;
+      msg += "*Resumen del Pedido:*
+";
+
       let total = 0;
       cart.forEach(item => {
-        msg += `• ${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ₡${item.subtotal}%0A`;
+        msg += `• ${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ₡${item.subtotal}\n`;
         total += item.subtotal;
       });
-      msg += `%0ATotal: ₡${total}%0A`;
-      msg += "Por favor confirmar disponibilidad.";
-      window.open(`https://wa.me/50683910511?text=${msg}`, "_blank");
+
+      msg += `\n*Total:* ₡${total}\n\n`;
+      msg += "Por favor, ayúdame a confirmar la disponibilidad y el proceso de pago.";
+
+      // Enviar a WhatsApp
+      window.open(`https://wa.me/50683910511?text=${encodeURIComponent(msg)}`, "_blank");
     });
 }
 
