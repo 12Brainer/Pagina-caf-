@@ -965,6 +965,7 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   margin-bottom: 0.8rem;
   font-size: 1rem;
   line-height: 1.5;
+  color: #333;
 }
 
 .contacto-info a {
