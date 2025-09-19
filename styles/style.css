@@ -417,8 +417,8 @@ footer {
 .top-banner{
   width:100%;
   text-align:center;
-  background: #1D6F50; /* tono verde de marca */
-  color:#fff;
+  background: #006b4f; /* verde requerido */
+  color:#fff; /* texto blanco */
   font-weight:800;
   letter-spacing:.5px;
   padding:.4rem .75rem;
