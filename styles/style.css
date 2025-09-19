@@ -931,3 +931,76 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   background-color: var(--color-secundario);
   color: var(--color-claro);
 }
+
+.contacto {
+  padding: 3rem 1rem;
+  background-color: #f9f9f9;
+}
+
+.contacto-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+  margin: auto;
+  gap: 2rem;
+}
+
+.contacto-img img {
+  width: 280px;
+  border-radius: 10px;
+}
+
+.contacto-info {
+  max-width: 500px;
+}
+
+.contacto-info h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #1d1d1d;
+}
+
+.contacto-info p {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.contacto-info a {
+  color: #006633;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.map-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.btn-mapa {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: #000;
+  color: #fff;
+  border-radius: 50px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-mapa:hover {
+  background: #006633;
+}
+
+.btn-mapa.google {
+  background: #4285F4;
+}
+
+.btn-mapa.google:hover {
+  background: #2a64c5;
+}
+
