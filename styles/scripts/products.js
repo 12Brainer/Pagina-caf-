@@ -11,6 +11,25 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const cartList = document.getElementById("cartList");
 const cartTotal = document.getElementById("cartTotal");
 
+// Crear carrito flotante en el lado derecho
+function createFloatingCart() {
+  if (document.querySelector('.floating-cart')) return; // evitar duplicados
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'floating-cart';
+  btn.setAttribute('aria-label', 'Abrir carrito');
+  btn.innerHTML = '<i class="fas fa-shopping-cart"></i><span class="cart-badge" style="display:none;">0</span>';
+
+  btn.addEventListener('click', () => {
+    const path = window.location.pathname;
+    let target = 'styles/Pedidos.html';
+    if (path.includes('/styles/')) target = 'Pedidos.html';
+    window.location.href = target;
+  });
+
+  document.body.appendChild(btn);
+}
+
 // Abrir modal al hacer clic en el botón "Ver más / Comprar"
 if(document.querySelectorAll(".btn-buy")){
     document.querySelectorAll(".btn-buy").forEach(btn => {
@@ -78,16 +97,16 @@ if(document.getElementById("btnAddCart")){
 function renderCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  const badge = document.querySelector('.cart-badge');
-  if (badge) {
-    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+  const badges = document.querySelectorAll('.cart-badge');
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+  badges.forEach(badge => {
     if (totalItems > 0) {
       badge.textContent = totalItems;
       badge.style.display = 'inline-block';
     } else {
       badge.style.display = 'none';
     }
-  }
+  });
 
   // Solo ejecutar si estamos en la página de Pedidos
   if (!cartList) return;
@@ -319,5 +338,6 @@ if(document.querySelectorAll('.carousel')){
 
 // Renderizar el carrito al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
+    createFloatingCart();
     renderCart();
 });

@@ -954,6 +954,53 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   color: var(--color-claro);
 }
 
+/* ====== Carrito flotante ====== */
+.floating-cart{
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fff;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+  border: 1px solid rgba(0,0,0,.06);
+  cursor: pointer;
+  z-index: 1100; /* sobre contenido, bajo el modal (1000), pero más alto que header */
+}
+.floating-cart i{
+  font-size: 20px;
+}
+.floating-cart .cart-badge{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff4136;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  min-width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  display: none;
+  padding: 0 4px;
+}
+
+/* Evitar solape con botón WhatsApp: mover un poco hacia arriba en móviles */
+@media (max-width: 560px){
+  .floating-cart{
+    right: 12px;
+    top: 45%;
+  }
+}
+
 .contacto {
   padding: 3rem 1rem;
   background-color: #f9f9f9;
