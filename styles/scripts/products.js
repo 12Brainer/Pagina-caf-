@@ -132,6 +132,36 @@ function renderCart() {
 // -------------------------
 // FINALIZAR COMPRA POR WHATSAPP
 // -------------------------
+// Mostrar/ocultar y validar campos de envío cuando cambia el método
+document.addEventListener('DOMContentLoaded', () => {
+  const envioRadio = document.getElementById('envio');
+  const recogerRadio = document.getElementById('recoger');
+  const shippingFields = document.getElementById('shippingFields');
+  const provincia = document.getElementById('provincia');
+  const canton = document.getElementById('canton');
+  const distrito = document.getElementById('distrito');
+  const direccion = document.getElementById('direccion');
+
+  function toggleShipping(required) {
+    if (!shippingFields) return;
+    shippingFields.style.display = required ? 'block' : 'none';
+
+    // Marcar como obligatorios condicionalmente
+    if (provincia) provincia.required = required;
+    if (canton) canton.required = required;
+    if (distrito) distrito.required = required;
+    if (direccion) direccion.required = required;
+  }
+
+  if (envioRadio && recogerRadio) {
+    envioRadio.addEventListener('change', () => toggleShipping(true));
+    recogerRadio.addEventListener('change', () => toggleShipping(false));
+
+    // Estado inicial según selección por defecto
+    toggleShipping(envioRadio.checked);
+  }
+});
+
 if(document.getElementById("btnCheckout")){
     document.getElementById("btnCheckout").addEventListener("click", () => {
       // Validar que el carrito no esté vacío
@@ -141,14 +171,29 @@ if(document.getElementById("btnCheckout")){
       }
 
       // Obtener y validar los datos del formulario
-      const nombre = document.getElementById('nombre').value.trim();
-      const telefono = document.getElementById('telefono').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const entrega = document.querySelector('input[name="entrega"]:checked').value;
+      const nombre = document.getElementById('nombre')?.value.trim();
+      const telefono = document.getElementById('telefono')?.value.trim();
+      const email = document.getElementById('email')?.value.trim();
+      const entrega = document.querySelector('input[name="entrega"]:checked')?.value;
 
       if (!nombre || !telefono) {
         alert("Por favor, completa tu nombre y teléfono para continuar.");
         return;
+      }
+
+      // Si es envío, validar campos de dirección
+      let direccionMsg = '';
+      if (entrega === 'Envío por Correos de Costa Rica') {
+        const provincia = document.getElementById('provincia')?.value.trim();
+        const canton = document.getElementById('canton')?.value.trim();
+        const distrito = document.getElementById('distrito')?.value.trim();
+        const direccion = document.getElementById('direccion')?.value.trim();
+
+        if (!provincia || !canton || !distrito || !direccion) {
+          alert('Por favor, completa Provincia, Cantón, Distrito y Dirección exacta para el envío.');
+          return;
+        }
+        direccionMsg = `\n*Dirección de entrega:*\nProvincia: ${provincia}\nCantón: ${canton}\nDistrito: ${distrito}\nDirección: ${direccion}\n`;
       }
 
       // Construir el mensaje para WhatsApp
@@ -156,11 +201,10 @@ if(document.getElementById("btnCheckout")){
       msg += "*Datos del Cliente:*\n";
       msg += `*Nombre:* ${nombre}\n`;
       msg += `*Teléfono:* ${telefono}\n`;
-      if (email) {
-        msg += `*Email:* ${email}\n`;
-      }
-      msg += `*Método de entrega:* ${entrega}\n\n`;
-      msg += "*Resumen del Pedido:*\n";
+      if (email) msg += `*Email:* ${email}\n`;
+      msg += `*Método de entrega:* ${entrega}\n`;
+      if (direccionMsg) msg += direccionMsg;
+      msg += "\n*Resumen del Pedido:*\n";
 
       let total = 0;
       cart.forEach(item => {
