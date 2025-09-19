@@ -804,6 +804,16 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   font-size: 0.95rem;
 }
 
+/* Imagen compacta dentro del carrito */
+.cart-item-img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
 .cart-item:last-child {
   border-bottom: none;
 }
