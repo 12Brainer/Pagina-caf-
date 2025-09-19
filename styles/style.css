@@ -413,6 +413,18 @@ footer {
   transition: transform 0.3s ease, background-color 0.3s ease; /* Agregamos transición para el deslizamiento */
 }
 
+/* Banner superior: envíos gratis */
+.top-banner{
+  width:100%;
+  text-align:center;
+  background: #1D6F50; /* tono verde de marca */
+  color:#fff;
+  font-weight:800;
+  letter-spacing:.5px;
+  padding:.4rem .75rem;
+  font-size:.92rem;
+}
+
 .header-container {
   max-width: 1100px;
   margin: 0 auto;

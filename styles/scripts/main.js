@@ -1,4 +1,11 @@
 const header = document.querySelector('.site-header');
+// Insertar banner superior de envíos gratis en todas las páginas
+if (header && !header.querySelector('.top-banner')) {
+  const banner = document.createElement('div');
+  banner.className = 'top-banner';
+  banner.textContent = 'ENVIOS GRATIS EN PEDIDOS MAYORES A ₡30,000 COLONES';
+  header.prepend(banner);
+}
 let lastScrollY = window.scrollY;
 
 window.addEventListener('scroll', () => {
