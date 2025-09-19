@@ -15,8 +15,7 @@ const cartTotal = document.getElementById("cartTotal");
 if(document.querySelectorAll(".btn-buy")){
     document.querySelectorAll(".btn-buy").forEach(btn => {
       btn.addEventListener("click", () => {
-        alert("Botón 'Ver más / Comprar' fue presionado");
-        modal.style.display = "block";
+                modal.style.display = "block";
         modalImg.src = btn.dataset.img;
         modalTitle.textContent = btn.dataset.title;
         modalPrice.textContent = "Desde ₡3,900";
