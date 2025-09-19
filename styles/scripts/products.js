@@ -154,16 +154,14 @@ if(document.getElementById("btnCheckout")){
 
       // Construir el mensaje para WhatsApp
       let msg = "🛒 *Nuevo pedido NeoPrado Café*\n\n";
-      msg += "*Datos del Cliente:*
-";
+      msg += "*Datos del Cliente:*\n";
       msg += `*Nombre:* ${nombre}\n`;
       msg += `*Teléfono:* ${telefono}\n`;
       if (email) {
         msg += `*Email:* ${email}\n`;
       }
       msg += `*Método de entrega:* ${entrega}\n\n`;
-      msg += "*Resumen del Pedido:*
-";
+      msg += "*Resumen del Pedido:*\n";
 
       let total = 0;
       cart.forEach(item => {
