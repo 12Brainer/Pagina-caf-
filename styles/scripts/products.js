@@ -15,6 +15,7 @@ const cartTotal = document.getElementById("cartTotal");
 if(document.querySelectorAll(".btn-buy")){
     document.querySelectorAll(".btn-buy").forEach(btn => {
       btn.addEventListener("click", () => {
+        alert("Botón 'Ver más / Comprar' fue presionado");
         modal.style.display = "block";
         modalImg.src = btn.dataset.img;
         modalTitle.textContent = btn.dataset.title;
@@ -57,6 +58,7 @@ if(document.getElementById("btnAddCart")){
       const qty = parseInt(document.getElementById("modalQty").value);
       const price = parseInt(document.getElementById("modalSize").selectedOptions[0].dataset.price);
       const product = modalTitle.textContent;
+      const img = modalImg.src; // Get the image source from the modal
     
       const existingItem = cart.find(item => item.product === product && item.size === size && item.grind === grind);
     
@@ -64,7 +66,8 @@ if(document.getElementById("btnAddCart")){
         existingItem.qty += qty;
         existingItem.subtotal = existingItem.qty * existingItem.price;
       } else {
-        cart.push({ product, size, grind, qty, price, subtotal: price * qty });
+        // Add the img to the new cart item
+        cart.push({ product, size, grind, qty, price, subtotal: price * qty, img });
       }
     
       renderCart();
