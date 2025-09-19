@@ -12,6 +12,13 @@ const cartList = document.getElementById("cartList");
 const cartTotal = document.getElementById("cartTotal");
 
 // Crear carrito flotante en el lado derecho
+function goToCartPage(){
+  const path = window.location.pathname;
+  let target = 'styles/Pedidos.html';
+  if (path.includes('/styles/')) target = 'Pedidos.html';
+  window.location.href = target;
+}
+
 function createFloatingCart() {
   if (document.querySelector('.floating-cart')) return; // evitar duplicados
   const btn = document.createElement('button');
@@ -19,16 +26,15 @@ function createFloatingCart() {
   btn.className = 'floating-cart';
   btn.setAttribute('aria-label', 'Abrir carrito');
   btn.innerHTML = '<i class="fas fa-shopping-cart"></i><span class="cart-badge" style="display:none;">0</span>';
-
-  btn.addEventListener('click', () => {
-    const path = window.location.pathname;
-    let target = 'styles/Pedidos.html';
-    if (path.includes('/styles/')) target = 'Pedidos.html';
-    window.location.href = target;
-  });
-
+  btn.addEventListener('click', goToCartPage);
   document.body.appendChild(btn);
 }
+
+// Delegación global para soportar botón estático o inyectado
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.floating-cart');
+  if (btn) goToCartPage();
+});
 
 // Abrir modal al hacer clic en el botón "Ver más / Comprar"
 if(document.querySelectorAll(".btn-buy")){
@@ -334,6 +340,11 @@ if(document.querySelectorAll('.carousel')){
       showSlide(0);
       window.addEventListener('resize', setPositionByIndex);
     });
+}
+
+// Crear flotante de inmediato si el DOM ya está listo (por defer)
+if (document.readyState !== 'loading') {
+  createFloatingCart();
 }
 
 // Renderizar el carrito al cargar la página
