@@ -31,6 +31,9 @@ body {
   padding-bottom: 2rem;
 }
 
+/* Regla global para imágenes responsivas */
+img{ max-width:100%; height:auto; display:block; }
+
 /* Encabezado */
 header {
   text-align: center;
@@ -143,10 +146,10 @@ header .contacto {
 }
 
 .product-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
   margin-top: 1rem;
 }
 
@@ -154,13 +157,15 @@ header .contacto {
   background-color: rgba(0, 0, 0, 0.2);
   padding: 1.5rem;
   border-radius: 10px;
-  width: 280px;
+  width: 100%;
+  min-width: 0;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .product .product-img {
   width: 100%;
-  height: 180px; /* reducir altura visual */
+  height: auto; /* no forzar altura para evitar deformación */
+  max-height: 220px; /* límite visual sin deformar */
   object-fit: contain; /* mantener proporción y evitar recortes */
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -912,7 +917,8 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 .carousel img {
   width: 100%;
-  height: 200px; /* limitar altura */
+  height: auto; /* no deformar */
+  max-height: 200px; /* límite visual */
   object-fit: contain; /* no recortar y mantener proporción */
   flex-shrink: 0;
   background: #111; /* fondo neutro para imágenes con transparencia */
@@ -1174,5 +1180,24 @@ body.nav-open{ overflow:hidden; }
   .hamburger{ display:inline-flex; }
   .header-actions{ display:flex; margin-left:auto; }
   .header-nav{ display:none; }
+}
+
+/* ===== Responsive Typography (clamp) ===== */
+:root{ --fs-body-min: .95rem; --fs-body-max: 1.05rem; }
+body{ font-size: clamp(var(--fs-body-min), .9rem + .3vw, var(--fs-body-max)); }
+header h1, .header-text h1{ font-size: clamp(1.4rem, 1.1rem + 2.5vw, 2.4rem); }
+.products h2, .shop-title{ font-size: clamp(1.4rem, 1rem + 1.8vw, 2rem); }
+.product-detail h3{ font-size: clamp(1.2rem, .9rem + 1.5vw, 1.8rem); }
+.presentacion__enlaces_subtitulo, .footer-title{ font-size: clamp(1.1rem, .9rem + 1.3vw, 1.6rem); }
+.contacto-info h2{ font-size: clamp(1.3rem, 1rem + 1.6vw, 2rem); }
+
+/* ===== Spacing and layout tweaks ===== */
+.products, .about, .hero{ padding: clamp(1rem, 1rem + 1vw, 2rem); }
+.product-list{ gap: clamp(.75rem, 1vw, 1.25rem); }
+
+@media (max-width: 560px){
+  .header-logo .logo{ width: 56px; }
+  .product{ padding: 1rem; }
+  .carousel{ max-width: 100%; }
 }
 
