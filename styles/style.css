@@ -1113,3 +1113,25 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   }
 }
 
+/* ====== Franja Comprar Café (solo usada en index.html) ====== */
+.buy-hero{
+  background: #1d6b4d; /* verde sólido similar a la referencia */
+  color: #fff;
+  text-align: center;
+  padding: 2.75rem 1rem; /* padding vertical para separar del header */
+}
+.buy-hero__container{ max-width: 1100px; margin: 0 auto; }
+.buy-hero__title{
+  margin: 0 0 .4rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  letter-spacing: .5px;
+  text-transform: uppercase; /* título en mayúsculas */
+  font-size: clamp(1.8rem, 2.8vw + 1rem, 2.6rem);
+}
+.buy-hero__subtitle{
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw + .7rem, 1.15rem);
+  opacity: .98;
+}
+
