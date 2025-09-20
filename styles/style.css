@@ -1139,3 +1139,41 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   opacity: .98;
 }
 
+/* ====== Navegación móvil (hamburguesa + drawer) ====== */
+.hamburger{ display:none; background:transparent; border:0; width:40px; height:40px; padding:8px; cursor:pointer; align-items:center; justify-content:center; border-radius:8px; }
+.hamburger span{ display:block; width:100%; height:2px; background:#fff; margin:4px 0; border-radius:2px; transition:transform .25s ease, opacity .25s ease; }
+.hamburger[aria-expanded="true"] span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+.hamburger[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+.hamburger[aria-expanded="true"] span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
+
+.header-actions{ display:none; align-items:center; gap:.5rem; }
+.header-actions .header-cart{ color:#fff; position:relative; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; }
+.header-actions .header-cart i{ font-size:18px; }
+.header-actions .cart-badge{ top:2px; right:2px; }
+
+/* Drawer y backdrop */
+.mobile-nav-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:2400; }
+.mobile-nav-backdrop.show{ opacity:1; pointer-events:auto; }
+
+.mobile-nav{ position:fixed; top:0; right:0; height:100%; width:85%; max-width:360px; background:#fff; color:#111; transform:translateX(100%); transition:transform .3s ease; z-index:2500; padding:1rem 1rem 2rem; display:flex; flex-direction:column; box-shadow: -8px 0 20px rgba(0,0,0,.25); }
+.mobile-nav.open{ transform:translateX(0); }
+.mobile-brand{ display:flex; align-items:center; gap:.75rem; padding:.25rem 0 1rem; border-bottom:1px solid rgba(0,0,0,.08); margin-bottom:1rem; }
+.mobile-brand img{ width:42px; height:auto; border-radius:8px; }
+.mobile-brand h2{ font-family:'Playfair Display', serif; color:#1d6b4d; font-size:1.25rem; margin:0; }
+.mobile-brand .slogan{ margin:0; color:#333; font-size:.9rem; opacity:.9; }
+
+.mobile-nav ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.25rem; }
+.mobile-nav li a{ display:block; color:#111; text-decoration:none; font-weight:700; padding:.9rem .5rem; border-radius:10px; }
+.mobile-nav li a:hover{ background:rgba(0,0,0,.06); }
+
+/* Bloqueo de scroll cuando el menú está abierto */
+body.nav-open{ overflow:hidden; }
+
+/* Reglas responsive: en móviles usar hamburguesa y ocultar nav de escritorio */
+@media (max-width: 920px){
+  .header-container{ width:100%; display:flex; align-items:center; gap:.75rem; }
+  .hamburger{ display:inline-flex; }
+  .header-actions{ display:flex; margin-left:auto; }
+  .header-nav{ display:none; }
+}
+

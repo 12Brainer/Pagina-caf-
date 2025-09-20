@@ -8,6 +8,87 @@ if (header && !header.querySelector('.top-banner')) {
 }
 let lastScrollY = window.scrollY;
 
+// ====== Header: Hamburguesa + Menú móvil ======
+(function initMobileNav(){
+  const headerEl = document.querySelector('.site-header .header-container');
+  if (!headerEl) return;
+
+  // Botón hamburguesa
+  let burger = document.querySelector('.hamburger');
+  if (!burger){
+    burger = document.createElement('button');
+    burger.className = 'hamburger';
+    burger.setAttribute('aria-label', 'Abrir menú');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.innerHTML = '<span></span><span></span><span></span>';
+    headerEl.prepend(burger);
+  }
+
+  // Acciones (carrito visible a la derecha en móvil)
+  let actions = document.querySelector('.header-actions');
+  if (!actions){
+    actions = document.createElement('div');
+    actions.className = 'header-actions';
+    actions.innerHTML = '<a href="'+(location.pathname.includes('/styles/')? 'Pedidos.html' : 'styles/Pedidos.html')+'" class="header-cart" aria-label="Carrito de compras"><i class="fas fa-shopping-cart"></i><span class="cart-badge" style="display:none;">0</span></a>';
+    headerEl.appendChild(actions);
+  }
+
+  // Backdrop
+  let backdrop = document.querySelector('.mobile-nav-backdrop');
+  if (!backdrop){
+    backdrop = document.createElement('div');
+    backdrop.className = 'mobile-nav-backdrop';
+    document.body.appendChild(backdrop);
+  }
+
+  // Drawer móvil
+  let drawer = document.querySelector('.mobile-nav');
+  if (!drawer){
+    drawer = document.createElement('nav');
+    drawer.className = 'mobile-nav';
+    const root = location.pathname.includes('/styles/')? '..' : '.';
+    drawer.innerHTML = `
+      <div class="mobile-brand">
+        <img src="${root}/assets/logo.jpg" alt="Logo NeoPrado Café" />
+        <div>
+          <h2>NeoPrado Café</h2>
+          <p class="slogan">Café de Especialidad</p>
+        </div>
+      </div>
+      <ul>
+        <li><a href="${root}/index.html">Comprar Café</a></li>
+        <li><a href="${root}/styles/about.html">Sobre nosotros</a></li>
+        <li><a href="${root}/styles/products.html">Productos</a></li>
+        <li><a href="${root}/styles/contacto.html">Contacto</a></li>
+      </ul>
+    `;
+    document.body.appendChild(drawer);
+  }
+
+  function openNav(){
+    drawer.classList.add('open');
+    backdrop.classList.add('show');
+    document.body.classList.add('nav-open');
+    burger.setAttribute('aria-expanded', 'true');
+  }
+  function closeNav(){
+    drawer.classList.remove('open');
+    backdrop.classList.remove('show');
+    document.body.classList.remove('nav-open');
+    burger.setAttribute('aria-expanded', 'false');
+  }
+
+  burger.addEventListener('click', () => {
+    const expanded = burger.getAttribute('aria-expanded') === 'true';
+    if (expanded) closeNav(); else openNav();
+  });
+  backdrop.addEventListener('click', closeNav);
+  drawer.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') closeNav();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+})();
+
 window.addEventListener('scroll', () => {
   const currentScrollY = window.scrollY;
 
