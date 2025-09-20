@@ -91,6 +91,60 @@ let lastScrollY = window.scrollY;
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
 })();
 
+// ====== Faja de beneficios (features strip) ======
+(function injectUSPStrip(){
+  if (document.querySelector('.features-strip')) return; // evitar duplicados
+  const footer = document.querySelector('.site-footer') || document.querySelector('footer');
+  if (!footer) return;
+
+  // Inyectar estilos si no existen aún
+  (function ensureFeaturesStyles(){
+    if (document.getElementById('features-strip-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'features-strip-styles';
+    style.textContent = `
+      .features-strip{ background:#217C65; color:#fff; padding:1.5rem 1rem; }
+      .features-strip .features-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1rem 2rem; align-items:start; text-align:center; }
+      .features-strip .feature-item i{ font-size:1.75rem; margin:0 0 .5rem; display:inline-block; }
+      .features-strip .feature-item h3{ margin:.2rem 0; font-weight:800; color:#fff; font-size:clamp(1rem, .9rem + .5vw, 1.2rem); }
+      .features-strip .feature-item p{ margin:0; color:#fff; opacity:.95; font-size:clamp(.9rem, .85rem + .2vw, 1rem); }
+      @media (max-width: 920px){ .features-strip .features-grid{ grid-template-columns:repeat(2,1fr);} }
+      @media (max-width: 520px){ .features-strip .features-grid{ grid-template-columns:1fr; } }
+    `;
+    document.head.appendChild(style);
+  })();
+
+  const section = document.createElement('section');
+  section.className = 'features-strip';
+  section.setAttribute('aria-label', 'Beneficios NeoPrado');
+  section.innerHTML = `
+    <div class="features-grid">
+      <div class="feature-item">
+        <i class="fa-solid fa-truck" aria-hidden="true"></i>
+        <h3>Envío Express</h3>
+        <p>24-48 horas en Costa Rica</p>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+        <h3>Pago 100% seguro</h3>
+        <p>Métodos de pago</p>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i>
+        <h3>Envíos a Todo Costa Rica</h3>
+        <p>No importa donde estés, nosotros llegamos.</p>
+      </div>
+      <div class="feature-item">
+        <i class="fa-regular fa-star" aria-hidden="true"></i>
+        <h3>5.0 Reseñas</h3>
+        <p>Producto y Servicio de Calidad</p>
+      </div>
+    </div>
+  `;
+
+  footer.parentNode.insertBefore(section, footer);
+})();
+
 window.addEventListener('scroll', () => {
   const currentScrollY = window.scrollY;
 
