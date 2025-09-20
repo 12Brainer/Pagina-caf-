@@ -54,6 +54,7 @@ let lastScrollY = window.scrollY;
           <h2>NeoPrado Café</h2>
           <p class="slogan">Café de Especialidad</p>
         </div>
+        <button class="mobile-close" aria-label="Cerrar menú">×</button>
       </div>
       <ul>
         <li><a href="${root}/index.html">Comprar Café</a></li>
@@ -84,6 +85,7 @@ let lastScrollY = window.scrollY;
   });
   backdrop.addEventListener('click', closeNav);
   drawer.addEventListener('click', (e) => {
+    if (e.target.closest('.mobile-close')) { e.preventDefault(); closeNav(); }
     if (e.target.tagName === 'A') closeNav();
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
