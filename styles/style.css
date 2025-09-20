@@ -1075,3 +1075,41 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   background: #2a64c5;
 }
 
+/* ====== Botón flotante de WhatsApp ====== */
+.floating-whatsapp{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366; /* verde WhatsApp */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+  border: 1px solid rgba(0,0,0,.06);
+  text-decoration: none;
+  z-index: 3000; /* por encima del layout */
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.floating-whatsapp i{ font-size: 24px; }
+.floating-whatsapp:hover{
+  transform: scale(1.06);
+  box-shadow: 0 14px 30px rgba(0,0,0,.25);
+  filter: brightness(1.05);
+}
+.floating-whatsapp:focus-visible{
+  outline: 3px solid rgba(255,255,255,.7);
+  outline-offset: 2px;
+}
+
+/* Ajuste en móviles */
+@media (max-width: 560px){
+  .floating-whatsapp{
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
