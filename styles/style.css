@@ -904,7 +904,7 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 .carousel {
   position: relative;
-  max-width: 420px; /* más amplio en desktop para mejor visualización */
+  max-width: 280px; /* Ancho para tarjeta vertical */
   margin: 15px auto;
   overflow: hidden;
   border-radius: 12px;
@@ -918,11 +918,11 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 .carousel img {
   width: 100%;
-  height: auto; /* no deformar */
-  max-height: 260px; /* límite visual mayor en desktop */
-  object-fit: contain; /* no recortar y mantener proporción */
+  height: auto;
+  aspect-ratio: 3 / 4; /* Proporción vertical tipo tarjeta */
+  object-fit: cover; /* Rellena el contenedor sin deformar */
   flex-shrink: 0;
-  background: #111; /* fondo neutro para imágenes con transparencia */
+  background: transparent; /* Fondo transparente */
 }
 
 /* Botones del carrusel */
@@ -1209,6 +1209,6 @@ header h1, .header-text h1{ font-size: clamp(1.4rem, 1.1rem + 2.5vw, 2.4rem); }
   .header-logo .logo{ width: 56px; }
   .product{ padding: 1rem; }
   .carousel{ max-width: 100%; }
-  .carousel img{ max-height: 220px; }
+  /* max-height se elimina para respetar el aspect-ratio */
 }
 
