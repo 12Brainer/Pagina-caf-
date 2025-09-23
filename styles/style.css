@@ -1317,7 +1317,7 @@ body.nav-open {
 
     .hamburger {
         display: inline-flex;
-        margin-left: auto;
+        margin-right: auto;
     }
 
     .header-nav {
