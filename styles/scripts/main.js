@@ -1,12 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const navPlaceholder = document.createElement('div');
-    navPlaceholder.id = 'main-nav';
-    document.body.prepend(navPlaceholder);
+    let navPlaceholder = document.getElementById('main-nav');
+    if (!navPlaceholder) {
+        navPlaceholder = document.createElement('div');
+        navPlaceholder.id = 'main-nav';
+        document.body.prepend(navPlaceholder);
+    }
 
-    fetch('nav.html')
+    const isIndexPage = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname.endsWith('/Pagina-caf-/');
+    const navPath = isIndexPage ? 'styles/nav.html' : 'nav.html';
+
+    fetch(navPath)
         .then(response => response.text())
         .then(data => {
-            document.getElementById('main-nav').innerHTML = data;
+            navPlaceholder.innerHTML = data;
             initMobileNav();
             handleScroll();
         });
