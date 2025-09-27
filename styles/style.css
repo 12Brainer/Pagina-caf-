@@ -437,6 +437,12 @@ footer {
 /* Slider interno para mensajes de la franja */
 .top-banner__viewport{
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centra el contenido horizontalmente */
 }
 .top-banner__track{
   display: flex;
