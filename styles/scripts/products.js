@@ -119,7 +119,7 @@ if(document.getElementById("btnAddCart")){
 // FORMATEO Y CÁLCULO DE TOTALES
 // -------------------------
 const CRC = new Intl.NumberFormat('es-CR', { style: 'currency', currency: 'CRC' });
-const TAX_RATE = 0.01; // Impuestos estimados (ajustable)
+const TAX_RATE = 0; // Sin impuestos
 
 function isEnvioSelected() {
   const r = document.getElementById('envio');
@@ -131,7 +131,7 @@ function getShippingCost(subtotal){
 }
 
 function getTax(subtotal){
-  return Math.round(subtotal * TAX_RATE);
+  return 0;
 }
 
 function renderCart() {
@@ -187,8 +187,8 @@ function renderCart() {
   
   // Cálculo de envío, impuestos y total
   const shipping = getShippingCost(subtotal);
-  const tax = getTax(subtotal);
-  const total = subtotal + shipping + tax;
+  const tax = 0;
+  const total = subtotal + shipping;
 
   // Actualizar UI de totales
   const subEl = document.getElementById('checkoutSubtotal');
@@ -196,7 +196,7 @@ function renderCart() {
   const taxEl = document.getElementById('checkoutTax');
   if (subEl) subEl.textContent = CRC.format(subtotal);
   if (shipEl) shipEl.textContent = CRC.format(shipping);
-  if (taxEl) taxEl.textContent = CRC.format(tax);
+  if (taxEl) taxEl.textContent = CRC.format(0);
   if (cartTotal) cartTotal.textContent = CRC.format(total);
 
   // Remover ítems
@@ -266,8 +266,8 @@ if(document.getElementById("btnCheckout")){
       // Subtotal / Envío / Impuestos / Total
       const subtotal = cart.reduce((sum, it) => sum + it.subtotal, 0);
       const shipping = getShippingCost(subtotal);
-      const tax = getTax(subtotal);
-      const total = subtotal + shipping + tax;
+      const tax = 0;
+      const total = subtotal + shipping;
 
       // Si es envío, validar campos de dirección
       let direccionMsg = '';
@@ -300,8 +300,7 @@ if(document.getElementById("btnCheckout")){
 
       msg += `\n*Subtotal:* ${CRC.format(subtotal)}\n`;
       msg += `*Envío:* ${CRC.format(shipping)}\n`;
-      msg += `*Impuestos:* ${CRC.format(tax)}\n`;
-      msg += `\n*Total:* ${CRC.format(total)}\n\n`;
+            msg += `\n*Total:* ${CRC.format(total)}\n\n`;
       msg += "Por favor, ayúdame a confirmar la disponibilidad y el proceso de pago.";
 
       // Enviar a WhatsApp

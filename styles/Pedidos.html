@@ -24,14 +24,23 @@
       <div class="totals">
         <div class="row"><span>Subtotal</span><span id="checkoutSubtotal">₡0</span></div>
         <div class="row"><span>Envío</span><span id="checkoutShipping">₡0</span></div>
-        <div class="row"><span>Impuestos</span><span id="checkoutTax">₡0</span></div>
-        <div class="row total"><span>Total</span><span id="cartTotal">₡0</span></div>
+                <div class="row total"><span>Total</span><span id="cartTotal">₡0</span></div>
       </div>
     </div>
 
     <div class="checkout">
         <h2>Finalizar Compra</h2>
         <form id="checkoutForm">
+          <div class="form-group">
+            <label>Método de entrega:</label>
+            <div class="delivery-toggle" role="radiogroup" aria-label="Método de entrega">
+              <input type="radio" id="envio" name="entrega" value="Envío por Correos de Costa Rica">
+              <label for="envio" class="delivery-option"><span>Envío</span><i class="fa-solid fa-truck-fast"></i></label>
+
+              <input type="radio" id="recoger" name="entrega" value="Recoger en tienda" checked>
+              <label for="recoger" class="delivery-option"><span>Retiro</span><i class="fa-solid fa-store"></i></label>
+            </div>
+          </div>
           <div class="form-group">
             <label for="nombre">Nombre completo:</label>
             <input type="text" id="nombre" name="nombre" required>
@@ -43,16 +52,6 @@
           <div class="form-group">
             <label for="email">Correo electrónico (opcional):</label>
             <input type="email" id="email" name="email">
-          </div>
-          <div class="form-group">
-            <label>Método de entrega:</label>
-            <div class="delivery-toggle" role="radiogroup" aria-label="Método de entrega">
-              <input type="radio" id="envio" name="entrega" value="Envío por Correos de Costa Rica">
-              <label for="envio" class="delivery-option"><span>Envío</span><i class="fa-solid fa-truck-fast"></i></label>
-
-              <input type="radio" id="recoger" name="entrega" value="Recoger en tienda" checked>
-              <label for="recoger" class="delivery-option"><span>Retiro</span><i class="fa-solid fa-store"></i></label>
-            </div>
           </div>
 
           <!-- Campos de dirección (solo si Envío por Correos) -->
