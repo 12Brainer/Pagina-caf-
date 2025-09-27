@@ -40,7 +40,7 @@ document.addEventListener('click', (e) => {
 if(document.querySelectorAll(".btn-buy")){
     document.querySelectorAll(".btn-buy").forEach(btn => {
       btn.addEventListener("click", () => {
-                modal.style.display = "block";
+        modal.style.display = "block";
         modalImg.src = btn.dataset.img;
         modalTitle.textContent = btn.dataset.title;
         modalPrice.textContent = "Desde ₡3,900";
@@ -57,7 +57,7 @@ if(closeBtn){
 window.onclick = e => { if (e.target == modal) modal.style.display = "none"; }
 
 // -------------------------
-// COMPRAR AHORA → WhatsApp
+// COMPRAR AHORA → IR A CHECKOUT (datos obligatorios)
 // -------------------------
 if(document.getElementById("btnBuyNow")){
     document.getElementById("btnBuyNow").addEventListener("click", () => {
@@ -115,10 +115,30 @@ if(document.getElementById("btnAddCart")){
     });
 }
 
+// -------------------------
+// FORMATEO Y CÁLCULO DE TOTALES
+// -------------------------
+const CRC = new Intl.NumberFormat('es-CR', { style: 'currency', currency: 'CRC' });
+const TAX_RATE = 0.01; // Impuestos estimados (ajustable)
+
+function isEnvioSelected() {
+  const r = document.getElementById('envio');
+  return !!(r && r.checked);
+}
+
+function getShippingCost(subtotal){
+  return isEnvioSelected() && subtotal > 0 ? 3000 : 0;
+}
+
+function getTax(subtotal){
+  return Math.round(subtotal * TAX_RATE);
+}
 
 function renderCart() {
+  // Persistir carrito
   localStorage.setItem('cart', JSON.stringify(cart));
 
+  // Actualizar badges
   const badges = document.querySelectorAll('.cart-badge');
   const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
   badges.forEach(badge => {
@@ -130,37 +150,56 @@ function renderCart() {
     }
   });
 
-  // Solo ejecutar si estamos en la página de Pedidos
+  // Si no estamos en la página de Pedidos, no intentamos renderizar la UI del checkout
   if (!cartList) return;
 
+  // Subtotal
+  const subtotal = cart.reduce((sum, it) => sum + it.subtotal, 0);
+
+  // Renderizado de lista de ítems
   cartList.innerHTML = "";
   if (cart.length === 0) {
     const li = document.createElement("li");
     li.textContent = "Tu carrito está vacío.";
     cartList.appendChild(li);
-    if (cartTotal) {
-      cartTotal.textContent = "₡0";
-    }
+
+    // Reset de totales en UI
+    const subEl = document.getElementById('checkoutSubtotal');
+    const shipEl = document.getElementById('checkoutShipping');
+    const taxEl = document.getElementById('checkoutTax');
+    if (subEl) subEl.textContent = CRC.format(0);
+    if (shipEl) shipEl.textContent = CRC.format(0);
+    if (taxEl) taxEl.textContent = CRC.format(0);
+    if (cartTotal) cartTotal.textContent = CRC.format(0);
     return;
   }
 
-  let total = 0;
   cart.forEach((item, index) => {
-    total += item.subtotal;
     const li = document.createElement("li");
     li.classList.add('cart-item'); // Add a class for styling
     li.innerHTML = `
       <img src="${item.img}" alt="${item.product}" class="cart-item-img">
-      <span>${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ₡${item.subtotal}</span>
+      <span>${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ${CRC.format(item.subtotal)}</span>
       <button class="remove-item" data-index="${index}">&times;</button>
     `;
     cartList.appendChild(li);
   });
   
-  if (cartTotal) {
-    cartTotal.textContent = `₡${total}`;
-  }
+  // Cálculo de envío, impuestos y total
+  const shipping = getShippingCost(subtotal);
+  const tax = getTax(subtotal);
+  const total = subtotal + shipping + tax;
 
+  // Actualizar UI de totales
+  const subEl = document.getElementById('checkoutSubtotal');
+  const shipEl = document.getElementById('checkoutShipping');
+  const taxEl = document.getElementById('checkoutTax');
+  if (subEl) subEl.textContent = CRC.format(subtotal);
+  if (shipEl) shipEl.textContent = CRC.format(shipping);
+  if (taxEl) taxEl.textContent = CRC.format(tax);
+  if (cartTotal) cartTotal.textContent = CRC.format(total);
+
+  // Remover ítems
   document.querySelectorAll('.remove-item').forEach(button => {
     button.addEventListener('click', (e) => {
       const indexToRemove = parseInt(e.target.dataset.index);
@@ -195,11 +234,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (envioRadio && recogerRadio) {
-    envioRadio.addEventListener('change', () => toggleShipping(true));
-    recogerRadio.addEventListener('change', () => toggleShipping(false));
+    envioRadio.addEventListener('change', () => { toggleShipping(true); renderCart(); });
+    recogerRadio.addEventListener('change', () => { toggleShipping(false); renderCart(); });
 
     // Estado inicial según selección por defecto
     toggleShipping(envioRadio.checked);
+    // Recalcular totales iniciales
+    renderCart();
   }
 });
 
@@ -222,9 +263,15 @@ if(document.getElementById("btnCheckout")){
         return;
       }
 
+      // Subtotal / Envío / Impuestos / Total
+      const subtotal = cart.reduce((sum, it) => sum + it.subtotal, 0);
+      const shipping = getShippingCost(subtotal);
+      const tax = getTax(subtotal);
+      const total = subtotal + shipping + tax;
+
       // Si es envío, validar campos de dirección
       let direccionMsg = '';
-      if (entrega === 'Envío por Correos de Costa Rica') {
+      if (isEnvioSelected()) {
         const provincia = document.getElementById('provincia')?.value.trim();
         const canton = document.getElementById('canton')?.value.trim();
         const distrito = document.getElementById('distrito')?.value.trim();
@@ -247,13 +294,14 @@ if(document.getElementById("btnCheckout")){
       if (direccionMsg) msg += direccionMsg;
       msg += "\n*Resumen del Pedido:*\n";
 
-      let total = 0;
       cart.forEach(item => {
-        msg += `• ${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ₡${item.subtotal}\n`;
-        total += item.subtotal;
+        msg += `• ${item.qty} x ${item.product} ${item.size}g (${item.grind}) — ${CRC.format(item.subtotal)}\n`;
       });
 
-      msg += `\n*Total:* ₡${total}\n\n`;
+      msg += `\n*Subtotal:* ${CRC.format(subtotal)}\n`;
+      msg += `*Envío:* ${CRC.format(shipping)}\n`;
+      msg += `*Impuestos:* ${CRC.format(tax)}\n`;
+      msg += `\n*Total:* ${CRC.format(total)}\n\n`;
       msg += "Por favor, ayúdame a confirmar la disponibilidad y el proceso de pago.";
 
       // Enviar a WhatsApp

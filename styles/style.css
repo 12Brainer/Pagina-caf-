@@ -720,7 +720,9 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 .item small{ color:#bbb; }
 .rmv{ background:transparent; border:none; color:#e66; font-weight:700; cursor:pointer;}
 
-.totals{ display:flex; justify-content:space-between; margin-top:.75rem; font-weight:700;}
+.totals{ margin-top:1rem; display:flex; flex-direction:column; gap:.35rem;}
+.totals .row{ display:flex; justify-content:space-between; align-items:center; padding:.4rem 0; }
+.totals .total span:last-child{ font-size:1.25rem; font-weight:800; }
 
 .customer{
   display:grid; gap:.75rem; grid-template-columns:1fr; margin-top:1rem;
@@ -1091,6 +1093,21 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 .btn-mapa.google:hover {
   background: #2a64c5;
+}
+
+/* ====== Toggle de Entrega (Envío/Retiro) ====== */
+.delivery-toggle{
+  display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-top:.5rem;
+}
+.delivery-toggle input[type="radio"]{ display:none; }
+.delivery-option{
+  display:flex; align-items:center; justify-content:space-between; gap:.6rem;
+  border:1px solid rgba(255,255,255,.15); border-radius:12px; padding:.75rem .9rem;
+  background:#e9ecef; color:#111; font-weight:800; cursor:pointer; user-select:none;
+}
+.delivery-option i{ font-size:1.1rem; opacity:.9; }
+.delivery-toggle input[type="radio"]:checked + .delivery-option{
+  background:#111; color:#fff; border-color:#111;
 }
 
 /* ====== Botón flotante de WhatsApp ====== */
