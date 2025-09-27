@@ -1,4 +1,5 @@
 {
     "CodeGPT.apiKey": "Ollama",
-    "claudeCodeChat.permissions.yoloMode": false
+    "claudeCodeChat.permissions.yoloMode": false,
+    "codium.codeCompletion.enable": false
 }
