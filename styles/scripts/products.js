@@ -61,13 +61,29 @@ window.onclick = e => { if (e.target == modal) modal.style.display = "none"; }
 // -------------------------
 if(document.getElementById("btnBuyNow")){
     document.getElementById("btnBuyNow").addEventListener("click", () => {
+      // Tomar selección actual del modal
       const size = document.getElementById("modalSize").value;
       const grind = document.getElementById("modalGrind").value;
-      const qty = document.getElementById("modalQty").value;
+      const qty = parseInt(document.getElementById("modalQty").value);
+      const price = parseInt(document.getElementById("modalSize").selectedOptions[0].dataset.price);
       const product = modalTitle.textContent;
-    
-      const msg = `Hola, quiero comprar: ${qty} x ${product} ${size}g (${grind})`;
-      window.open(`https://wa.me/50683910511?text=${encodeURIComponent(msg)}`, "_blank");
+      const img = modalImg.src;
+
+      // Agregar al carrito (igual que el botón Agregar al carrito)
+      const existingItem = cart.find(item => item.product === product && item.size === size && item.grind === grind);
+      if (existingItem) {
+        existingItem.qty += qty;
+        existingItem.subtotal = existingItem.qty * existingItem.price;
+      } else {
+        cart.push({ product, size, grind, qty, price, subtotal: price * qty, img });
+      }
+
+      // Persistir y actualizar badges
+      renderCart();
+
+      // Cerrar modal y redirigir a la página de Checkout para completar datos obligatorios
+      if (modal) modal.style.display = "none";
+      goToCartPage();
     });
 }
 
