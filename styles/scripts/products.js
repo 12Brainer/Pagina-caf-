@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 if(document.getElementById("btnCheckout")){
-    document.getElementById("btnCheckout").addEventListener("click", () => {
+    document.getElementById("btnCheckout").addEventListener("click", async () => {
       // Validar que el carrito no esté vacío
       if (cart.length === 0) {
         alert("Tu carrito está vacío.");
@@ -301,6 +301,7 @@ if(document.getElementById("btnCheckout")){
 
       // Si es envío, validar campos de dirección
       let direccionMsg = '';
+      let direccionPlano = '';
       if (isEnvioSelected()) {
         const pais = document.getElementById('pais')?.value.trim();
         const direccion = document.getElementById('direccion')?.value.trim();
@@ -315,6 +316,51 @@ if(document.getElementById("btnCheckout")){
         }
         const direccionLinea = linea2 ? `${direccion}, ${linea2}` : direccion;
         direccionMsg = `\n*Dirección de entrega:*\nPaís/Región: ${pais}\nProvincia/Estado: ${provinciaEstado}\nCiudad: ${ciudad}\nDirección: ${direccionLinea}\nCódigo postal: ${codigoPostal || 'N/A'}\n`;
+        direccionPlano = `${pais} | ${provinciaEstado} | ${ciudad} | ${direccionLinea} | CP: ${codigoPostal || 'N/A'}`;
+      }
+
+      // Detectar sesión (compra como invitado si no hay sesión)
+      let session = null;
+      try { session = JSON.parse(localStorage.getItem('session')||'null'); } catch{}
+      const isGuest = !session;
+
+      // Guardado en Google Sheets para invitados
+      if (isGuest) {
+        const productosTexto = cart.map(it => `${it.qty}x ${it.product} ${it.size}g (${it.grind}) = ${CRC.format(it.subtotal)}`).join(' | ');
+        const guestProductosEl = document.getElementById('guestProductos');
+        const guestMontoEl = document.getElementById('guestMonto');
+        if (guestProductosEl) guestProductosEl.value = productosTexto;
+        if (guestMontoEl) guestMontoEl.value = CRC.format(total);
+
+        // Intentar enviar a Google Apps Script (misma URL que auth.js)
+        const GAS = window.GAS_ENDPOINT || (window.NeoAuth && window.NeoAuth.GAS_ENDPOINT);
+        let endpoint = GAS;
+        if (!endpoint){
+          // fallback: intentar leer desde scripts/auth.js si se cargó
+          try{ endpoint = (typeof GAS_ENDPOINT !== 'undefined' ? GAS_ENDPOINT : ''); }catch{}
+        }
+
+        if (!endpoint || String(endpoint).startsWith('REEMPLAZA_')){
+          console.warn('Configura GAS_ENDPOINT en scripts/auth.js para registrar compras de invitados.');
+        } else {
+          try{
+            await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'guestPurchase',
+                tipoCliente: 'Invitado',
+                nombre,
+                apellido: apellidos,
+                correo: email || '',
+                telefono,
+                direccion: direccionPlano,
+                productos: productosTexto,
+                total
+              })
+            });
+          } catch(err){ console.warn('No se pudo guardar la compra del invitado:', err); }
+        }
       }
 
       // Construir el mensaje para WhatsApp
@@ -323,6 +369,7 @@ if(document.getElementById("btnCheckout")){
       msg += `*Nombre:* ${nombre} ${apellidos}\n`;
       msg += `*Teléfono:* ${telefono}\n`
       if (email) msg += `*Email:* ${email}\n`;
+      msg += `*Tipo de cliente:* ${isGuest ? 'Invitado' : 'Registrado'}\n`;
       msg += `*Método de entrega:* ${entrega}\n`;
       if (metodoPago) msg += `*Método de pago:* ${metodoPago}\n`;
       if (direccionMsg) msg += direccionMsg;
@@ -334,11 +381,16 @@ if(document.getElementById("btnCheckout")){
 
       msg += `\n*Subtotal:* ${CRC.format(subtotal)}\n`;
       msg += `*Envío:* ${CRC.format(shipping)}\n`;
-            msg += `\n*Total:* ${CRC.format(total)}\n\n`;
+      msg += `\n*Total:* ${CRC.format(total)}\n\n`;
+      if (isGuest) msg += `Gracias por tu compra como invitado. `;
       msg += "Por favor, ayúdame a confirmar la disponibilidad y el proceso de pago.";
 
       // Enviar a WhatsApp
       window.open(`https://wa.me/50683910511?text=${encodeURIComponent(msg)}`, "_blank");
+
+      if (isGuest) {
+        alert('Gracias por tu compra como invitado');
+      }
     });
 }
 
@@ -448,4 +500,8 @@ if (document.readyState !== 'loading') {
 document.addEventListener('DOMContentLoaded', () => {
     createFloatingCart();
     renderCart();
+    // Mostrar sección de invitado si no hay sesión
+    let session = null; try { session = JSON.parse(localStorage.getItem('session')||'null'); } catch{}
+    const guestSection = document.getElementById('guestSummary');
+    if (!session && guestSection) guestSection.style.display = 'block';
 });

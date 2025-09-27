@@ -137,6 +137,19 @@
               <div class="pickup-card__badge">GRATIS</div>
             </div>
           </div>
+
+          <!-- Resumen de compra para invitados (se muestra solo si no hay sesión) -->
+          <div id="guestSummary" class="guest-section" style="display:none; margin-top:1rem;">
+            <h3 style="color: var(--color-secundario); margin-bottom:.5rem;">Compra como invitado</h3>
+            <div class="form-group">
+              <label for="guestProductos">Producto(s) comprados</label>
+              <textarea id="guestProductos" rows="3" readonly></textarea>
+            </div>
+            <div class="form-group">
+              <label for="guestMonto">Monto total</label>
+              <input id="guestMonto" type="text" readonly />
+            </div>
+          </div>
         </form>
         <p>Al finalizar, serás redirigido a WhatsApp para confirmar tu pedido con nosotros.</p>
         <button id="btnCheckout" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
@@ -155,6 +168,7 @@
   <!-- Scripts -->
   <script src="scripts/main.js" defer></script>
   <script src="scripts/products.js" defer></script>
+  <script src="scripts/auth.js" defer></script>
 
 <a href="Pedidos.html" class="floating-cart" aria-label="Abrir carrito">
   <i class="fas fa-shopping-cart"></i>
