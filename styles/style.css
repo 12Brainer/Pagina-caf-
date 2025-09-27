@@ -3,13 +3,14 @@
 
 /* Colores principales */
 :root {
-  --color-fondo: #1A3A5B;      /* Azul del logo */
-  --color-secundario: #217A5B; /* Verde del logo */
-  --color-claro: #FFFFFF;      /* Blanco */
-  --color-hover: #145040;      /* Verde más oscuro para hover */
-  --color-botones: #1A3A5B;    /* Azul para botones */
+  /* Paleta clara con acentos verde oscuro */
+  --color-fondo: #f9f1e6;      /* Beige claro (fondo general) */
+  --color-secundario: #006644; /* Verde oscuro elegante (acentos/encabezados) */
+  --color-claro: #FFFFFF;      /* Blanco para textos sobre fondos oscuros */
+  --color-hover: #004b33;      /* Verde más oscuro para hover */
+  --color-botones: #006644;    /* Verde para hover/acentos */
   --radius: 16px;
-  --muted: rgba(255, 255, 255, 0.05);
+  --muted: rgba(0, 0, 0, 0.03); /* Sutil para tarjetas en tema claro */
 }
 
 * {
@@ -21,7 +22,7 @@
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: var(--color-fondo);
-  color: var(--color-claro);
+  color: #333333; /* Texto principal en gris oscuro para legibilidad */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -133,7 +134,7 @@ header .contacto {
 .products {
   padding: 2rem;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #fdf6ef; /* Fondo de sección beige */
   border-radius: 10px;
   margin: 2rem auto;
   max-width: 900px;
@@ -154,12 +155,13 @@ header .contacto {
 }
 
 .product {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #ffffff; /* Tarjeta clara */
   padding: 1.5rem;
   border-radius: 10px;
   width: 100%;
   min-width: 0;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,.06);
 }
 
 .product .product-img {
@@ -174,13 +176,13 @@ header .contacto {
 
 
 .product h3 {
-  color: var(--color-claro);
+  color: #111111;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
 .product p {
-  color: var(--color-claro);
+  color: #333333;
   margin: 0.3rem 0;
 }
 
@@ -300,11 +302,11 @@ footer {
 
 /* ====== Footer ====== */
 .site-footer {
-  background: rgba(0, 0, 0, 0.3);
-  color: var(--color-claro);
+  background: #f1e7da; /* Beige más oscuro para pie */
+  color: #333333;
   padding: 2.5rem 1.25rem calc(1rem + 84px); /* espacio extra para no tapar contenido con el botón flotante */
   margin-top: 2rem;
-  border-top: 1px solid rgba(255,255,255,.08);
+  border-top: 1px solid rgba(0,0,0,.08);
   position: relative;
 }
 
@@ -339,7 +341,7 @@ footer {
 }
 
 .footer-link {
-  color: var(--color-claro);
+  color: #333333;
   text-decoration: none;
   display: inline-block;
   padding: .25rem 0;
@@ -413,10 +415,10 @@ footer {
   top: 0;
   width: 100%;
   z-index: 100; /* Nos aseguramos que esté por encima de otros elementos */
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(6px);
+  background-color: #006644; /* Header verde oscuro */
+  backdrop-filter: none;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(0,0,0,.08);
   transition: transform 0.3s ease, background-color 0.3s ease; /* Agregamos transición para el deslizamiento */
 }
 
@@ -424,7 +426,7 @@ footer {
 .top-banner{
   width:100%;
   text-align:center;
-  background: #006b4f; /* verde requerido */
+  background: #006644; /* verde oscuro exacto */
   color:#fff; /* texto blanco */
   font-weight:800;
   letter-spacing:.5px;
@@ -483,7 +485,7 @@ footer {
 .header-text h1 {
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
-  color: var(--color-secundario);
+  color: #ffffff; /* Título blanco sobre header verde */
   margin: 0;
 }
 
@@ -545,7 +547,7 @@ footer {
 
 /* Cambio de color al hacer scroll (opcional, pero recomendado) */
 .site-header.scrolled {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #005a38; /* Variante más oscura al hacer scroll */
 }
 
 /* Responsive */
@@ -584,14 +586,11 @@ footer {
 .hero-text {
   flex: 1;
   min-width: 280px;
-  color: var(--color-claro);
+  color: #333333;
 }
 
-.hero-text h2,
-.hero-text p {
-  color: var(--color-claro);
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-}
+.hero-text h2 { color: var(--color-secundario); text-shadow: none; }
+.hero-text p { color: #333333; text-shadow: none; }
 
 .hero-text p {
   margin-bottom: 1rem;
@@ -632,13 +631,14 @@ footer {
 }
 
 .product-detail {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #ffffff; /* Caja clara */
   border-radius: 10px;
   padding: clamp(1.25rem, 1rem + 1vw, 2rem);
-  color: var(--color-claro);
+  color: #333333;
   max-width: 1100px;
   margin: 0 auto;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
 .product-detail h3 {
@@ -695,12 +695,12 @@ footer {
 }
 
 .card{
-  background-color: rgba(0,0,0,0.2);
-  border:1px solid rgba(255,255,255,.08);
+  background-color: #ffffff;
+  border:1px solid rgba(0,0,0,.08);
   border-radius:var(--radius);
   overflow:hidden;
   display:flex; flex-direction:column;
-  box-shadow:0 1px 6px rgba(0,0,0,.3);
+  box-shadow:0 1px 6px rgba(0,0,0,.08);
 }
 
 .card img{
@@ -711,16 +711,16 @@ footer {
   padding:1rem; display:flex; flex-direction:column; gap:.5rem;
 }
 
-.name{ font-weight:700; font-size:1.1rem; color:var(--color-claro);}
-.desc{ color:#ccc; font-size:.95rem;}
+.name{ font-weight:700; font-size:1.1rem; color:#111111;}
+.desc{ color:#555555; font-size:.95rem;}
 .price{ font-weight:700; color:var(--color-secundario);}
 
 .row{ display:grid; gap:.5rem; grid-template-columns:1fr 1fr;}
 .row > *{ width:100%;}
 
 select, input[type="number"], input[type="text"], input[type="email"], input[type="tel"]{
-  border:1px solid #444; border-radius:12px; padding:.65rem .75rem; font-size:.95rem;
-  background:#111; color:var(--color-claro); outline:none;
+  border:1px solid #cccccc; border-radius:12px; padding:.65rem .75rem; font-size:.95rem;
+  background:#ffffff; color:#111111; outline:none;
 }
 
 .btn{
@@ -740,7 +740,7 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 .cart-items{ display:flex; flex-direction:column; gap:.5rem; }
 .item{
   display:grid; grid-template-columns: 1fr auto; gap:.5rem; align-items:center;
-  background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,.08);
+  background:#ffffff; border:1px solid rgba(0,0,0,.08);
   border-radius:12px; padding:.6rem .8rem;
 }
 .item small{ color:#bbb; }
@@ -773,15 +773,16 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 }
 
 .modal-content {
-  background-color: #0D2A47;
+  background-color: #ffffff; /* Modal claro */
   margin: 10% auto;
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--radius);
   width: 90%;
   max-width: 700px;
   position: relative;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  color: #333;
 }
 
 .close {
@@ -810,7 +811,7 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 .modal-info { flex: 1.5; min-width: 250px; }
 .modal-info h2 { color: var(--color-secundario); }
 .modal-info p { margin: .5rem 0; }
-.modal-info #modalPrice { font-size: clamp(1.2rem, 1rem + .9vw, 1.6rem); font-weight: bold; color: var(--color-claro); }
+.modal-info #modalPrice { font-size: clamp(1.2rem, 1rem + .9vw, 1.6rem); font-weight: bold; color: #111; }
 .modal-info .envio { font-size: .9rem; color: #aaa; }
 .modal-info .stars { color: #f39c12; font-size: 1.2rem; margin-bottom: 1rem; }
 .modal-info label { display: block; margin: 1rem 0; }
@@ -821,11 +822,11 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 /* === Estilos Elegantes para el Carrito === */
 
 .checkout {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #ffffff; /* Caja de checkout clara */
   padding: 2rem;
   border-radius: 10px;
   margin-top: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .checkout h2 {
@@ -884,15 +885,15 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 }
 
 #btnCheckout {
-  background-color: var(--color-secundario);
-  color: var(--color-claro);
-  border: none;
+  background-color: #f9f1e6; /* beige */
+  color: #000000; /* texto negro */
+  border: 2px solid #000000; /* borde negro */
   padding: 1rem 1.5rem;
   border-radius: 50px;
   cursor: pointer;
   font-weight: bold;
   width: 100%;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, color .2s ease, border-color .2s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 0.9rem;
@@ -900,16 +901,18 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 }
 
 #btnCheckout:hover {
-  background-color: var(--color-hover);
+  background-color: var(--color-botones); /* verde oscuro */
+  color: #fff;
+  border-color: var(--color-botones);
   transform: scale(1.02);
 }
 
 /* Botón "Ver más / Comprar" */
 .btn-buy {
   display: inline-block;
-  background-color: transparent;
-  border: 2px solid var(--color-secundario);
-  color: var(--color-secundario);
+  background-color: #f9f1e6; /* Fondo beige */
+  border: 2px solid #000000; /* Borde negro */
+  color: #000000; /* Texto negro */
   padding: 0.8rem 1.5rem;
   border-radius: 50px;
   cursor: pointer;
@@ -923,7 +926,7 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 /* Efecto al pasar el mouse */
 .btn-buy:hover {
-  background-color: var(--color-secundario);
+  background-color: var(--color-botones); /* Verde oscuro */
   color: #fff; /* texto blanco para contraste */
   transform: scale(1.05);
 }
@@ -974,9 +977,9 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 .carousel .next { right: 10px; }
 
 .btn-outline {
-  background-color: transparent;
-  border: 2px solid var(--color-secundario);
-  color: var(--color-secundario);
+  background-color: #f9f1e6; /* Fondo beige */
+  border: 2px solid #000000; /* Borde negro */
+  color: #000000; /* Texto negro */
   padding: 0.8rem 1.5rem;
   border-radius: 50px;
   cursor: pointer;
@@ -987,17 +990,17 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 }
 
 .btn-outline:hover {
-  background-color: var(--color-secundario);
-  color: var(--color-claro);
+  background-color: var(--color-botones); /* Verde oscuro */
+  color: #fff;
 }
 
 /* Botón lleno para Comprar ahora */
 .btn-black{
-  background:#0f172a; color:#fff; border: none;
+  background:#f9f1e6; color:#000; border: 2px solid #000;
   padding:.85rem 1.4rem; border-radius:50px; cursor:pointer; font-weight:800;
-  text-transform:uppercase; letter-spacing:.6px; transition:transform .2s ease, filter .2s ease;
+  text-transform:uppercase; letter-spacing:.6px; transition:transform .2s ease, filter .2s ease, background .2s ease, color .2s ease;
 }
-.btn-black:hover{ transform: translateY(-1px); filter: brightness(1.08); }
+.btn-black:hover{ transform: translateY(-1px); filter: none; background: var(--color-botones); color: #fff; }
 .btn-black:active{ transform: translateY(0); }
 
 /* ====== Carrito flotante ====== */
@@ -1074,7 +1077,7 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 .contacto-info h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #1d1d1d;
+  color: var(--color-secundario);
 }
 
 .contacto-info p {
@@ -1204,8 +1207,8 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 
 /* ====== Franja Comprar Café (solo usada en index.html) ====== */
 .buy-hero{
-  background: #1d6b4d; /* verde sólido similar a la referencia */
-  color: #fff;
+  background: #f9f1e6; /* Fondo beige para secciones */
+  color: #333;
   text-align: center;
   padding: 2.75rem 1rem; /* padding vertical para separar del header */
 }
@@ -1217,11 +1220,13 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   letter-spacing: .5px;
   text-transform: uppercase; /* título en mayúsculas */
   font-size: clamp(1.8rem, 2.8vw + 1rem, 2.6rem);
+  color: var(--color-secundario);
 }
 .buy-hero__subtitle{
   margin: 0;
   font-size: clamp(1rem, 1.2vw + .7rem, 1.15rem);
   opacity: .98;
+  color: #333;
 }
 
 /* ====== Navegación móvil (hamburguesa + drawer) ====== */
