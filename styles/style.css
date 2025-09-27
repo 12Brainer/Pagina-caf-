@@ -1132,13 +1132,42 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
 .delivery-toggle input[type="radio"]{ display:none; }
 .delivery-option{
   display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-  border:1px solid rgba(255,255,255,.15); border-radius:12px; padding:.75rem .9rem;
-  background:#e9ecef; color:#111; font-weight:800; cursor:pointer; user-select:none;
+  border:1px solid rgba(0,0,0,.15); border-radius:12px; padding:.85rem 1rem;
+  background:#ffffff; color:#111; font-weight:800; cursor:pointer; user-select:none;
 }
-.delivery-option i{ font-size:1.1rem; opacity:.9; }
 .delivery-toggle input[type="radio"]:checked + .delivery-option{
-  background:#111; color:#fff; border-color:#111;
+  background:#f1f9f5; color:#000; border-color:#006644;
+  box-shadow: 0 0 0 3px rgba(0,102,68,.12);
 }
+
+/* Shipping form layout */
+.shipping-section .shipping-grid{
+  display:grid; gap:.8rem; grid-template-columns:1fr 1fr 1fr; align-items:start;
+}
+.shipping-section .span-2{ grid-column: span 2; }
+@media (max-width: 760px){
+  .shipping-section .shipping-grid{ grid-template-columns:1fr; }
+  .shipping-section .span-2{ grid-column: auto; }
+}
+
+.shipping-section select,
+.shipping-section input[type="text"]{
+  width:100%;
+}
+
+/* Aviso verde de envío gratis */
+.notice{ margin-top: .9rem; padding:.75rem .9rem; border-radius:12px; font-weight:700; }
+.notice-success{ background:#eaf7ef; color:#0f5132; border:1px solid #badbcc; }
+
+/* Tarjeta de retiro */
+.pickup-card{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  border:1px solid rgba(0,0,0,.12); border-radius:16px; padding:1rem 1.25rem; background:#fff;
+}
+.pickup-card__title{ font-weight:800; color:#111; margin-bottom:.25rem; }
+.pickup-card__address{ color:#333; margin:.2rem 0; }
+.pickup-card__time{ color:#555; font-size:.95rem; }
+.pickup-card__badge{ background:#eaf7ef; color:#0f5132; font-weight:800; border:1px solid #badbcc; padding:.35rem .6rem; border-radius:999px; }
 
 /* ====== Toggle de Pago (SINPE / Efectivo) ====== */
 .payment-toggle{

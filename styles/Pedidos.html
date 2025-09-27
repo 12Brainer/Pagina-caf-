@@ -35,10 +35,10 @@
             <label>Método de entrega:</label>
             <div class="delivery-toggle" role="radiogroup" aria-label="Método de entrega">
               <input type="radio" id="envio" name="entrega" value="Envío por Correos de Costa Rica">
-              <label for="envio" class="delivery-option"><span>Envío</span><i class="fa-solid fa-truck-fast"></i></label>
+              <label for="envio" class="delivery-option"><span>🚚 Envío</span></label>
 
               <input type="radio" id="recoger" name="entrega" value="Recoger en tienda" checked>
-              <label for="recoger" class="delivery-option"><span>Retiro</span><i class="fa-solid fa-store"></i></label>
+              <label for="recoger" class="delivery-option"><span>🏠 Retiro</span></label>
             </div>
           </div>
           <div class="form-group payment-section">
@@ -52,9 +52,15 @@
             </div>
             <p id="paymentHint" class="payment-hint">Por favor, envíe el comprobante de pago al mismo número desde el que se le envió el mensaje de confirmación.</p>
           </div>
-          <div class="form-group">
-            <label for="nombre">Nombre completo:</label>
-            <input type="text" id="nombre" name="nombre" required>
+          <div class="row">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+              <label for="apellidos">Apellidos</label>
+              <input type="text" id="apellidos" name="apellidos" required>
+            </div>
           </div>
           <div class="form-group">
             <label for="telefono">Teléfono (WhatsApp):</label>
@@ -65,23 +71,70 @@
             <input type="email" id="email" name="email">
           </div>
 
-          <!-- Campos de dirección (solo si Envío por Correos) -->
-          <div id="shippingFields" class="shipping-fields" style="display:none; margin-top: 0.75rem;">
-            <div class="form-group">
-              <label for="provincia">Provincia:</label>
-              <input type="text" id="provincia" name="provincia" placeholder="Provincia">
+          <!-- Sección de Envío (visible solo si se selecciona "Envío") -->
+          <div id="shippingSection" class="shipping-section" style="display:none; margin-top: 0.75rem;">
+            <div class="shipping-grid">
+              <div class="form-group">
+                <label for="pais">País / Región</label>
+                <select id="pais" name="pais">
+                  <option value="Costa Rica" selected>Costa Rica</option>
+                  <option value="Panamá">Panamá</option>
+                  <option value="Nicaragua">Nicaragua</option>
+                  <option value="Estados Unidos">Estados Unidos</option>
+                </select>
+              </div>
+
+              <div class="form-group span-2">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion" placeholder="Calle, número, referencia">
+              </div>
+
+              <div class="form-group span-2">
+                <label for="linea2">Casa, apartamento, etc. (opcional)</label>
+                <input type="text" id="linea2" name="linea2" placeholder="Edificio, apartamento, etc.">
+              </div>
+
+              <div class="form-group">
+                <label for="provinciaEstado">Provincia / Estado</label>
+                <select id="provinciaEstado" name="provinciaEstado">
+                  <option value="">Selecciona...</option>
+                  <option>San José</option>
+                  <option>Alajuela</option>
+                  <option>Cartago</option>
+                  <option>Heredia</option>
+                  <option>Puntarenas</option>
+                  <option>Guanacaste</option>
+                  <option>Limón</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="ciudad">Ciudad</label>
+                <input type="text" id="ciudad" name="ciudad">
+              </div>
+
+              <div class="form-group">
+                <label for="codigoPostal">Código postal (opcional)</label>
+                <input type="text" id="codigoPostal" name="codigoPostal">
+              </div>
             </div>
-            <div class="form-group">
-              <label for="canton">Cantón:</label>
-              <input type="text" id="canton" name="canton" placeholder="Cantón">
+
+            <div class="notice notice-success" role="status" aria-live="polite">
+              ✅ Envío GRATIS en pedidos mayores a ₡30,000 colones y en los alrededores de Tarrazú.
             </div>
-            <div class="form-group">
-              <label for="distrito">Distrito:</label>
-              <input type="text" id="distrito" name="distrito" placeholder="Distrito">
-            </div>
-            <div class="form-group">
-              <label for="direccion">Dirección exacta:</label>
-              <input type="text" id="direccion" name="direccion" placeholder="Señas exactas, referencias, etc.">
+          </div>
+
+          <!-- Sección de Retiro (visible solo si se selecciona "Retiro") -->
+          <div id="pickupSection" class="pickup-section" style="display:block; margin-top: 0.75rem;">
+            <div class="pickup-card">
+              <div class="pickup-card__content">
+                <div class="pickup-card__title">Retiro en tienda</div>
+                <p class="pickup-card__address">200 metros sureste del Recibidor de Coopetarrazu en San Lorenzo,<br>
+                Tienda El Prado, San Lorenzo, Tarrazú,<br>
+                San José, Costa Rica.</p>
+                <p class="pickup-card__time">Normalmente está listo en 24 horas</p>
+              </div>
+              <div class="pickup-card__badge">GRATIS</div>
             </div>
           </div>
         </form>

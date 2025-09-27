@@ -216,33 +216,43 @@ function renderCart() {
 document.addEventListener('DOMContentLoaded', () => {
   const envioRadio = document.getElementById('envio');
   const recogerRadio = document.getElementById('recoger');
-  const shippingFields = document.getElementById('shippingFields');
-  const provincia = document.getElementById('provincia');
-  const canton = document.getElementById('canton');
-  const distrito = document.getElementById('distrito');
+  const shippingSection = document.getElementById('shippingSection');
+  const pickupSection = document.getElementById('pickupSection');
+
+  // Campos de envío (nueva estructura)
+  const pais = document.getElementById('pais');
   const direccion = document.getElementById('direccion');
+  const linea2 = document.getElementById('linea2');
+  const provinciaEstado = document.getElementById('provinciaEstado');
+  const ciudad = document.getElementById('ciudad');
+  const codigoPostal = document.getElementById('codigoPostal');
+
   // Pago
   const pagoSinpe = document.getElementById('pago_sinpe');
   const pagoEfectivo = document.getElementById('pago_efectivo');
   const paymentHint = document.getElementById('paymentHint');
 
-  function toggleShipping(required) {
-    if (!shippingFields) return;
-    shippingFields.style.display = required ? 'block' : 'none';
+  function toggleDelivery(isEnvio) {
+    if (shippingSection) shippingSection.style.display = isEnvio ? 'block' : 'none';
+    if (pickupSection) pickupSection.style.display = isEnvio ? 'none' : 'block';
 
-    // Marcar como obligatorios condicionalmente
-    if (provincia) provincia.required = required;
-    if (canton) canton.required = required;
-    if (distrito) distrito.required = required;
+    // Requeridos cuando es envío
+    const required = !!isEnvio;
+    if (pais) pais.required = required;
     if (direccion) direccion.required = required;
+    if (provinciaEstado) provinciaEstado.required = required;
+    if (ciudad) ciudad.required = required;
+    // Opcionales
+    if (linea2) linea2.required = false;
+    if (codigoPostal) codigoPostal.required = false;
   }
 
   if (envioRadio && recogerRadio) {
-    envioRadio.addEventListener('change', () => { toggleShipping(true); renderCart(); });
-    recogerRadio.addEventListener('change', () => { toggleShipping(false); renderCart(); });
+    envioRadio.addEventListener('change', () => { toggleDelivery(true); renderCart(); });
+    recogerRadio.addEventListener('change', () => { toggleDelivery(false); renderCart(); });
 
     // Estado inicial según selección por defecto
-    toggleShipping(envioRadio.checked);
+    toggleDelivery(envioRadio.checked);
     // Recalcular totales iniciales
     renderCart();
   }
@@ -272,13 +282,14 @@ if(document.getElementById("btnCheckout")){
 
       // Obtener y validar los datos del formulario
       const nombre = document.getElementById('nombre')?.value.trim();
+      const apellidos = document.getElementById('apellidos')?.value.trim();
       const telefono = document.getElementById('telefono')?.value.trim();
       const email = document.getElementById('email')?.value.trim();
       const entrega = document.querySelector('input[name="entrega"]:checked')?.value;
       const metodoPago = document.querySelector('input[name="metodo_pago"]:checked')?.value;
 
-      if (!nombre || !telefono) {
-        alert("Por favor, completa tu nombre y teléfono para continuar.");
+      if (!nombre || !apellidos || !telefono) {
+        alert("Por favor, completa tu nombre, apellidos y teléfono para continuar.");
         return;
       }
 
@@ -291,23 +302,26 @@ if(document.getElementById("btnCheckout")){
       // Si es envío, validar campos de dirección
       let direccionMsg = '';
       if (isEnvioSelected()) {
-        const provincia = document.getElementById('provincia')?.value.trim();
-        const canton = document.getElementById('canton')?.value.trim();
-        const distrito = document.getElementById('distrito')?.value.trim();
+        const pais = document.getElementById('pais')?.value.trim();
         const direccion = document.getElementById('direccion')?.value.trim();
+        const linea2 = document.getElementById('linea2')?.value.trim();
+        const provinciaEstado = document.getElementById('provinciaEstado')?.value.trim();
+        const ciudad = document.getElementById('ciudad')?.value.trim();
+        const codigoPostal = document.getElementById('codigoPostal')?.value.trim();
 
-        if (!provincia || !canton || !distrito || !direccion) {
-          alert('Por favor, completa Provincia, Cantón, Distrito y Dirección exacta para el envío.');
+        if (!pais || !provinciaEstado || !ciudad || !direccion) {
+          alert('Por favor, completa País, Provincia/Estado, Ciudad y Dirección para el envío.');
           return;
         }
-        direccionMsg = `\n*Dirección de entrega:*\nProvincia: ${provincia}\nCantón: ${canton}\nDistrito: ${distrito}\nDirección: ${direccion}\n`;
+        const direccionLinea = linea2 ? `${direccion}, ${linea2}` : direccion;
+        direccionMsg = `\n*Dirección de entrega:*\nPaís/Región: ${pais}\nProvincia/Estado: ${provinciaEstado}\nCiudad: ${ciudad}\nDirección: ${direccionLinea}\nCódigo postal: ${codigoPostal || 'N/A'}\n`;
       }
 
       // Construir el mensaje para WhatsApp
       let msg = "🛒 *Nuevo pedido NeoPrado Café*\n\n";
       msg += "*Datos del Cliente:*\n";
-      msg += `*Nombre:* ${nombre}\n`;
-      msg += `*Teléfono:* ${telefono}\n`;
+      msg += `*Nombre:* ${nombre} ${apellidos}\n`;
+      msg += `*Teléfono:* ${telefono}\n`
       if (email) msg += `*Email:* ${email}\n`;
       msg += `*Método de entrega:* ${entrega}\n`;
       if (metodoPago) msg += `*Método de pago:* ${metodoPago}\n`;
