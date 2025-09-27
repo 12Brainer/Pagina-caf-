@@ -288,7 +288,10 @@ if(document.getElementById("btnCheckout")){
       const entrega = document.querySelector('input[name="entrega"]:checked')?.value;
       const metodoPago = document.querySelector('input[name="metodo_pago"]:checked')?.value;
 
-      if (!nombre || !apellidos || !telefono) {
+      // Validación: si está registrado, no exigir los datos personales del formulario
+      let session = null; try { session = JSON.parse(localStorage.getItem('session')||'null'); } catch{}
+      const isGuest = !session;
+      if (isGuest && (!nombre || !apellidos || !telefono)) {
         alert("Por favor, completa tu nombre, apellidos y teléfono para continuar.");
         return;
       }
@@ -323,6 +326,45 @@ if(document.getElementById("btnCheckout")){
       let session = null;
       try { session = JSON.parse(localStorage.getItem('session')||'null'); } catch{}
       const isGuest = !session;
+
+      // Guardado en Google Sheets para invitados / registrados
+      const productosTexto = cart.map(it => `${it.qty}x ${it.product} ${it.size}g (${it.grind}) = ${CRC.format(it.subtotal)}`).join(' | ');
+      const guestProductosEl = document.getElementById('guestProductos');
+      const guestMontoEl = document.getElementById('guestMonto');
+      if (guestProductosEl) guestProductosEl.value = productosTexto;
+      if (guestMontoEl) guestMontoEl.value = CRC.format(total);
+
+      const GAS = window.GAS_ENDPOINT || (window.NeoAuth && window.NeoAuth.GAS_ENDPOINT);
+      let endpoint = GAS; if (!endpoint){ try{ endpoint = (typeof GAS_ENDPOINT !== 'undefined' ? GAS_ENDPOINT : ''); }catch{} }
+
+      if (!endpoint || String(endpoint).startsWith('REEMPLAZA_')){
+        console.warn('Configura GAS_ENDPOINT en scripts/auth.js para registrar compras.');
+      } else {
+        try{
+          const payload = isGuest ? {
+            action: 'guestPurchase',
+            tipoCliente: 'Invitado',
+            nombre,
+            apellido: apellidos,
+            correo: email || '',
+            telefono,
+            direccion: direccionPlano,
+            productos: productosTexto,
+            total,
+            fecha: new Date().toISOString()
+          } : {
+            action: 'registeredPurchase',
+            tipoCliente: 'Registrado',
+            nombre: session?.nombre || nombre,
+            apellido: session?.apellido || apellidos || '',
+            correo: session?.correo || email || '',
+            productos: productosTexto,
+            total,
+            fecha: new Date().toISOString()
+          };
+          await fetch(endpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        } catch(err){ console.warn('No se pudo guardar la compra en Sheets:', err); }
+      }
 
       // Guardado en Google Sheets para invitados
       if (isGuest) {
@@ -390,6 +432,9 @@ if(document.getElementById("btnCheckout")){
 
       if (isGuest) {
         alert('Gracias por tu compra como invitado');
+      } else {
+        const nombreSesion = (session && session.nombre) ? session.nombre : (nombre || '');
+        alert(`Gracias por tu compra ${nombreSesion}`);
       }
     });
 }
@@ -500,8 +545,29 @@ if (document.readyState !== 'loading') {
 document.addEventListener('DOMContentLoaded', () => {
     createFloatingCart();
     renderCart();
-    // Mostrar sección de invitado si no hay sesión
+
     let session = null; try { session = JSON.parse(localStorage.getItem('session')||'null'); } catch{}
     const guestSection = document.getElementById('guestSummary');
-    if (!session && guestSection) guestSection.style.display = 'block';
+
+    if (!session) {
+      // Invitado: mostrar sección de invitado
+      if (guestSection) guestSection.style.display = 'block';
+    } else {
+      // Registrado: ocultar inputs personales, mostrar solo resumen
+      const personalInputs = ['nombre','apellidos','telefono','email'];
+      personalInputs.forEach(id => {
+        const wrapper = document.getElementById(id)?.closest('.form-group') || document.getElementById(id)?.closest('.row');
+        if (wrapper) wrapper.style.display = 'none';
+      });
+      // Llenar resumen con productos y total
+      const productosTexto = (JSON.parse(localStorage.getItem('cart')||'[]')).map(it => `${it.qty}x ${it.product} ${it.size}g (${it.grind}) = ${CRC.format(it.subtotal)}`).join(' | ');
+      if (guestSection) guestSection.style.display = 'block';
+      const guestProductosEl = document.getElementById('guestProductos');
+      const guestMontoEl = document.getElementById('guestMonto');
+      const subtotal = (JSON.parse(localStorage.getItem('cart')||'[]')).reduce((s,it)=>s+it.subtotal,0);
+      const shipping = getShippingCost(subtotal);
+      const total = subtotal + shipping;
+      if (guestProductosEl) guestProductosEl.value = productosTexto;
+      if (guestMontoEl) guestMontoEl.value = CRC.format(total);
+    }
 });

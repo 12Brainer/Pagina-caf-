@@ -15,7 +15,7 @@ async function hashPassword(plain) {
 
 function setSession(user){
   try {
-    localStorage.setItem('session', JSON.stringify({ nombre: user.nombre, correo: user.correo }));
+    localStorage.setItem('session', JSON.stringify({ nombre: user.nombre, apellido: user.apellido || '', correo: user.correo }));
   } catch {}
 }
 function getSession(){
@@ -93,7 +93,7 @@ async function handleLogin(e){
     });
     const data = await res.json();
     if (data && data.success && data.user){
-      setSession({ nombre: data.user.nombre, correo: data.user.correo });
+      setSession({ nombre: data.user.nombre, apellido: data.user.apellido, correo: data.user.correo });
       if (msg) msg.textContent = 'Inicio de sesión correcto. Redirigiendo...';
       setTimeout(() => { window.location.href = '../index.html'; }, 600);
     } else {
