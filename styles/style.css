@@ -445,10 +445,11 @@ footer {
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin: 0 auto;
 }
 
 .header-logo .logo {
-  width: 70px;
+  width: 110px;
   height: auto;
   border-radius: 8px;
 }
@@ -472,6 +473,8 @@ footer {
   color: var(--color-claro);
   margin: 0;
 }
+
+.header-text { text-align: center; }
 
 .header-nav ul {
   list-style: none;
@@ -1159,7 +1162,6 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
     height: 40px;
     padding: 0;
     cursor: pointer;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -1339,7 +1341,7 @@ header h1, .header-text h1{ font-size: clamp(1.4rem, 1.1rem + 2.5vw, 2.4rem); }
 .product-list{ gap: clamp(.75rem, 1vw, 1.25rem); }
 
 @media (max-width: 560px){
-  .header-logo .logo{ width: 56px; }
+  .header-logo .logo{ width: 80px; }
   .product{ padding: 1rem; }
   .carousel{ max-width: 100%; }
   /* max-height se elimina para respetar el aspect-ratio */
