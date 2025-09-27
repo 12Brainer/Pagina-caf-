@@ -1,7 +1,7 @@
 // Configura aquí tu endpoint de Google Apps Script Web App desplegado
 // Debe manejar dos acciones: register y login, y escribir/leer de la hoja "Usuarios"
 // La hoja debe tener columnas: Nombre | Apellido | Correo | Teléfono | Dirección | Contraseña (encriptada)
-const GAS_ENDPOINT = 'REEMPLAZA_CON_TU_URL_WEB_APP';
+const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw7JLfVoAC1hCgQ_ZYJ3sbqQLASI-zSypbOmayZataMBES0mjWOix8mqaBn1U0i0KE5/exec';
 // Exponer global para otros scripts (checkout)
 try { window.GAS_ENDPOINT = GAS_ENDPOINT; } catch {}
 
