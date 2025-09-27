@@ -133,7 +133,7 @@ function applySessionToHeader(){
   const li = document.createElement('li');
   li.className = 'auth-item';
   if (!session){
-    li.innerHTML = `<a href="${loginHref}">Iniciar sesión</a> / <a href="${registerHref}">Crear cuenta</a>`;
+    li.innerHTML = `<a href="${loginHref}" class="auth-icon" aria-label="Iniciar sesión o crear cuenta"><i class="fa-regular fa-user" aria-hidden="true"></i></a>`;
   } else {
     li.innerHTML = `<span>Bienvenido ${session.nombre}</span> <button id="btnLogout" class="btn btn-ghost" style="margin-left:.5rem;">Cerrar sesión</button>`;
   }
@@ -144,7 +144,7 @@ function applySessionToHeader(){
     const mli = document.createElement('li');
     mli.className = 'auth-item';
     if (!session){
-      mli.innerHTML = `<a href="${loginHref}">Iniciar sesión</a> / <a href="${registerHref}">Crear cuenta</a>`;
+      mli.innerHTML = `<a href="${loginHref}" class="auth-icon" aria-label="Iniciar sesión o crear cuenta"><i class="fa-regular fa-user" aria-hidden="true"></i></a>`;
     } else {
       mli.innerHTML = `<span>Bienvenido ${session.nombre}</span> <button id="btnLogoutMobile" class="btn btn-ghost" style="margin-left:.5rem;">Cerrar sesión</button>`;
     }
