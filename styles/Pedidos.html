@@ -42,6 +42,17 @@
             </div>
           </div>
           <div class="form-group">
+            <label>Método de pago:</label>
+            <div class="payment-toggle" role="radiogroup" aria-label="Método de pago">
+              <input type="radio" id="pago_sinpe" name="metodo_pago" value="SINPE Móvil" checked>
+              <label for="pago_sinpe" class="payment-option"><span>SINPE Móvil</span><i class="fa-solid fa-mobile-screen-button"></i></label>
+
+              <input type="radio" id="pago_efectivo" name="metodo_pago" value="Pago en Efectivo">
+              <label for="pago_efectivo" class="payment-option"><span>Efectivo</span><i class="fa-solid fa-money-bill-wave"></i></label>
+            </div>
+            <p id="paymentHint" class="payment-hint">Por favor, envíe el comprobante de pago al mismo número desde el que se le envió el mensaje de confirmación.</p>
+          </div>
+          <div class="form-group">
             <label for="nombre">Nombre completo:</label>
             <input type="text" id="nombre" name="nombre" required>
           </div>

@@ -1110,6 +1110,24 @@ select, input[type="number"], input[type="text"], input[type="email"], input[typ
   background:#111; color:#fff; border-color:#111;
 }
 
+/* ====== Toggle de Pago (SINPE / Efectivo) ====== */
+.payment-toggle{
+  display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-top:.5rem;
+}
+.payment-toggle input[type="radio"]{ display:none; }
+.payment-option{
+  display:flex; align-items:center; justify-content:space-between; gap:.6rem;
+  border:1px solid rgba(255,255,255,.15); border-radius:12px; padding:.75rem .9rem;
+  background:#e9ecef; color:#111; font-weight:800; cursor:pointer; user-select:none;
+}
+.payment-option i{ font-size:1.1rem; opacity:.9; }
+.payment-toggle input[type="radio"]:checked + .payment-option{
+  background:#111; color:#fff; border-color:#111;
+}
+.payment-hint{
+  margin-top:.5rem; font-size:.95rem; color:#ddd; line-height:1.5;
+}
+
 /* ====== Botón flotante de WhatsApp ====== */
 .floating-whatsapp{
   position: fixed;

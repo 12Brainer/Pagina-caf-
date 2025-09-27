@@ -221,6 +221,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const canton = document.getElementById('canton');
   const distrito = document.getElementById('distrito');
   const direccion = document.getElementById('direccion');
+  // Pago
+  const pagoSinpe = document.getElementById('pago_sinpe');
+  const pagoEfectivo = document.getElementById('pago_efectivo');
+  const paymentHint = document.getElementById('paymentHint');
 
   function toggleShipping(required) {
     if (!shippingFields) return;
@@ -242,6 +246,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Recalcular totales iniciales
     renderCart();
   }
+
+  // Método de pago: actualizar hint dinámico
+  if (pagoSinpe && pagoEfectivo && paymentHint) {
+    function updatePaymentHint() {
+      if (pagoSinpe.checked) {
+        paymentHint.textContent = 'Por favor, envíe el comprobante de pago al mismo número desde el que se le envió el mensaje de confirmación.';
+      } else {
+        paymentHint.textContent = 'Podrá pagar en efectivo al momento de retirar o recibir su pedido.';
+      }
+    }
+    pagoSinpe.addEventListener('change', updatePaymentHint);
+    pagoEfectivo.addEventListener('change', updatePaymentHint);
+    updatePaymentHint();
+  }
 });
 
 if(document.getElementById("btnCheckout")){
@@ -257,6 +275,7 @@ if(document.getElementById("btnCheckout")){
       const telefono = document.getElementById('telefono')?.value.trim();
       const email = document.getElementById('email')?.value.trim();
       const entrega = document.querySelector('input[name="entrega"]:checked')?.value;
+      const metodoPago = document.querySelector('input[name="metodo_pago"]:checked')?.value;
 
       if (!nombre || !telefono) {
         alert("Por favor, completa tu nombre y teléfono para continuar.");
@@ -291,6 +310,7 @@ if(document.getElementById("btnCheckout")){
       msg += `*Teléfono:* ${telefono}\n`;
       if (email) msg += `*Email:* ${email}\n`;
       msg += `*Método de entrega:* ${entrega}\n`;
+      if (metodoPago) msg += `*Método de pago:* ${metodoPago}\n`;
       if (direccionMsg) msg += direccionMsg;
       msg += "\n*Resumen del Pedido:*\n";
 
