@@ -2,6 +2,8 @@
 // Debe manejar dos acciones: register y login, y escribir/leer de la hoja "Usuarios"
 // La hoja debe tener columnas: Nombre | Apellido | Correo | Teléfono | Dirección | Contraseña (encriptada)
 const GAS_ENDPOINT = 'REEMPLAZA_CON_TU_URL_WEB_APP';
+// Exponer global para otros scripts (checkout)
+try { window.GAS_ENDPOINT = GAS_ENDPOINT; } catch {}
 
 // Utilidad: hash de contraseña (SHA-256) en el cliente antes de enviar
 async function hashPassword(plain) {

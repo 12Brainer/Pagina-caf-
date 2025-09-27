@@ -366,44 +366,7 @@ if(document.getElementById("btnCheckout")){
         } catch(err){ console.warn('No se pudo guardar la compra en Sheets:', err); }
       }
 
-      // Guardado en Google Sheets para invitados
-      if (isGuest) {
-        const productosTexto = cart.map(it => `${it.qty}x ${it.product} ${it.size}g (${it.grind}) = ${CRC.format(it.subtotal)}`).join(' | ');
-        const guestProductosEl = document.getElementById('guestProductos');
-        const guestMontoEl = document.getElementById('guestMonto');
-        if (guestProductosEl) guestProductosEl.value = productosTexto;
-        if (guestMontoEl) guestMontoEl.value = CRC.format(total);
-
-        // Intentar enviar a Google Apps Script (misma URL que auth.js)
-        const GAS = window.GAS_ENDPOINT || (window.NeoAuth && window.NeoAuth.GAS_ENDPOINT);
-        let endpoint = GAS;
-        if (!endpoint){
-          // fallback: intentar leer desde scripts/auth.js si se cargó
-          try{ endpoint = (typeof GAS_ENDPOINT !== 'undefined' ? GAS_ENDPOINT : ''); }catch{}
-        }
-
-        if (!endpoint || String(endpoint).startsWith('REEMPLAZA_')){
-          console.warn('Configura GAS_ENDPOINT en scripts/auth.js para registrar compras de invitados.');
-        } else {
-          try{
-            await fetch(endpoint, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                action: 'guestPurchase',
-                tipoCliente: 'Invitado',
-                nombre,
-                apellido: apellidos,
-                correo: email || '',
-                telefono,
-                direccion: direccionPlano,
-                productos: productosTexto,
-                total
-              })
-            });
-          } catch(err){ console.warn('No se pudo guardar la compra del invitado:', err); }
-        }
-      }
+      // Eliminado bloque duplicado: el guardado ya se realiza de forma unificada arriba
 
       // Construir el mensaje para WhatsApp
       let msg = "🛒 *Nuevo pedido NeoPrado Café*\n\n";
