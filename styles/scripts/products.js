@@ -319,9 +319,8 @@ if(document.getElementById("btnCheckout")){
       const entrega = document.querySelector('input[name="entrega"]:checked')?.value;
       const metodoPago = document.querySelector('input[name="metodo_pago"]:checked')?.value;
 
-      // Validación: siempre compra como invitado; exigir datos personales
-      const isGuest = true;
-      if (isGuest && (!nombre || !apellidos || !telefono)) {
+      // Validación de datos obligatorios
+      if (!nombre || !apellidos || !telefono) {
         alert("Por favor, completa tu nombre, apellidos y teléfono para continuar.");
         return;
       }
@@ -356,10 +355,6 @@ if(document.getElementById("btnCheckout")){
 
       // Guardado en Google Sheets para invitados / registrados
       const productosTexto = cart.map(it => `${it.qty}x ${it.product} ${it.size}g (${it.grind}) = ${CRC.format(it.subtotal)}`).join(' | ');
-      const guestProductosEl = document.getElementById('guestProductos');
-      const guestMontoEl = document.getElementById('guestMonto');
-      if (guestProductosEl) guestProductosEl.value = productosTexto;
-      if (guestMontoEl) guestMontoEl.value = CRC.format(total);
 
       const endpoint = GAS_ENDPOINT;
       if (!endpoint || String(endpoint).startsWith('REEMPLAZA_')){
@@ -368,7 +363,7 @@ if(document.getElementById("btnCheckout")){
         try{
           const payload = {
             action: 'guestPurchase',
-            tipoCliente: 'Invitado',
+            tipoCliente: 'Cliente',
             nombre,
             apellido: apellidos,
             correo: email || '',
@@ -390,8 +385,7 @@ if(document.getElementById("btnCheckout")){
       msg += `*Nombre:* ${nombre} ${apellidos}\n`;
       msg += `*Teléfono:* ${telefono}\n`
       if (email) msg += `*Email:* ${email}\n`;
-      msg += `*Tipo de cliente:* Invitado\n`;
-      msg += `*Método de entrega:* ${entrega}\n`;
+            msg += `*Método de entrega:* ${entrega}\n`;
       if (metodoPago) msg += `*Método de pago:* ${metodoPago}\n`;
       if (direccionMsg) msg += direccionMsg;
       msg += "\n*Resumen del Pedido:*\n";
@@ -403,8 +397,7 @@ if(document.getElementById("btnCheckout")){
       msg += `\n*Subtotal:* ${CRC.format(subtotal)}\n`;
       msg += `*Envío:* ${CRC.format(shipping)}\n`;
       msg += `\n*Total:* ${CRC.format(total)}\n\n`;
-      if (isGuest) msg += `Gracias por tu compra como invitado. `;
-      msg += "Por favor, ayúdame a confirmar la disponibilidad y el proceso de pago.";
+            msg += "Por favor, ayúdame a confirmar la disponibilidad y el proceso de pago.";
 
       // Enviar a WhatsApp
       window.open(`https://wa.me/50683910511?text=${encodeURIComponent(msg)}`, "_blank");
@@ -520,16 +513,4 @@ document.addEventListener('DOMContentLoaded', () => {
     createFloatingCart();
     renderCart();
 
-    const guestSection = document.getElementById('guestSummary');
-    if (guestSection) {
-      guestSection.style.display = 'block';
-      const productosTexto = (JSON.parse(localStorage.getItem('cart')||'[]')).map(it => `${it.qty}x ${it.product} ${it.size}g (${it.grind}) = ${CRC.format(it.subtotal)}`).join(' | ');
-      const guestProductosEl = document.getElementById('guestProductos');
-      const guestMontoEl = document.getElementById('guestMonto');
-      const subtotal = (JSON.parse(localStorage.getItem('cart')||'[]')).reduce((s,it)=>s+it.subtotal,0);
-      const shipping = getShippingCost(subtotal);
-      const total = subtotal + shipping;
-      if (guestProductosEl) guestProductosEl.value = productosTexto;
-      if (guestMontoEl) guestMontoEl.value = CRC.format(total);
-    }
-});
+    });
