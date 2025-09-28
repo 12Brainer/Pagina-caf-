@@ -27,57 +27,7 @@ function doPost(e) {
 
     const action = (data.action || '').toLowerCase();
 
-    if (action === 'register') {
-      // Espera: nombre, apellido, correo, telefono, direccion, password (hash)
-      const sh = getSheet('Usuarios');
-      // Asegurar cabecera: Nombre | Apellido | Correo | Teléfono | Dirección | Contraseña (encriptada)
-      sh.appendRow([
-        data.nombre || '',
-        data.apellido || '',
-        data.correo || '',
-        data.telefono || '',
-        data.direccion || '',
-        data.password || ''
-      ]);
-      return jsonResponse({ success: true });
-    }
-
-    if (action === 'login') {
-      // Espera: correo, password (hash)
-      const sh = getSheet('Usuarios');
-      const values = sh.getDataRange().getValues();
-      if (values.length < 2) return jsonResponse({ success: false, message: 'Usuario no encontrado' });
-      const header = values[0];
-      const idxCorreo = header.indexOf('Correo');
-      const idxNombre = header.indexOf('Nombre');
-      const idxApellido = header.indexOf('Apellido');
-      const idxTelefono = header.indexOf('Teléfono');
-      const idxDireccion = header.indexOf('Dirección');
-      const idxPass = header.indexOf('Contraseña (encriptada)');
-
-      for (let i = 1; i < values.length; i++) {
-        const row = values[i];
-        if (String(row[idxCorreo]).trim().toLowerCase() === String(data.correo || '').trim().toLowerCase()) {
-          if (String(row[idxPass] || '') === String(data.password || '')) {
-            return jsonResponse({
-              success: true,
-              user: {
-                nombre: row[idxNombre] || '',
-                apellido: row[idxApellido] || '',
-                correo: row[idxCorreo] || '',
-                telefono: row[idxTelefono] || '',
-                direccion: row[idxDireccion] || ''
-              }
-            });
-          } else {
-            return jsonResponse({ success: false, message: 'Contraseña incorrecta' });
-          }
-        }
-      }
-      return jsonResponse({ success: false, message: 'Usuario no encontrado' });
-    }
-
-    if (action === 'guestpurchase' || action === 'registeredpurchase') {
+    if (action === 'guestpurchase') {
       // Hoja Compras: Nombre | Apellido | Correo | Teléfono | Dirección | Producto(s) | Monto | Fecha | Tipo de cliente
       const sh = getSheet('Compras');
       sh.appendRow([
@@ -89,7 +39,7 @@ function doPost(e) {
         data.productos || '',
         data.total || '',
         data.fecha || new Date().toISOString(),
-        data.tipoCliente || (action === 'guestpurchase' ? 'Invitado' : 'Registrado')
+        'Invitado'
       ]);
       return jsonResponse({ success: true });
     }
