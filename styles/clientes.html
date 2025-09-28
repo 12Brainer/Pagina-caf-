@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,44 +10,45 @@
 </head>
 <body>
   <div id="main-nav"></div>
-  <main class="container">
+  <main class="container p-4">
     <h2>Registrar cliente</h2>
     <form id="clienteForm" class="checkout">
       <div class="row">
         <div class="form-group">
           <label for="cNombre">Nombre</label>
-          <input type="text" id="cNombre" required autocomplete="name" aria-describedby="clienteMsg" />
+          <input type="text" id="cNombre" name="nombre" required autocomplete="name" minlength="2" maxlength="100" />
         </div>
         <div class="form-group">
           <label for="cTelefono">Teléfono</label>
-          <input type="tel" id="cTelefono" required autocomplete="tel" inputmode="tel" pattern="^\\d{8,12}$" minlength="8" maxlength="12" aria-describedby="clienteMsg" />
+          <input type="tel" id="cTelefono" name="telefono" required autocomplete="tel" inputmode="tel" pattern="^[0-9+()\\s-]{8,20}$" />
         </div>
       </div>
       <div class="row">
         <div class="form-group">
           <label for="cCorreo">Correo</label>
-          <input type="email" id="cCorreo" autocomplete="email" aria-describedby="clienteMsg" />
+          <input type="email" id="cCorreo" name="correo" autocomplete="email" maxlength="100" />
         </div>
         <div class="form-group">
           <label for="cProducto">Producto</label>
-          <input type="text" id="cProducto" required autocomplete="off" aria-describedby="clienteMsg" />
+          <input type="text" id="cProducto" name="producto" required autocomplete="off" maxlength="100" />
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Guardar</button>
-      <div id="clienteMsg" class="form-msg" aria-live="polite" role="status"></div>
+      <div id="clienteMsg" class="form-msg mt-2" aria-live="polite"></div>
     </form>
 
-    <h2>Clientes registrados</h2>
+    <h2 class="mt-4">Clientes registrados</h2>
     <div class="table-responsive">
-      <table class="table" id="clientesTabla" aria-label="Listado de clientes registrados">
+      <table class="table w-100 table-collapse" id="clientesTabla">
+        <caption>Clientes registrados</caption>
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Teléfono</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Fecha</th>
+            <th scope="col" class="text-left">ID</th>
+            <th scope="col" class="text-left">Nombre</th>
+            <th scope="col" class="text-left">Teléfono</th>
+            <th scope="col" class="text-left">Correo</th>
+            <th scope="col" class="text-left">Producto</th>
+            <th scope="col" class="text-left">Fecha</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -62,122 +64,86 @@
 
   <script src="scripts/main.js" defer></script>
   <script>
-    (function(){
-      const base = window.location.origin;
+    async function cargarClientes(){
+      try{
+        const res = await fetch('/clientes', {
+          headers: { 'Accept':'application/json' },
+          credentials: 'same-origin'
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json().catch(() => ({ ok:false, data:[] }));
+        const tbody = document.querySelector('#clientesTabla tbody');
+        tbody.setAttribute('aria-busy','true');
+        tbody.replaceChildren();
+        if (data.ok && Array.isArray(data.data)){
+          const frag = document.createDocumentFragment();
+          for (const r of data.data) {
+            const tr = document.createElement('tr');
+            const cells = [
+              r.id,
+              r.nombre,
+              r.telefono,
+              r.correo || '',
+              r.producto,
+              new Intl.DateTimeFormat('es-CR', { dateStyle:'short', timeStyle:'short' }).format(new Date(r.fecha))
+            ];
+            for (const v of cells) {
+              const td = document.createElement('td');
+              td.textContent = String(v ?? '');
+              tr.appendChild(td);
+            }
+            frag.appendChild(tr);
+          }
+          tbody.replaceChildren(frag);
+        }
+        tbody.removeAttribute('aria-busy');
+      }catch(err){
+        console.warn('No se pudieron cargar los clientes', err);
+      }
+    }
 
-      async function cargarClientes(){
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('clienteForm');
+      const msg = document.getElementById('clienteMsg');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.textContent = '';
+        const nombre = document.getElementById('cNombre').value.trim();
+        const telefono = document.getElementById('cTelefono').value.trim();
+        const correo = document.getElementById('cCorreo').value.trim();
+        const producto = document.getElementById('cProducto').value.trim();
+        if (!nombre || !telefono || !producto){ msg.textContent = 'Por favor, complete los campos obligatorios.'; return; }
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true; form.setAttribute('aria-busy','true');
         try{
-          const res = await fetch(new URL('/clientes', base), { headers: { 'Accept': 'application/json' }});
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          let data;
-          try { data = await res.json(); } catch(e) { throw new Error('Respuesta no es JSON'); }
-
-          const tbody = document.querySelector('#clientesTabla tbody');
-          if (!tbody) return;
-          tbody.innerHTML = '';
-
-          if (data && data.ok && Array.isArray(data.data)){
-            data.data.forEach(row => {
-              const tr = document.createElement('tr');
-
-              const tdId = document.createElement('td'); tdId.textContent = String(row.id ?? '');
-              const tdNombre = document.createElement('td'); tdNombre.textContent = row.nombre ?? '';
-              const tdTel = document.createElement('td'); tdTel.textContent = row.telefono ?? '';
-              const tdCorreo = document.createElement('td'); tdCorreo.textContent = row.correo ?? '';
-              const tdProd = document.createElement('td'); tdProd.textContent = row.producto ?? '';
-
-              const tdFecha = document.createElement('td');
-              let fechaTxt = '-';
-              if (row.fecha){
-                const d = new Date(row.fecha);
-                if (!isNaN(d.getTime())) fechaTxt = d.toLocaleString('es-CR');
-              }
-              tdFecha.textContent = fechaTxt;
-
-              tr.append(tdId, tdNombre, tdTel, tdCorreo, tdProd, tdFecha);
-              tbody.appendChild(tr);
-            });
+          const res = await fetch('/guardarCliente', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ nombre, telefono, correo, producto })
+          });
+          if (!res.ok) {
+            const errText = await res.text().catch(() => '');
+            throw new Error(errText || `HTTP ${res.status}`);
+          }
+          const out = await res.json().catch(() => ({ ok:false }));
+          if (out.ok){
+            msg.textContent = 'Datos guardados correctamente.';
+            form.reset();
+            cargarClientes();
+          } else {
+            msg.textContent = out.message || 'No se pudo guardar.';
           }
         }catch(err){
-          console.warn('No se pudieron cargar los clientes', err);
+          msg.textContent = 'Error de red/servidor.';
+        } finally {
+          submitBtn.disabled = false;
+          form.removeAttribute('aria-busy');
         }
-      }
-
-      function setFieldValidity(field, valid){
-        if (!field) return;
-        if (valid){ field.removeAttribute('aria-invalid'); }
-        else { field.setAttribute('aria-invalid', 'true'); }
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('clienteForm');
-        const msg = document.getElementById('clienteMsg');
-        const nombreEl = document.getElementById('cNombre');
-        const telEl = document.getElementById('cTelefono');
-        const correoEl = document.getElementById('cCorreo');
-        const prodEl = document.getElementById('cProducto');
-
-        if (!form) return;
-
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          if (msg) msg.textContent = '';
-
-          const nombre = (nombreEl?.value || '').trim();
-          const telefono = (telEl?.value || '').trim();
-          const correo = (correoEl?.value || '').trim();
-          const producto = (prodEl?.value || '').trim();
-
-          const telValid = /^\d{8,12}$/.test(telefono);
-          const nombreValid = !!nombre;
-          const prodValid = !!producto;
-
-          setFieldValidity(nombreEl, nombreValid);
-          setFieldValidity(telEl, telValid);
-          setFieldValidity(prodEl, prodValid);
-
-          if (!nombreValid || !telValid || !prodValid){
-            if (msg) msg.textContent = 'Por favor, corrija los campos marcados.';
-            return;
-          }
-
-          try{
-            const res = await fetch(new URL('/guardarCliente', base), {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-              },
-              body: JSON.stringify({ nombre, telefono, correo, producto })
-            });
-
-            if (!res.ok){
-              let errText = '';
-              try { const j = await res.json(); errText = j?.message || ''; } catch {}
-              throw new Error(errText || `HTTP ${res.status}`);
-            }
-
-            const out = await res.json();
-            if (out.ok){
-              if (msg) msg.textContent = 'Datos guardados correctamente.';
-              form.reset();
-              setFieldValidity(nombreEl, true);
-              setFieldValidity(telEl, true);
-              setFieldValidity(prodEl, true);
-              cargarClientes();
-            } else {
-              if (msg) msg.textContent = out.message || 'No se pudo guardar.';
-            }
-          }catch(err){
-            if (msg) msg.textContent = 'Error de red o del servidor.';
-            console.error(err);
-          }
-        });
-
-        cargarClientes();
       });
-    })();
+
+      cargarClientes();
+    });
   </script>
 </body>
 </html>
