@@ -381,6 +381,7 @@ if(document.getElementById("btnCheckout")){
 
       // Construir el mensaje para WhatsApp
       let msg = "🛒 *Nuevo pedido NeoPrado Café*\n\n";
+      msg += `Hola, soy ${nombre} ${apellidos} y quiero confirmar mi pedido.\n\n`;
       msg += "*Datos del Cliente:*\n";
       msg += `*Nombre:* ${nombre} ${apellidos}\n`;
       msg += `*Teléfono:* ${telefono}\n`
@@ -410,7 +411,7 @@ if(document.getElementById("btnCheckout")){
         const confirmationMsg = document.getElementById('checkoutConfirmation') || document.createElement('div');
         confirmationMsg.id = 'checkoutConfirmation';
         confirmationMsg.className = 'notice notice-success';
-        confirmationMsg.textContent = 'Tu pedido fue preparado para enviar por WhatsApp. El carrito se ha vaciado. Si deseas comprar más, por favor realiza un nuevo pedido.';
+        confirmationMsg.textContent = 'Tu pedido ha sido enviado. El carrito está vacío.';
         const checkoutBox = document.querySelector('.checkout');
         if (checkoutBox) {
           const btn = document.getElementById('btnCheckout');
@@ -420,7 +421,7 @@ if(document.getElementById("btnCheckout")){
             checkoutBox.appendChild(confirmationMsg);
           }
         } else {
-          alert('Tu pedido fue preparado para WhatsApp. El carrito se ha vaciado.');
+          alert('Tu pedido ha sido enviado. El carrito está vacío.');
         }
       } catch (err) {
         console.warn('No se pudo vaciar el carrito automáticamente:', err);
