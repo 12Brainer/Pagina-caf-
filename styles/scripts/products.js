@@ -7,6 +7,27 @@ const modalImg = document.getElementById("modalImg");
 const modalTitle = document.getElementById("modalTitle");
 const modalPrice = document.getElementById("modalPrice");
 
+// Gestión de foco y cierre accesible del modal
+let lastActiveElement = null;
+function openProductModal() {
+  if (!modal) return;
+  lastActiveElement = document.activeElement;
+  modal.style.display = "block";
+  // Foco al botón de cerrar para accesibilidad
+  const focusTarget = closeBtn || modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if (focusTarget && typeof focusTarget.focus === 'function') {
+    focusTarget.focus();
+  }
+}
+function closeProductModal() {
+  if (!modal) return;
+  modal.style.display = "none";
+  // Devolver el foco al botón disparador si existe
+  if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+    lastActiveElement.focus();
+  }
+}
+
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const cartList = document.getElementById("cartList");
 const cartTotal = document.getElementById("cartTotal");
@@ -40,11 +61,13 @@ document.addEventListener('click', (e) => {
 if(document.querySelectorAll(".btn-buy")){
     document.querySelectorAll(".btn-buy").forEach(btn => {
       btn.addEventListener("click", () => {
-        modal.style.display = "block";
+        if (!modal) return;
         modalImg.src = btn.dataset.img;
         modalTitle.textContent = btn.dataset.title;
         modalPrice.textContent = "Desde ₡3,900";
-        document.getElementById("modalQty").value = 1;
+        const qtyEl = document.getElementById("modalQty");
+        if (qtyEl) qtyEl.value = 1;
+        openProductModal();
       });
     });
 }
@@ -52,9 +75,15 @@ if(document.querySelectorAll(".btn-buy")){
 
 // Cerrar modal
 if(closeBtn){
-    closeBtn.onclick = () => modal.style.display = "none";
+    closeBtn.onclick = () => closeProductModal();
 }
-window.onclick = e => { if (e.target == modal) modal.style.display = "none"; }
+window.onclick = e => { if (e.target === modal) closeProductModal(); }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+    closeProductModal();
+  }
+});
 
 // -------------------------
 // COMPRAR AHORA → IR A CHECKOUT (datos obligatorios)
