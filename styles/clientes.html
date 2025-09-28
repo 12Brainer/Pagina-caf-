@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clientes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <div id="main-nav"></div>
+  <main class="container" style="padding:1rem 1.25rem;">
+    <h2>Registrar cliente</h2>
+    <form id="clienteForm" class="checkout">
+      <div class="row">
+        <div class="form-group">
+          <label for="cNombre">Nombre</label>
+          <input type="text" id="cNombre" required />
+        </div>
+        <div class="form-group">
+          <label for="cTelefono">Teléfono</label>
+          <input type="tel" id="cTelefono" required />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for="cCorreo">Correo</label>
+          <input type="email" id="cCorreo" />
+        </div>
+        <div class="form-group">
+          <label for="cProducto">Producto</label>
+          <input type="text" id="cProducto" required />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <div id="clienteMsg" class="form-msg" style="margin-top:.5rem;" aria-live="polite"></div>
+    </form>
+
+    <h2 style="margin-top:2rem;">Clientes registrados</h2>
+    <div class="table-responsive" style="overflow:auto;">
+      <table class="table" id="clientesTabla" style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left;">ID</th>
+            <th style="text-align:left;">Nombre</th>
+            <th style="text-align:left;">Teléfono</th>
+            <th style="text-align:left;">Correo</th>
+            <th style="text-align:left;">Producto</th>
+            <th style="text-align:left;">Fecha</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <span>© 2025 NeoPrado Coffee · Hecho en Zona de los Santos, Costa Rica</span>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js" defer></script>
+  <script>
+    async function cargarClientes(){
+      try{
+        const res = await fetch('/clientes');
+        const data = await res.json();
+        const tbody = document.querySelector('#clientesTabla tbody');
+        tbody.innerHTML = '';
+        if (data.ok && Array.isArray(data.data)){
+          data.data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${row.id}</td>
+              <td>${row.nombre}</td>
+              <td>${row.telefono}</td>
+              <td>${row.correo || ''}</td>
+              <td>${row.producto}</td>
+              <td>${new Date(row.fecha).toLocaleString('es-CR')}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      }catch(err){
+        console.warn('No se pudieron cargar los clientes', err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('clienteForm');
+      const msg = document.getElementById('clienteMsg');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.textContent = '';
+        const nombre = document.getElementById('cNombre').value.trim();
+        const telefono = document.getElementById('cTelefono').value.trim();
+        const correo = document.getElementById('cCorreo').value.trim();
+        const producto = document.getElementById('cProducto').value.trim();
+        if (!nombre || !telefono || !producto){
+          msg.textContent = 'Por favor, complete los campos obligatorios.';
+          return;
+        }
+        try{
+          const res = await fetch('/guardarCliente', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre, telefono, correo, producto })
+          });
+          const out = await res.json();
+          if (out.ok){
+            msg.textContent = 'Datos guardados correctamente.';
+            form.reset();
+            cargarClientes();
+          } else {
+            msg.textContent = out.message || 'No se pudo guardar.';
+          }
+        }catch(err){
+          msg.textContent = 'Error de red/servidor.';
+        }
+      });
+
+      cargarClientes();
+    });
+  </script>
+</body>
+</html>
