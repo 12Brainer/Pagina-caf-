@@ -402,7 +402,29 @@ if(document.getElementById("btnCheckout")){
       // Enviar a WhatsApp
       window.open(`https://wa.me/50683910511?text=${encodeURIComponent(msg)}`, "_blank");
 
-      alert('Gracias por tu compra');
+      // Vaciar carrito y mostrar confirmación
+      try {
+        cart = [];
+        renderCart();
+        // Banner de confirmación no bloqueante
+        const confirmationMsg = document.getElementById('checkoutConfirmation') || document.createElement('div');
+        confirmationMsg.id = 'checkoutConfirmation';
+        confirmationMsg.className = 'notice notice-success';
+        confirmationMsg.textContent = 'Tu pedido fue preparado para enviar por WhatsApp. El carrito se ha vaciado. Si deseas comprar más, por favor realiza un nuevo pedido.';
+        const checkoutBox = document.querySelector('.checkout');
+        if (checkoutBox) {
+          const btn = document.getElementById('btnCheckout');
+          if (btn && btn.parentElement === checkoutBox) {
+            checkoutBox.insertBefore(confirmationMsg, btn);
+          } else {
+            checkoutBox.appendChild(confirmationMsg);
+          }
+        } else {
+          alert('Tu pedido fue preparado para WhatsApp. El carrito se ha vaciado.');
+        }
+      } catch (err) {
+        console.warn('No se pudo vaciar el carrito automáticamente:', err);
+      }
     });
 }
 
