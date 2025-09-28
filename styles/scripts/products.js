@@ -324,7 +324,6 @@ if(document.getElementById("btnCheckout")){
       }
 
       // Compra como invitado (sin sesión)
-      const isGuest = true;
 
       // Guardado en Google Sheets para invitados / registrados
       const productosTexto = cart.map(it => `${it.qty}x ${it.product} ${it.size}g (${it.grind}) = ${CRC.format(it.subtotal)}`).join(' | ');
