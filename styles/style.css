@@ -1453,8 +1453,54 @@ header h1, .header-text h1{ font-size: clamp(1.4rem, 1.1rem + 2.5vw, 2.4rem); }
 .product-list{ gap: clamp(.75rem, 1vw, 1.25rem); }
 
 @media (max-width: 560px){
-  .header-logo .logo{ width: 80px; }
+  .header-logo .logo{ width: 110px; }
   .product{ padding: 1rem; }
   .carousel{ max-width: 100%; }
   /* max-height se elimina para respetar el aspect-ratio */
+}
+
+/* ===== Ajustes de encabezado en móviles (tamaños y proporción) ===== */
+@media (max-width: 560px){
+  .top-banner{
+    font-size: 1rem;
+    padding: .5rem .9rem;
+  }
+  .header-container{
+    padding: 1rem 1.25rem;
+    row-gap: .5rem;
+  }
+  .header-logo{
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .header-logo .logo{
+    width: 110px;
+    height: auto;
+    flex-shrink: 0;
+  }
+  .header-text h1{
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+  .header-text .slogan,
+  .header-text .contacto{
+    font-size: 1rem;
+  }
+  .hamburger{
+    width: 44px;
+    height: 44px;
+  }
+  .hamburger span{
+    height: 3px;
+  }
+  .mobile-brand img{
+    width: 64px;
+  }
+  .mobile-brand h2{
+    font-size: 1.6rem;
+  }
+  .mobile-nav li a{
+    font-size: 1.05rem;
+  }
 }
