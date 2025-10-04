@@ -435,6 +435,39 @@ footer {
   line-height: 1.3; /* mejor legibilidad y alineación vertical */
 }
 
+/* Mensajes del header (alternancia cada 3s) */
+.header-messages{
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+.header-message{
+  grid-area: 1 / 1;
+  color: #fff;
+  font-size: 14px; /* tamaño fijo solicitado */
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 5px 15px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center; /* alinear emoji/icono con el texto */
+  gap: .6rem; /* separación visual entre icono y texto */
+  opacity: 0;
+  transform: translateY(6px);
+  animation: headerMsgCycle 6s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+.header-message.is-1{ animation-delay: 0s; }
+.header-message.is-2{ animation-delay: 3s; }
+
+@keyframes headerMsgCycle{
+  0%   { opacity: 0; transform: translateY(6px); }
+  5%   { opacity: 1; transform: translateY(0); }
+  45%  { opacity: 1; transform: translateY(0); }
+  50%  { opacity: 0; transform: translateY(-6px); }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+
 /* Slider interno para mensajes de la franja */
 .top-banner__viewport{
   overflow: hidden;
