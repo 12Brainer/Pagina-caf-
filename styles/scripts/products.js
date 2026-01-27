@@ -380,7 +380,7 @@ if(document.getElementById("btnCheckout")){
       // Eliminado bloque duplicado: el guardado ya se realiza de forma unificada arriba
 
       // Construir el mensaje para WhatsApp
-      let msg = "🛒 *Nuevo pedido NeoPrado Café*\n\n";
+      let msg = "🛒 *Nuevo pedido DRINKAFÉ COSTA RICA*\n\n";
       msg += `Hola, soy ${nombre} ${apellidos} y quiero confirmar mi pedido.\n\n`;
       msg += "*Datos del Cliente:*\n";
       msg += `*Nombre:* ${nombre} ${apellidos}\n`;
