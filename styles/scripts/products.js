@@ -400,8 +400,13 @@ if(document.getElementById("btnCheckout")){
       msg += `\n*Total:* ${CRC.format(total)}\n\n`;
             msg += "Por favor, ayúdame a confirmar la disponibilidad y el proceso de pago.";
 
-      // Enviar a WhatsApp
-      window.open(`https://wa.me/50683910511?text=${encodeURIComponent(msg)}`, "_blank");
+      // Enviar a WhatsApp con fallback si el popup es bloqueado
+      const waUrl = `https://wa.me/50683910511?text=${encodeURIComponent(msg)}`;
+      const w = window.open(waUrl, "_blank");
+      if (!w || w.closed || typeof w.closed === 'undefined') {
+        // Fallback: redirigir en la misma pestaña
+        window.location.href = waUrl;
+      }
 
       // Vaciar carrito y mostrar confirmación
       try {
