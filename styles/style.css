@@ -532,6 +532,32 @@ footer {
   margin: 0;
 }
 
+/* Marca con subtítulo en segunda línea */
+.brand-title{
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: var(--color-secundario);
+}
+.brand-title .brand-subtitle{
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  letter-spacing: .5px;
+  margin-top: .15rem;
+  color: #1b6a4c; /* tono verde consistente con el header */
+}
+
+/* Ajustes de tamaño por contexto */
+.header-text .brand-title{ color:#fff; font-size: clamp(1.6rem, 1rem + 2.5vw, 2.4rem); line-height: 1.02; }
+.header-text .brand-title .brand-subtitle{ color:#e6fff5; font-size: clamp(.9rem, .7rem + .8vw, 1.15rem); }
+
+.mobile-brand .brand-title{ color:#1d6b4d; font-size: clamp(1.4rem, 1rem + 2vw, 1.8rem); }
+.mobile-brand .brand-title .brand-subtitle{ color:#2f8a69; font-size: clamp(.95rem, .8rem + .6vw, 1.1rem); }
+
+.footer-title.brand-title{ color: var(--color-secundario); font-size: clamp(1.2rem, .9rem + 1.3vw, 1.6rem); }
+.footer-title.brand-title .brand-subtitle{ color:#2f8a69; font-size: .8em; }
+
 .header-text .slogan {
   font-size: 0.95rem;
   font-style: italic;
