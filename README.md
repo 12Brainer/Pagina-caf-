@@ -1,4 +1,4 @@
-<h1>🌱 Drinkafé Costa Rica – Página en desarrollo</h1>
+# 🌱 SAN BERNARDO SPECIALTY COFFEE ESTATE – Página en desarrollo
 
 <p>Este repositorio contiene el desarrollo de una página web sencilla y elegante para <strong>mostrar y vender bolsas de café de especialidad</strong>.</p>
 

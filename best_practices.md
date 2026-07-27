@@ -1,7 +1,7 @@
 # 📘 Project Best Practices
 
 ## 1. Project Purpose
-NeoPrado Café es una aplicación web principalmente estática orientada a presentar y vender café de especialidad, con carrito persistido en localStorage y checkout vía WhatsApp. Además, incluye un backend mínimo con Express + PostgreSQL para registrar clientes (formulario en `styles/clientes.html`) y una integración opcional con Google Apps Script para registrar compras en Google Sheets.
+SAN BERNARDO SPECIALTY COFFEE ESTATE es una aplicación web principalmente estática orientada a presentar y vender café de especialidad, con carrito persistido en localStorage y checkout vía WhatsApp. Además, incluye un backend mínimo con Express + PostgreSQL para registrar clientes (formulario en `styles/clientes.html`) y una integración opcional con Google Apps Script para registrar compras en Google Sheets.
 
 ## 2. Project Structure
 - Raíz
