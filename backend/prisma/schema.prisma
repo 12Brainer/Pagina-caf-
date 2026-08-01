@@ -1,0 +1,111 @@
+// Prisma schema para SAN BERNARDO SPECIALTY COFFEE ESTATE
+// Motor: MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ============= ADMINISTRADORES (panel admin) =============
+model Admin {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @db.VarChar(100)
+  email     String   @unique @db.VarChar(150)
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============= PRODUCTOS (catálogo + inventario) =============
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(150)
+  slug        String   @unique @db.VarChar(160)
+  description String   @db.Text
+  shortDesc   String   @db.VarChar(255)
+  process     String   @db.VarChar(100)
+  profile     String   @db.Text
+  altitude    String   @db.VarChar(100)
+  variety     String   @db.VarChar(150)
+  roast       String   @db.VarChar(100)
+  image       String   @db.VarChar(255)
+  images      Json
+  price250    Float
+  price500    Float
+  category    String   @default("Café de especialidad") @db.VarChar(100)
+  stock       Int      @default(50)
+  active      Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems OrderItem[]
+}
+
+// ============= CLIENTES =============
+model Customer {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @db.VarChar(100)
+  apellidos String   @db.VarChar(100)
+  telefono  String   @db.VarChar(30)
+  email     String?  @db.VarChar(150)
+  direccion String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+// ============= PEDIDOS =============
+model Order {
+  id            Int      @id @default(autoincrement())
+  orderNumber   String   @unique @db.VarChar(30)
+  customerId    Int?
+  clienteNombre String   @db.VarChar(150)
+  clienteTelefono String @db.VarChar(30)
+  clienteEmail  String?  @db.VarChar(150)
+
+  entrega      String   @db.VarChar(20) // "envio" | "recoger"
+  direccion    String?  @db.Text
+  metodoPago   String   @db.VarChar(30) // "SINPE Móvil" | "Pago en Efectivo"
+  comprobante  String?  @db.VarChar(255) // ruta del comprobante subido
+
+  subtotal Float
+  envio    Float
+  total    Float
+
+  estado      String @default("Pendiente") @db.VarChar(30) // Pendiente | Confirmado | Enviado | Entregado | Cancelado
+  estadoPago  String @default("Pendiente") @db.VarChar(30) // Pendiente | Pagado
+
+  notas String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  items    OrderItem[]
+
+  @@index([estado])
+  @@index([createdAt])
+}
+
+// ============= DETALLE DE PEDIDO =============
+model OrderItem {
+  id        Int    @id @default(autoincrement())
+  orderId   Int
+  productId Int?
+  productName String @db.VarChar(150)
+  size      Int
+  grind     String @db.VarChar(30)
+  qty       Int
+  price     Float
+  subtotal  Float
+
+  order   Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+}
+

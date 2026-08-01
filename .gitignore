@@ -1,0 +1,28 @@
+# Dependencias
+node_modules/
+
+# Entorno
+.env
+.env.local
+*.local
+
+# Builds
+client/dist/
+dist/
+
+# Uploads (comprobantes SINPE)
+backend/uploads/
+uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Prisma
+backend/prisma/*.db
+backend/prisma/migrations/dev.db*
+

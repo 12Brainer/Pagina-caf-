@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base SAN BERNARDO — hereda la identidad del proyecto existente */
+@layer base {
+  body {
+    @apply bg-brand-beige text-gray-800 font-body antialiased;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-green px-6 py-3 font-bold text-white transition hover:bg-brand-dark;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-black bg-brand-beige px-6 py-3 font-bold uppercase tracking-wider text-black transition hover:bg-brand-green hover:text-white;
+  }
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 font-bold text-white transition hover:brightness-95;
+  }
+  .input-field {
+    @apply w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none transition focus:border-brand-green focus:ring-2 focus:ring-brand-green/20;
+  }
+  .card {
+    @apply rounded-2xl border border-black/5 bg-white shadow-card;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold;
+  }
+}
+
