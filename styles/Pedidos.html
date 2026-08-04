@@ -3,79 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrito de Compras - SAN BERNARDO SPECIALTY COFFEE ESTATE</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Iconos de redes sociales -->
+  <meta name="description" content="Finaliza tu compra de café de especialidad de forma rápida y segura. Envíos a todo Costa Rica y retiro en tienda.">
+  <title>Finalizar Compra · SAN BERNARDO SPECIALTY COFFEE ESTATE</title>
+
+  <!-- Tipografía Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Estilos -->
+  <!-- style.css da estilo a la navegación global (nav.html) que carga main.js -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="checkout.css">
 </head>
 <body>
 
   <div id="main-nav"></div>
 
-  <main class="shop-container">
-    <h2 class="shop-title">Tu Carrito de Compras</h2>
-    
-    <div class="cart">
-      <h3>Resumen de tu pedido</h3>
-      <ul id="cartList">
-        <!-- Los productos del carrito se insertarán aquí por JS -->
-        <li>Tu carrito está vacío.</li>
-      </ul>
-      <div class="totals">
-        <div class="row"><span>Subtotal</span><span id="checkoutSubtotal">₡0</span></div>
-        <div class="row"><span>Envío</span><span id="checkoutShipping">₡0</span></div>
-                <div class="row total"><span>Total</span><span id="cartTotal">₡0</span></div>
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CHECKOUT PÚBLICO
+       ══════════════════════════════════════════════════════════════════════ -->
+  <main class="co-wrap" id="checkoutView">
+
+    <!-- Header del checkout -->
+    <header class="co-header">
+      <div class="co-header__brand">
+        <img src="../assets/logo.png" alt="Logo SAN BERNARDO" class="co-header__logo">
+        <span class="co-header__title">SAN BERNARDO <span class="gold">· Finalizar Compra</span></span>
+      </div>
+      <span class="co-header__secure">
+        <i class="fa-solid fa-lock"></i> Compra segura
+      </span>
+    </header>
+
+    <!-- Barra de progreso de validación -->
+    <div class="co-validity" id="validityBar">
+      <div class="co-validity__bar"><div class="co-validity__fill" id="validityFill"></div></div>
+      <div class="co-validity__label">
+        <span>Completa los datos para confirmar</span>
+        <span class="count" id="validityCount">0 / 8</span>
       </div>
     </div>
 
-    <div class="checkout">
-        <h2>Finalizar Compra</h2>
-        <form id="checkoutForm">
-          <div class="form-group">
-            <label>Método de entrega:</label>
-            <div class="delivery-toggle" role="radiogroup" aria-label="Método de entrega">
-              <input type="radio" id="envio" name="entrega" value="Envío por Correos de Costa Rica">
-              <label for="envio" class="delivery-option"><span>🚚 Envío</span></label>
+    <div class="co-layout">
 
-              <input type="radio" id="recoger" name="entrega" value="Recoger en tienda" checked>
-              <label for="recoger" class="delivery-option"><span>🏠 Retiro</span></label>
-            </div>
-          </div>
-          <div class="form-group payment-section">
-            <label>Método de pago:</label>
-            <div class="payment-toggle" role="radiogroup" aria-label="Método de pago">
-              <input type="radio" id="pago_sinpe" name="metodo_pago" value="SINPE Móvil" checked>
-              <label for="pago_sinpe" class="payment-option"><span>SINPE Móvil</span><i class="fa-solid fa-mobile-screen-button"></i></label>
+      <!-- ═══════════════ COLUMNA PRINCIPAL ═══════════════ -->
+      <div class="co-main">
 
-              <input type="radio" id="pago_efectivo" name="metodo_pago" value="Pago en Efectivo">
-              <label for="pago_efectivo" class="payment-option"><span>Efectivo</span><i class="fa-solid fa-money-bill-wave"></i></label>
-            </div>
-            <p id="paymentHint" class="payment-hint">Por favor, envíe el comprobante de pago al mismo número desde el que se le envió el mensaje de confirmación.</p>
-          </div>
-          <div class="row">
-            <div class="form-group">
-              <label for="nombre">Nombre</label>
-              <input type="text" id="nombre" name="nombre" required>
-            </div>
-            <div class="form-group">
-              <label for="apellidos">Apellidos</label>
-              <input type="text" id="apellidos" name="apellidos" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="telefono">Teléfono (WhatsApp):</label>
-            <input type="tel" id="telefono" name="telefono" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Correo electrónico (opcional):</label>
-            <input type="email" id="email" name="email">
+        <!-- 1. DATOS DE CONTACTO -->
+        <section class="co-card" data-required-block="contacto">
+          <div class="co-card__header">
+            <span class="co-card__step">1</span>
+            <h2 class="co-card__title">Datos de contacto</h2>
           </div>
 
-          <!-- Sección de Envío (visible solo si se selecciona "Envío") -->
-          <div id="shippingSection" class="shipping-section" style="display:none; margin-top: 0.75rem;">
-            <div class="shipping-grid">
-              <div class="form-group">
-                <label for="pais">País / Región</label>
+          <div class="co-row">
+            <div class="co-row-2">
+              <div class="co-field" data-field="nombre">
+                <label for="nombre">Nombre *</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="given-name">
+                <span class="field-msg">Ingresa tu nombre</span>
+              </div>
+              <div class="co-field" data-field="apellidos">
+                <label for="apellidos">Apellidos *</label>
+                <input type="text" id="apellidos" name="apellidos" placeholder="Tus apellidos" autocomplete="family-name">
+                <span class="field-msg">Ingresa tus apellidos</span>
+              </div>
+            </div>
+
+            <div class="co-row-2">
+              <div class="co-field" data-field="telefono">
+                <label for="telefono">WhatsApp *</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Ej: 8391-0511" autocomplete="tel">
+                <span class="field-msg">Ingresa tu número de WhatsApp</span>
+              </div>
+              <div class="co-field" data-field="correo">
+                <label for="correo">Correo electrónico (opcional)</label>
+                <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" autocomplete="email">
+                <span class="field-msg">Ingresa un correo válido</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. MÉTODO DE ENTREGA -->
+        <section class="co-card" data-required-block="entrega">
+          <div class="co-card__header">
+            <span class="co-card__step">2</span>
+            <h2 class="co-card__title">Método de entrega</h2>
+          </div>
+
+          <div class="co-segmented">
+            <input type="radio" id="entregaEnvio" name="entrega" value="Envío por Correos de Costa Rica">
+            <label for="entregaEnvio" class="co-option">
+              <i class="fa-solid fa-truck-fast"></i> Envío
+              <span class="co-option__tag" id="envioTagLabel">₡3,000</span>
+            </label>
+
+            <input type="radio" id="entregaRecoger" name="entrega" value="Retiro en tienda" checked>
+            <label for="entregaRecoger" class="co-option">
+              <i class="fa-solid fa-shop"></i> Retiro en tienda
+              <span class="co-option__tag">GRATIS</span>
+            </label>
+          </div>
+
+          <!-- Panel: Envío -->
+          <div id="panelEnvio" class="co-panel" style="display:none;">
+            <div class="co-row-2">
+              <div class="co-field" data-field="pais">
+                <label for="pais">País / Región *</label>
                 <select id="pais" name="pais">
                   <option value="Costa Rica" selected>Costa Rica</option>
                   <option value="Panamá">Panamá</option>
@@ -83,20 +122,9 @@
                   <option value="Estados Unidos">Estados Unidos</option>
                 </select>
               </div>
-
-              <div class="form-group span-2">
-                <label for="direccion">Dirección</label>
-                <input type="text" id="direccion" name="direccion" placeholder="Calle, número, referencia">
-              </div>
-
-              <div class="form-group span-2">
-                <label for="linea2">Casa, apartamento, etc. (opcional)</label>
-                <input type="text" id="linea2" name="linea2" placeholder="Edificio, apartamento, etc.">
-              </div>
-
-              <div class="form-group">
-                <label for="provinciaEstado">Provincia / Estado</label>
-                <select id="provinciaEstado" name="provinciaEstado">
+              <div class="co-field" data-field="provincia">
+                <label for="provincia">Provincia / Estado *</label>
+                <select id="provincia" name="provincia">
                   <option value="">Selecciona...</option>
                   <option>San José</option>
                   <option>Alajuela</option>
@@ -107,59 +135,377 @@
                   <option>Limón</option>
                 </select>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="ciudad">Ciudad</label>
-                <input type="text" id="ciudad" name="ciudad">
+            <div class="co-row-2">
+              <div class="co-field" data-field="ciudad">
+                <label for="ciudad">Ciudad *</label>
+                <input type="text" id="ciudad" name="ciudad" placeholder="Tu ciudad">
               </div>
-
-              <div class="form-group">
+              <div class="co-field" data-field="codigoPostal">
                 <label for="codigoPostal">Código postal (opcional)</label>
-                <input type="text" id="codigoPostal" name="codigoPostal">
+                <input type="text" id="codigoPostal" name="codigoPostal" placeholder="Opcional">
               </div>
             </div>
 
-            <div class="notice notice-success" role="status" aria-live="polite">
-              ✅ Envío GRATIS en pedidos mayores a ₡30,000 colones y en los alrededores de Tarrazú.
+            <div class="co-field" data-field="direccion">
+              <label for="direccion">Dirección completa *</label>
+              <textarea id="direccion" name="direccion" rows="2" placeholder="Calle, número, señas, referencia..."></textarea>
+            </div>
+
+            <div class="co-notice co-notice--green">
+              <i class="fa-solid fa-circle-check"></i>
+              Envío <strong>GRATIS</strong> en pedidos mayores a ₡30,000 y en los alrededores de Tarrazú.
             </div>
           </div>
 
-          <!-- Sección de Retiro (visible solo si se selecciona "Retiro") -->
-          <div id="pickupSection" class="pickup-section" style="display:block; margin-top: 0.75rem;">
-            <div class="pickup-card">
-              <div class="pickup-card__content">
-                <div class="pickup-card__title">Retiro en tienda</div>
-                <p class="pickup-card__address">200 metros sureste del Recibidor de Coopetarrazu en San Lorenzo,<br>
-                Tienda El Prado, San Lorenzo, Tarrazú,<br>
-                San José, Costa Rica.</p>
-                <p class="pickup-card__time">Normalmente está listo en 24 horas</p>
+          <!-- Panel: Retiro -->
+          <div id="panelRetiro" class="co-panel">
+            <div class="co-pickup-card">
+              <i class="fa-solid fa-store"></i>
+              <div>
+                <div class="co-pickup-card__title">Tienda El Prado</div>
+                <p class="co-pickup-card__text">200 metros sureste del Recibidor de Coopetarrazú en San Lorenzo, San Lorenzo, Tarrazú, San José, Costa Rica.</p>
+                <p class="co-pickup-card__text">🕐 Normalmente listo en <strong>24 horas</strong></p>
               </div>
-              <div class="pickup-card__badge">GRATIS</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. MÉTODO DE PAGO -->
+        <section class="co-card" data-required-block="pago">
+          <div class="co-card__header">
+            <span class="co-card__step">3</span>
+            <h2 class="co-card__title">Método de pago</h2>
+          </div>
+
+          <div class="co-segmented">
+            <input type="radio" id="pagoSinpe" name="metodoPago" value="SINPE Móvil" checked>
+            <label for="pagoSinpe" class="co-option">
+              <i class="fa-solid fa-mobile-screen-button"></i> SINPE Móvil
+            </label>
+
+            <input type="radio" id="pagoEfectivo" name="metodoPago" value="Efectivo">
+            <label for="pagoEfectivo" class="co-option">
+              <i class="fa-solid fa-money-bill-wave"></i> Efectivo
+            </label>
+          </div>
+
+          <!-- Panel: SINPE Móvil (con comprobante obligatorio) -->
+          <div id="panelSinpe" class="co-panel co-panel--white">
+            <div class="sinpe-box">
+              <div class="sinpe-box__head">
+                <i class="fa-solid fa-building-columns"></i>
+                Transferí a SINPE Móvil
+              </div>
+              <div class="sinpe-box__body">
+                <div class="sinpe-row">
+                  <span class="k">Número SINPE</span>
+                  <span class="v" id="sinpeNumero">+506 8391-0511</span>
+                </div>
+                <div class="sinpe-row">
+                  <span class="k">Titular</span>
+                  <span class="v" id="sinpeTitular">SAN BERNARDO</span>
+                </div>
+                <div class="sinpe-row">
+                  <span class="k">Monto a pagar</span>
+                  <span class="v total" id="sinpeMonto">₡0</span>
+                </div>
+                <div class="sinpe-row">
+                  <span class="k">Referencia</span>
+                  <span class="v email" id="sinpeReferencia">SAN BERNARDO</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Componente de subida de comprobante -->
+            <div id="uploadBlock">
+              <label class="co-field" style="margin-bottom:0.4rem;"><strong>Subí tu comprobante *</strong></label>
+              <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Subir comprobante SINPE">
+                <input type="file" id="comprobanteInput" accept=".jpg,.jpeg,.png,.pdf" hidden>
+                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                <p><strong>Arrastrá tu comprobante</strong> aquí o hacé clic para seleccionar</p>
+                <p class="upload-types">JPG, PNG o PDF · Máximo 5 MB</p>
+              </div>
+
+              <!-- Archivo seleccionado -->
+              <div class="upload-file-row" id="uploadFileRow" style="display:none;">
+                <i class="fa-solid fa-circle-check"></i>
+                <span class="filename" id="uploadFileName">archivo.jpg</span>
+                <span class="file-info" id="uploadFileInfo">—</span>
+                <button type="button" class="remove-file" id="removeFile" aria-label="Quitar archivo">&times;</button>
+              </div>
+
+              <div class="co-notice co-notice--red" id="uploadError" style="display:none;">
+                <i class="fa-solid fa-triangle-exclamation"></i> El comprobante es obligatorio para pagar con SINPE Móvil.
+              </div>
             </div>
           </div>
 
-                  </form>
-        <p>Al finalizar, serás redirigido a WhatsApp para confirmar tu pedido con nosotros.</p>
-        <button id="btnCheckout" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
-            <i class="fab fa-whatsapp"></i> Finalizar Compra por WhatsApp
-        </button>
-    </div>
+          <!-- Panel: Efectivo (sin comprobante) -->
+          <div id="panelEfectivo" class="co-panel" style="display:none;">
+            <div class="co-notice co-notice--green" style="margin-top:0;">
+              <i class="fa-solid fa-hand-holding-dollar"></i>
+              Podés pagar en efectivo al momento de retirar o recibir tu pedido.
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /co-main -->
+
+      <!-- ═══════════════ RESUMEN DEL PEDIDO ═══════════════ -->
+      <aside class="co-side">
+        <div class="co-card co-summary">
+          <div class="co-summary__head">
+            <h2 class="co-card__title"><i class="fa-solid fa-basket-shopping"></i> Tu pedido</h2>
+            <span class="co-summary__count" id="summaryCount">0 artículos</span>
+          </div>
+
+          <div id="summaryItems">
+            <!-- Ítems insertados por JS -->
+          </div>
+
+          <div class="co-summary__totals">
+            <div class="co-summary__row"><span>Subtotal</span><strong id="summarySubtotal">₡0</strong></div>
+            <div class="co-summary__row" id="summaryShippingRow"><span>Envío</span><strong id="summaryShipping">₡0</strong></div>
+            <div class="co-summary__row co-summary__row--grand"><span>Total</span><span id="summaryTotal">₡0</span></div>
+          </div>
+
+          <p class="co-notice co-notice--gray" style="margin-top:0.9rem;">
+            <i class="fa-solid fa-lock"></i> Confirmás tu pedido y te contactaremos para coordinar.
+          </p>
+
+          <button type="button" class="btn btn-primary btn-block co-confirm-btn" id="btnConfirmarPedido">
+            <i class="fa-solid fa-check"></i> Confirmar Pedido
+          </button>
+        </div>
+      </aside>
+
+    </div><!-- /co-layout -->
   </main>
 
-  <!-- Footer (simplificado para la página de pedidos) -->
-  <footer class="site-footer">
-    <div class="footer-bottom">
+  <!-- ══════════════════════════════════════════════════════════════════════
+       PANTALLA DE ÉXITO (se muestra después de guardar el pedido)
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="successView" class="co-wrap" style="display:none;">
+    <div class="success-screen">
+      <div class="success-screen__check"><i class="fa-solid fa-check"></i></div>
+      <h1 class="success-screen__title">✅ Pedido recibido correctamente</h1>
+      <p class="success-screen__sub">Gracias por tu compra. Estamos preparando todo para vos.</p>
+
+      <div class="success-screen__order">
+        <h3>Tu pedido</h3>
+        <div>
+          <span class="success-screen__row" style="display:flex; justify-content:space-between;">
+            <span class="k">Número de pedido</span>
+            <span class="v" id="successOrderNumber">SB-0000</span>
+          </span>
+        </div>
+        <div class="success-screen__row"><span class="k">Fecha</span><span class="v" id="successDate">—</span></div>
+        <div class="success-screen__row"><span class="k">Total</span><span class="v" id="successTotal">₡0</span></div>
+        <div class="success-screen__row"><span class="k">Estado actual</span><span class="v"><span class="success-screen__status"><i class="fa-solid fa-hourglass-half"></i> Pago por verificar</span></span></div>
+        <div class="success-screen__row"><span class="k">Método de pago</span><span class="v" id="successPago">—</span></div>
+        <div class="success-screen__row"><span class="k">Entrega</span><span class="v" id="successEntrega">—</span></div>
+
+        <div class="success-screen__eta" id="successEta">
+          <i class="fa-solid fa-clock"></i> Tiempo estimado: <strong>24 horas</strong>
+        </div>
+      </div>
+
+      <div class="success-screen__actions">
+        <button type="button" class="btn btn-outline" id="btnVerResumen">
+          <i class="fa-solid fa-receipt"></i> Ver resumen del pedido
+        </button>
+        <button type="button" class="btn btn-whatsapp" id="btnContactarWhatsApp">
+          <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       PANEL DE ADMINISTRACIÓN OCULTO
+       ══════════════════════════════════════════════════════════════════════ -->
+  <button type="button" class="admin-btn-open" id="adminBtnOpen" aria-label="Abrir panel de administración">
+    <i class="fa-solid fa-lock"></i> Administrador
+  </button>
+
+  <section class="admin" id="adminPanel" aria-label="Panel de administración">
+
+    <!-- Vista: Login del admin -->
+    <div id="adminLoginView" class="admin-content">
+      <div class="admin-login-wrap">
+        <div class="admin-login-wrap__icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h2>Administrador</h2>
+        <p style="font-size:0.85rem; color:var(--gris-500); margin:0.4rem 0 1.2rem;">Acceso restringido · SAN BERNARDO</p>
+
+        <div class="co-field">
+          <label for="adminUser">Usuario</label>
+          <input type="text" id="adminUser" placeholder="Tu usuario" autocomplete="username">
+        </div>
+        <div class="co-field">
+          <label for="adminPass">Contraseña</label>
+          <input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <div class="co-notice co-notice--red" id="adminLoginError" style="display:none;">Credenciales inválidas.</div>
+
+        <button type="button" class="btn btn-primary btn-block" id="adminLoginBtn" style="margin-top:0.4rem;">
+          <i class="fa-solid fa-right-to-bracket"></i> Ingresar
+        </button>
+        <button type="button" class="btn btn-ghost btn-block" id="adminBackBtn" style="margin-top:0.6rem;">
+          ← Volver a la tienda
+        </button>
+      </div>
+    </div>
+
+    <!-- Vista: Panel (dashboard / pedidos / clientes) -->
+    <div id="adminMainView" style="display:none;">
+
+      <div class="admin-topbar">
+        <div class="admin-topbar__brand">
+          <i class="fa-solid fa-shield-halved"></i>
+          SAN BERNARDO · Panel Admin
+        </div>
+        <div class="admin-topbar__user">
+          <span id="adminUserName"><i class="fa-solid fa-user"></i> Admin</span>
+          <button type="button" class="admin-topbar__logout" id="adminLogoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Salir</button>
+        </div>
+      </div>
+
+      <div class="admin-layout">
+        <nav class="admin-sidebar">
+          <button type="button" class="active" data-tab="dashboard"><i class="fa-solid fa-chart-simple"></i> Dashboard</button>
+          <button type="button" data-tab="pedidos"><i class="fa-solid fa-box"></i> Gestión de pedidos</button>
+          <button type="button" data-tab="clientes"><i class="fa-solid fa-users"></i> Clientes</button>
+        </nav>
+
+        <div class="admin-content">
+
+          <!-- DASHBOARD -->
+          <section id="tab-dashboard" class="admin-content__section active">
+            <h2 class="admin-content__title"><i class="fa-solid fa-chart-simple gold"></i> Dashboard</h2>
+
+            <div class="kpi-grid" id="kpiGrid">
+              <!-- KPIs por JS -->
+            </div>
+
+            <div class="card-dash">
+              <h3><i class="fa-solid fa-fire flame" style="color:var(--dorado);"></i> Productos más vendidos</h3>
+              <div id="topProducts">—</div>
+            </div>
+          </section>
+
+          <!-- PEDIDOS -->
+          <section id="tab-pedidos" class="admin-content__section">
+            <h2 class="admin-content__title"><i class="fa-solid fa-box gold"></i> Gestión de pedidos</h2>
+
+            <div class="admin-table-actions">
+              <div class="co-field admin-search" style="margin:0;">
+                <input type="text" id="orderSearch" placeholder="🔍 Buscar por pedido, cliente o WhatsApp...">
+              </div>
+              <div class="admin-filter" id="orderFilterChips">
+                <button type="button" class="filter-chip active" data-filter="todos">Todos</button>
+                <button type="button" class="filter-chip" data-filter="Pago por verificar">Pendientes</button>
+                <button type="button" class="filter-chip" data-filter="Pago aprobado">Pago aprobado</button>
+                <button type="button" class="filter-chip" data-filter="Preparando pedido">Preparando</button>
+                <button type="button" class="filter-chip" data-filter="Enviado">Enviados</button>
+                <button type="button" class="filter-chip" data-filter="Listo para retirar">Listos para retirar</button>
+                <button type="button" class="filter-chip" data-filter="Entregado">Entregados</button>
+                <button type="button" class="filter-chip" data-filter="Cancelado">Cancelados</button>
+              </div>
+            </div>
+
+            <div class="card-dash" style="overflow-x:auto;">
+              <table class="co-table">
+                <thead>
+                  <tr>
+                    <th>Pedido</th>
+                    <th>Cliente</th>
+                    <th>WhatsApp</th>
+                    <th>Pago</th>
+                    <th>Entrega</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTableBody">
+                  <tr><td colspan="9" style="text-align:center; padding:1.5rem; color:var(--gris-500);">Cargando pedidos...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- CLIENTES -->
+          <section id="tab-clientes" class="admin-content__section">
+            <h2 class="admin-content__title"><i class="fa-solid fa-users gold"></i> Clientes</h2>
+            <div class="admin-table-actions">
+              <div class="co-field admin-search" style="margin:0;">
+                <input type="text" id="clientSearch" placeholder="🔍 Buscar cliente...">
+              </div>
+            </div>
+            <div class="card-dash" style="overflow-x:auto;">
+              <table class="co-table">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>WhatsApp</th>
+                    <th>Correo</th>
+                    <th>Pedidos</th>
+                    <th>Total comprado</th>
+                    <th>Última compra</th>
+                  </tr>
+                </thead>
+                <tbody id="clientsTableBody">
+                  <tr><td colspan="6" style="text-align:center; padding:1.5rem; color:var(--gris-500);">Cargando clientes...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+        </div><!-- /admin-content -->
+      </div><!-- /admin-layout -->
+    </div><!-- /adminMainView -->
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       MODAL: Detalle del pedido
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="co-modal-backdrop" id="orderModal">
+    <div class="co-modal">
+      <div class="co-modal__head">
+        <h3 id="orderModalTitle">Pedido</h3>
+        <button type="button" class="co-modal__close" id="orderModalClose" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="co-modal__body" id="orderModalBody">
+        <!-- Contenido insertado por JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       LOADER GLOBAL Y TOAST
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="loader-overlay" id="globalLoader">
+    <div class="loader"></div>
+  </div>
+
+  <div class="co-toast" id="coToast"></div>
+
+  <footer class="site-footer" style="border-top:1px solid var(--borde);">
+    <div class="footer-bottom" style="text-align:center; padding:1rem;">
       <span>© 2025 SAN BERNARDO SPECIALTY COFFEE ESTATE · Hecho en Zona de los Santos, Costa Rica</span>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SCRIPTS
+       ══════════════════════════════════════════════════════════════════════ -->
   <script src="scripts/main.js" defer></script>
-  <script src="scripts/products.js" defer></script>
+  <script src="scripts/checkout-config.js" defer></script>
+  <script src="scripts/checkout.js" defer></script>
 
-<a href="Pedidos.html" class="floating-cart" aria-label="Abrir carrito">
-  <i class="fas fa-shopping-cart"></i>
-  <span class="cart-badge" style="display: none;">0</span>
-</a>
 </body>
 </html>
+
