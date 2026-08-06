@@ -22,7 +22,7 @@
   .btn-whatsapp {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 font-bold text-white transition hover:brightness-95;
   }
-  .input-field {
+.input-field {
     @apply w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none transition focus:border-brand-green focus:ring-2 focus:ring-brand-green/20;
   }
   .card {
@@ -32,4 +32,28 @@
     @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold;
   }
 }
+
+/* ---------- Animaciones del carrito / checkout ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes qtyPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.animate-fade-in { animation: fadeIn 0.25s ease-out both; }
+.animate-scale-in { animation: scaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-qty-pop { animation: qtyPop 0.28s ease-out both; }
 

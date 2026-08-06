@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import { formatCRC } from '../api/client';
 import api from '../api/client';
+import OrderSummary from '../components/OrderSummary';
 import { EmptyState } from '../components/Loader';
 
 const PROVINCIAS = ['San José', 'Alajuela', 'Cartago', 'Heredia', 'Puntarenas', 'Guanacaste', 'Limón'];
@@ -48,8 +49,7 @@ export default function Checkout() {
     );
   }
 
-  const shipping = entrega === 'envio' ? shippingCost(subtotal) : 0;
-  const total = subtotal + shipping;
+const shipping = entrega === 'envio' ? shippingCost(subtotal) : 0;
   const SINPE_NUMBER = '50683910511';
 
   const setField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
@@ -355,35 +355,13 @@ export default function Checkout() {
           </div>
         </div>
 
-        {/* Resumen */}
-        <div className="card h-fit p-5">
-          <h2 className="mb-3 font-display text-xl font-extrabold text-brand-green">Resumen del pedido</h2>
-          <ul className="space-y-2 text-sm">
-            {cart.map((it, idx) => (
-              <li key={idx} className="flex justify-between gap-2">
-                <span className="text-gray-600">{it.qty} × {it.productName} {it.size}g ({it.grind})</span>
-                <span className="font-bold">{formatCRC(it.subtotal)}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 space-y-2 border-t border-gray-200 pt-3 text-sm">
-            <div className="flex justify-between"><span>Subtotal</span><span className="font-bold">{formatCRC(subtotal)}</span></div>
-            <div className="flex justify-between">
-              <span>Envío</span>
-              <span className="font-bold">{entrega === 'envio' ? (shipping === 0 ? 'GRATIS' : formatCRC(shipping)) : '—'}</span>
-            </div>
-            <div className="flex justify-between text-lg font-extrabold">
-              <span>Total</span>
-              <span>{formatCRC(total)}</span>
-            </div>
-          </div>
-          <button type="submit" disabled={submitting} className="btn-primary mt-4 w-full disabled:opacity-50">
-            {submitting ? 'Procesando…' : 'Confirmar pedido'}
-          </button>
-          <p className="mt-2 text-center text-xs text-gray-500">
-            Al confirmar, tu pedido quedará registrado y te contactaremos.
-          </p>
-        </div>
+{/* Resumen interactivo "Tu pedido" */}
+          <OrderSummary
+          shipping={shipping}
+          entrega={entrega}
+          submitting={submitting}
+          onConfirm={handleSubmit}
+        />
       </form>
     </section>
   );

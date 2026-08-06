@@ -1,22 +1,20 @@
-# ✅ TODO — Rediseño "Finalizar Compra" + Panel Admin con Google Sheets / Apps Script
+# ✅ TODO — Checkout interactivo (Carrito "Tu pedido" estilo Shopify)
 
 ## Estado: COMPLETO
 
-### Archivos de configuración y backend
-- [x] 1. Crear `styles/scripts/checkout-config.js` (configuración central: endpoint GAS, SINPE, WhatsApp, envío, tienda)
-- [x] 2. Crear `src/Code.gs` (backend Google Apps Script: pedidos, comprobantes a Drive, clientes, login admin, dashboard, estados)
-- [x] 3. Reemplazar `src/Code.js` por stub de compatibilidad (sin duplicar funciones)
-- [x] 4. Actualizar `src/appsscript.json` (zona horaria Costa Rica)
+### Componentes reutilizables
+- [x] 1. Crear `client/src/components/QuantityStepper.jsx` (control [- qty +] con animación)
+- [x] 2. Crear `client/src/components/ConfirmModal.jsx` (modal elegante de confirmación)
+- [x] 3. Crear `client/src/components/CartItem.jsx` (tarjeta de producto interactiva)
+- [x] 4. Crear `client/src/components/OrderSummary.jsx` (panel "Tu pedido" completo)
 
-### Frontend
-- [x] 5. Crear `styles/checkout.css` (estilos premium Shopify: blanco, verde oscuro, dorado, responsive, animaciones)
-- [x] 6. Rediseñar `styles/Pedidos.html` (checkout 2 columnas + pantalla de éxito + panel admin oculto)
-- [x] 7. Crear `styles/scripts/checkout.js` (toda la lógica: carrito, validación, drag&drop, pago, admin)
+### Estilos y animaciones
+- [x] 5. Agregar animaciones (fade-in, scale-in, slide-up, qty-pop) a `client/src/index.css`
 
-### Documentación
-- [x] 8. Crear `GUIA_CONFIGURACION.md` (Google Sheet, Web App, carpeta Drive, credenciales, GitHub Pages)
+### Integración en Checkout
+- [x] 6. Reemplazar el resumen estático por `OrderSummary` en `client/src/pages/Checkout.jsx`
+- [x] 7. Guard: no permitir confirmar pedido con carrito vacío
+- [x] 8. Estado vacío ("Tu carrito está vacío") + botón "← Seguir comprando"
 
 ### Verificación
-- [x] 9. Estructura de archivos verificada (checkout.css, checkout.js, checkout-config.js, Pedidos.html, Code.gs, GUIA)
-- [ ] 10. Probar el flujo completo abriendo `styles/Pedidos.html` (requiere configurar GAS_ENDPOINT y las hojas)
-- [ ] 11. Probar login admin y cambio de estados (requiere credenciales en la hoja "Credenciales")
+- [x] 9. Build de producción exitoso (`npm run build` → ✓ built in 16.19s)
